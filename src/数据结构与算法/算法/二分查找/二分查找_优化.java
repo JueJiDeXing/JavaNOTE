@@ -1,0 +1,241 @@
+package 数据结构与算法.算法.二分查找;
+
+public class 二分查找_优化 {
+    public static void main(String[] args) {
+        int a = Integer.MAX_VALUE;
+        System.out.println(a);//2147483647
+        System.out.println(a + 1);//-2147483648
+        System.out.println((a + 1) / 2);//-1073741824
+        System.out.println((a + 1) >> 1);//-1073741824
+        System.out.println((a + 1) >>> 1);//1073741824
+
+        int i = 0;
+        int j = Integer.MAX_VALUE - 1;//如果数组长度为整数的最大值
+        int m = (i + j) >>> 1;//需要使用不带符号右移位运算,才能保证不变为负数
+        int[] arr = {2, 5, 8, 11};
+        System.out.println(~10);
+        System.out.println(~0);
+        System.out.println(binarySearch3(arr, 12));
+    }
+
+    /**
+     * <h1>二分查找:原始未优化版</h1>
+     * <p><strong>缺陷:</strong></p>
+     * <p>1.整型溢出</p>
+     * <p>2.未考虑重复值</p>
+     * <p>3.返回值的实用性不高</p>
+     *
+     * @param arr    待查找的升序数组
+     * @param target 在数组中查找的值
+     * @return 返回查找值在数组中的索引<br>未找到则返回-1
+     */
+    public static int binarySearch1_原(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+        while (left < right) {
+            int middle = (left + right) / 2;
+            if (target < arr[middle]) {// 目标在左边
+                right = middle;
+            } else if (arr[middle] < target) {// 目标在右边
+                left = middle + 1;
+            } else {//找到目标
+                return middle;
+            }
+        }//未找到目标
+        return -1;
+    }
+
+    /**
+     * <div color=rgb(155,200,80)>
+     * <h1>二分查找:优化</h1>
+     *
+     * @param arr    待查找的升序数组
+     * @param target 在数组中查找的值
+     * @return 返回查找值在数组中的索引<br>未找到则返回-插入点-1
+     * </div>
+     */
+    public static int binarySearch2(int[] arr, int target) {
+        //时间复杂度:最坏情况logn,最好情况1,所以为O(logn)
+        int left = 0;
+        int right = arr.length;//length-1的改动版,左闭右开,右指针不参与目标值比较
+        while (left < right) {
+            int middle = (left + right) >>> 1;
+            if (target < arr[middle]) {// 目标在左边
+                right = middle;
+            } else if (arr[middle] < target) {// 目标在右边
+                left = middle + 1;
+            } else {//找到目标
+                return middle;
+            }
+        }//未找到目标
+        return -left - 1;
+    }
+
+    /**
+     * <div color=rgb(155,200,80)>
+     * <h1>二分查找:优化2</h1>
+     * <p>平衡if判断</p>
+     * <p>时间复杂度由O(logn)变为Θ(logn)</p>
+     * </div>
+     *
+     * @param arr    待查找的升序数组
+     * @param target 在数组中查找的值
+     * @return 返回查找值在数组中的索引<br>未找到则返回-1
+     */
+    public static int binarySearch3(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length;
+        while (left + 1 < right) {//差距1时退出循环,因为右指针不参与比较,所以这时左指针要么找到目标,要么数组中没有目标
+            int middle = (left + right) >>> 1;
+            System.out.println(left + "," + middle + "," + right);
+            if (target < arr[middle]) {// 目标在左边
+                right = middle;
+            } else {//找到目标或目标在右边
+                left = middle;//因为可能找到目标,所以不是移动到middle+1
+            }
+        }
+        //把找到目标放在循环外,使循环内if判断平衡,if判断次数减少了
+        //时间复杂度由Ο(logn)变为Θ(logn),最好与最坏情况能够同时表示
+        if (arr[left] == target) {
+            return left;
+        } else {
+            return ~left;//-left-1等价于~left,取反运算
+        }
+    }
+
+    /**
+     * <div color=rgb(155,200,80)>
+     * <h1>二分查找:LeftMost</h1>
+     * <p>有多个重复值,返回最左边的索引</p>
+     * <p>没有则返回-1</p>
+     * </div>
+     * <hr>
+     *
+     * @param arr    待查找的升序数组
+     * @param target 在数组中查找的值
+     * @return 返回查找值在数组中的索引<br>未找到则返回-1
+     */
+    public static int binarySearch4(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+        int temp = -1;//记录候选位置,每次遇到更靠前的索引时更新
+        while (left <= right) {
+            int middle = (left + right) >>> 1;
+            if (target < arr[middle]) {// 目标在左边
+                right = middle;
+            } else if (arr[middle] < target) {//目标在右边
+                left = middle + 1;
+            } else {
+                temp = middle;//记录
+                right = middle - 1;//如果要做查找最右的元素索引,这一步改为left=middle+1即可
+            }
+        }
+        return temp;
+    }
+
+    /**
+     * <div color=rgb(155,200,80)>
+     * <h1>二分查找:LeftMost</h1>
+     * <p>例:[1,2,-?-,4,4,4,7,8]查找3,最终left=2,right=1退出循环,返回2</p>
+     * <p>例:[1,2,4,4,4,-?-,7,8]查找5,最终left=5,right=4退出循环,返回5</p>
+     * <p>应用场景1:求排名;<br>
+     * 相同分数返回最左侧索引.注:返回值要加1</p>
+     * <p>应用场景2:求范围;<br>
+     * x<4=0~leftmost(4)-1,<br>
+     * x<=4=0~rightmost(4),<br>
+     * x>4=right(4)+1~无穷,<br>
+     * x>=4~leftmost(4)~无穷,</p>
+     * <hr>
+     * </div>
+     *
+     * @param arr    待查找的升序数组
+     * @param target 在数组中查找的值
+     * @return 返回≥target的,并且是最左侧的索引
+     */
+    public static int binarySearch5(int[] arr, int target) {
+        int left = 0;
+        int right = arr.length - 1;
+        while (left <= right) {
+            int middle = (left + right) >>> 1;
+            if (target <= arr[middle]) {
+                right = middle - 1;
+            } else {
+                left = middle + 1;
+            }
+        }
+        return left;
+        //要返回比目标小的,并且是最右侧的索引,return left-1,并且target < arr[middle]
+    }
+
+    /**
+     * <div color=rgb(155,200,80)>
+     * <h1>二分查找:LeftMost+Right</h1>
+     * <hr>
+     * </div>
+     *
+     * @param arr    待查找的升序数组
+     * @param target 在数组中查找的值
+     * @return 返回target在数组中的索引范围, 未找到则返回-1
+     */
+    public static int[] binarySearch6(int[] arr, int target) {
+        //查找左侧
+        int left1 = 0;
+        int right1 = arr.length - 1;
+        int tempLeft = -1;
+        while (left1 <= right1) {
+            int middle = (left1 + right1) >>> 1;
+            if (target < arr[middle]) {
+                right1 = middle - 1;
+            } else if (arr[middle] < target) {
+                left1 = middle + 1;
+            } else {
+                tempLeft = middle;
+                right1 = middle - 1;
+            }
+        }
+        if (tempLeft == -1) {
+            return new int[]{-1, -1};
+        }
+        //查找右侧
+        int left2 = 0;
+        int right2 = arr.length - 1;
+        int tempRight = -1;
+        while (left2 <= right2) {
+            int middle = (left2 + right2) >>> 1;
+            if (target < arr[middle]) {
+                right2 = middle - 1;
+            } else if (arr[middle] < target) {
+                left2 = middle + 1;
+            } else {
+                tempRight = middle;
+                left2 = middle + 1;
+            }
+        }
+        return new int[]{tempLeft, tempRight};
+
+    }
+
+    /**
+     * <div color=rgb(155,200,80)>
+     * <h1>二分查找:递归</h1>
+     * <hr>
+     * </div>
+     *
+     * @param arr    待查找的升序数组
+     * @param target 在数组中查找的值
+     * @return 返回查找到的索引,没有找到返回-1
+     */
+    public static int f(int[] arr, int target,int left,int right) {
+        if (left>right){
+            return -1;
+        }
+        int middle=(left+right)>>>1;
+        if (target<arr[middle]){
+            return f(arr,target,left,right-1);
+        }else if (arr[middle]<target){
+            return f(arr,target,left+1,right);
+        }else {
+            return middle;
+        }
+    }
+}

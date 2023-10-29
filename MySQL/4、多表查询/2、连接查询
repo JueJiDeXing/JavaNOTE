@@ -1,0 +1,27 @@
+select * from user,user_info where user.id=user_info.id;
+# 多表查询,查询结果为这多张表的笛卡尔积,需要加入外键判断以消除无效笛卡尔积
+
+内连接:查询A,B集合的交集部分
+左外连接:查询左表数据
+右外连接:查询右表数据
+自连接:与自身连接查询(必须使用表别名)
+
+语法:
+# 隐式内连接
+select 字段列表 from 表1,表2 where 条件...;
+# 显示内连接
+select 字段列表 from 表1 [inner] join 表2 on 条件...;
+# 左外连接
+select 字段列表 from 表1 left [outer] join 表2 on 条件...; # 只保留表1
+# 右外连接
+select 字段列表 from 表1 right [outer] join 表2 on 条件...; # 只保留表2
+# 内连接
+select 字段列表 from 表A 别名a join 表A 别名b on  条件...;
+
+
+select a.name '员工', b.name '领导' from emp a, emp b on a.manage_id=b.id;
+# 根据员工的领导id 与领导id进行匹配,查询员工-领导关系表
+select a.name '员工', b.name '领导' from emp a left join emp b on a.manage_id=b.id;
+# 优化,使用外连接,将为null的数据保留(该员工就是最大的领导)
+
+

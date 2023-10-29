@@ -1,0 +1,20 @@
+concat(s1,s2,...)拼接字符串
+lower(str)转小写
+upper(str)转大写
+lpad(str,length,pad)左填充,以pad填充字符串,使字符串长度达到length
+rpad(str,length,pad)右填充,以pad填充字符串,使字符串长度达到length
+trim(str)去除头尾空格
+substring(str,start,length)字符串截取 # 注意:SQL语言的索引从1开始
+length(str)获取字符串长度
+
+
+
+例:
+update user set id=lpad(id,5,'0'); # 以0填充id,补足5位
+# 注:隐式转换,字符函数也可作用于数值类型上
+
+
+
+
+
+

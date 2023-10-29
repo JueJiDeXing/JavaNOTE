@@ -1,0 +1,16 @@
+作用:将一列数据作为一个整体,进行纵向计算
+# 所有的null值不参与聚合函数运算
+
+常见聚合函数:
+count 统计数量
+max   最大值
+min   最小值
+avg   平均值
+sum   求和
+
+语法:
+select 函数名(字段列表) from 表名;
+
+例:
+select count(idcard) from user;  # 对于 count(*),统计的是总数据行数(包括全null行)
+select sum(age) from user where gender='女'; # 统计所有女性年龄之和
