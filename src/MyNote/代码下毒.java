@@ -8,7 +8,7 @@ public class 代码下毒 {
     \u0022	"
     \u002b	+
  */
-    @SuppressWarnings("all")
+    @SuppressWarnings("Error")
     public static void main(String[] args) {
         boolean a = false;
         if (a) {
