@@ -10,12 +10,13 @@ public class 代码下毒 {
  */
     @SuppressWarnings("all")
     public static void main(String[] args) {
+        /*
         boolean a = false;
         if (a) {
             //\asp\ca@wd<asc#vsdn>v\cua\awb;{sacp\chba};
             //\u000a\u007d\u007b
             System.out.println("hhh");
         }
-
+        */
     }
 }
