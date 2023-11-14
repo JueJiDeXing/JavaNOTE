@@ -30,7 +30,6 @@ public class 后序遍历 {
                 )
         );
         postOrder_(root);
-        //List<List<Integer>> lists = 前中后.allOrder(root);
     }
 
     //先左 后右 再中

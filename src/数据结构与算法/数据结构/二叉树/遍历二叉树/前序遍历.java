@@ -20,8 +20,8 @@ public class 前序遍历 {
                 )
         );
         preOrder(root);
-        //preOrder_(root);
     }
+
     //递归版
     public static void preOrder(MyTreeNode node) {
         if (node == null) {
@@ -31,6 +31,7 @@ public class 前序遍历 {
         preOrder(node.left);
         preOrder(node.right);
     }
+
     /**
      非递归实现<br>
      遍历左子树,依次入栈(包括该节点),如果左子树走到头则弹出该节点,并从该节点的右子树开始再次遍历
@@ -61,7 +62,6 @@ public class 前序遍历 {
             }
         }
     }
-
 
 
 }

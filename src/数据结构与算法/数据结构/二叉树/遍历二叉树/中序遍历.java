@@ -21,6 +21,7 @@ public class 中序遍历 {
         );
         inOrder(root);
     }
+
     //先左 再中 后右
     // 将节点垂直映射到水平线上
     public static void inOrder(MyTreeNode node) {
@@ -31,6 +32,7 @@ public class 中序遍历 {
         System.out.println(node.value + "\t");
         inOrder(node.right);
     }
+
     /**
      非递归实现<br>
      遍历左子树,依次入栈(包括该节点),如果左子树走到头则弹出该节点,并从该节点的右子树开始再次遍历
