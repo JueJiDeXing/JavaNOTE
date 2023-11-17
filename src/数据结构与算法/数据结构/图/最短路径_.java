@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 /*
 有向图
  */
-public class 最短路径 {
+public class 最短路径_ {
     /**
      <h1>Dijkstra 单源最短路径算法</h1>
      1.将所有顶点标记为未访问<br>

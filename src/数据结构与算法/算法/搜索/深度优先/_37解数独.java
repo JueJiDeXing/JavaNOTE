@@ -28,7 +28,7 @@ public class _37解数独 {
 
     public static void solveSudoku(char[][] board) {
         int n = 9;
-        rowMap = new boolean[n][n];
+        rowMap = new boolean[n][n];//9行,1~9
         colMap = new boolean[n][n];
         partMap = new boolean[n][n];
         //初始化冲突状态

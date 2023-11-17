@@ -70,7 +70,7 @@ class 括号生成 {
                 //组合
                 for (String k1 : dp[n1]) {
                     for (String k2 : dp[n2]) {
-                        dp[j].add("("+k1+")"+k2);//k1被嵌套,k2平级拼接
+                        dp[j].add("(" + k1 + ")" + k2);//k1被嵌套,k2平级拼接
                     }
                 }
 

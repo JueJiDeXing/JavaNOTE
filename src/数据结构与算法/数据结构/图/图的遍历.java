@@ -2,7 +2,7 @@ package 数据结构与算法.数据结构.图;
 
 import java.util.*;
 
-import static 数据结构与算法.数据结构.图.最短路径.FloydWarshall;
+import static 数据结构与算法.数据结构.图.最短路径_.FloydWarshall;
 
 public class 图的遍历 {
     public static void main(String[] args) {
