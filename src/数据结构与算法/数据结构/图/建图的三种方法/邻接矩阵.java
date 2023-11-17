@@ -1,4 +1,4 @@
-package 数据结构与算法.数据结构.图.建图;
+package 数据结构与算法.数据结构.图.建图的三种方法;
 
 public class 邻接矩阵 {
     int[][] graph1;

@@ -19,7 +19,7 @@ public class _牛的排名 {
      @return 可确定最终排名的牛的数量
      */
     public int sort(int n, int[][] relation) {
-        //建图
+        //建图的三种方法
         int[][] graph = new int[n + 1][n + 1];
         int[] indegree = new int[n + 1];
         int[] outdegree = new int[n + 1];

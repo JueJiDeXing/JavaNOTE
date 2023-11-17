@@ -1,7 +1,4 @@
-package 数据结构与算法.数据结构.图.建图;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+package 数据结构与算法.数据结构.图.建图的三种方法;
 
 public class 链式前向星 {
     int[] head;
