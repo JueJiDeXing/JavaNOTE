@@ -49,7 +49,6 @@ public class a冒泡 {
         int j = arr.length - 1;
         do {
             int x = 0;
-
             for (int i = 0; i < j; i++) {//遍历0~j的元素
                 if (arr[i] > arr[i + 1]) {
                     int temp = arr[i];

@@ -67,8 +67,8 @@ public class 最小生成树 {
         kruskal(vertices.size(), queue);
     }
 
-    /*
-    <h1>Prim 最小生成树算法</h1>
+    /**
+     <h1>Prim 最小生成树算法</h1>
      1.将所有顶点标记为未访问<br>
      2.设置临时距离:起点设为0,其余设为无穷大<br>
      3.每次选择最小临时距离的未访问点作为当前顶点<br>
@@ -78,36 +78,17 @@ public class 最小生成树 {
      */
     public static void prim(List<Vertex> graph, Vertex source) {
         ArrayList<Vertex> list = new ArrayList<>(graph);//未访问顶点
-        source.distance = 0;
+        source.distance = 0;//起点临时距离设为0
         while (!list.isEmpty()) {
-            Vertex current = chooseMinDistanceVertex(list);
-            updateNeighboursDistance(current);
-            list.remove(current);
+            Vertex current = chooseMinDistanceVertex(list);//选择最小的临时距离的未访问点
+            updateNeighboursDistance(current);//更新它的邻居的距离
+            list.remove(current);//遍历后移除节点,标记为已未访问
             current.visited = true;
         }
         for (Vertex vertex : graph) {
             System.out.println(vertex.name + " <- " + (vertex.prev != null ? vertex.prev.name : "null"));
         }
     }
-
-    /**
-     更新邻居距离
-
-     @param current 当前节点
-     */
-    private static void updateNeighboursDistance(Vertex current) {
-        for (Edge edge : current.edges) {
-            Vertex n = edge.linked;
-            if (!n.visited) { // list.contains(n)
-                int newDistance = edge.weight;
-                if (newDistance < n.distance) {
-                    n.distance = newDistance;
-                    n.prev = current;//记录最短路径时的上级
-                }
-            }
-        }
-    }
-
     /**
      寻找最小distance节点
 
@@ -124,27 +105,45 @@ public class 最小生成树 {
         return min;
     }
 
-    /*
-   <h1>Kruskal 最小生成树算法</h1>
-    1.将所有顶点设为"不连通"<br>
-    2.将所有边按边权升序<br>
-    3.每次选择最小权边,如果两端是不连通的,则将两端连通<br>
+    /**
+     更新邻居距离
 
-    */
+     @param current 当前节点
+     */
+    private static void updateNeighboursDistance(Vertex current) {
+        for (Edge edge : current.edges) {
+            Vertex n = edge.linked;
+            if (!n.visited) { // 未访问节点
+                int newDistance = edge.weight;
+                if (newDistance < n.distance) {
+                    n.distance = newDistance;
+                    n.prev = current;//记录最短路径时的上级
+                }
+            }
+        }
+    }
+
+
+    /**
+     <h1>Kruskal 最小生成树算法</h1>
+     1.将所有顶点设为"不连通"<br>
+     2.将所有边按边权升序<br>
+     3.每次选择最小权边,如果两端是不连通的,则将两端连通<br>
+     */
     public static void kruskal(int size, PriorityQueue<Edge> queue) {
         List<Edge> list = new ArrayList<>();
-        DisjointSet set = new DisjointSet(size);
-        while (list.size() < size - 1) {
+        DisjointSet set = new DisjointSet(size);//使用并查集进行连通操作
+        while (list.size() < size - 1) {//n个顶点要连接n-1条边
             Edge poll = queue.poll();//获取权重最小的边
             int i = set.find(poll.start);//查找集合的老大
             int j = set.find(poll.end);
             if (i != j) {//在一个集合里的所有元素的老大都是相等的,如果ij不等,说明start和end在两个集合中
                 //没有连通
-                list.add(poll);
-                set.union(i, j);
+                set.union(i, j);//将i,j集合设为连通
+                list.add(poll);//加这条边
             }
         }
-        for (Edge edge:list){
+        for (Edge edge : list) {
             System.out.println(edge);
         }
     }
