@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
  基于数组与链表实现
  */
 public class MyHashTable {
-    MyEntry head;
     MyEntry[] table = new MyEntry[16];//2^n大小
     int size = 0;
     float loadFactor = 0.75F;//负载因子,当 元素个数/数组长度=0.75时 扩容数组
@@ -86,10 +85,8 @@ public class MyHashTable {
                 //  2^n 对于后n位与后n+1位相同的index,扩容后位置不变
                 //  例如 8 0100 扩容后还是原位置  ; 9 1001 扩容后 位置改变
                 //  所以 检查倒数第n+1位是否为0即可
-                MyEntry a = null;
-                MyEntry b = null;
-                MyEntry aHead = null;
-                MyEntry bHead = null;
+                MyEntry aHead = null, bHead = null;//拆分的两个新链表
+                MyEntry a = null, b = null;
                 while (p != null) {
                     if ((p.hash & table.length) == 0) {
                         if (a != null) {
@@ -117,11 +114,8 @@ public class MyHashTable {
                     b.next = null;
                     newTable[i + table.length] = bHead;//b表为索引加数组长
                 }
-
             }
-
         }
-
         table = newTable;
         threshold = (int) (loadFactor * table.length);
     }
@@ -180,7 +174,7 @@ public class MyHashTable {
             hash = (hash << 5) - hash + c;//字符串的每位字符转ASCII码后拼接,乘以一个大质数31使冲突的几率更小
             //优化 hash*31 -> hash*32-hash > (hash<<5)-hash
         }
-        return hash^(hash>>>16);
+        return hash ^ (hash >>> 16);
     }
 
 

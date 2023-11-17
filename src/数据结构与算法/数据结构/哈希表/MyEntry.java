@@ -1,5 +1,11 @@
 package 数据结构与算法.数据结构.哈希表;
 
+/**
+ Entry节点类
+
+ @属性 hash 哈希码
+ @属性 key, value 存储的键值对
+ @属性 next 下一个节点 */
 public class MyEntry {
     int hash;//哈希码
     Object key;
