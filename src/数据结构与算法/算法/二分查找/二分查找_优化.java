@@ -231,9 +231,9 @@ public class 二分查找_优化 {
         }
         int middle=(left+right)>>>1;
         if (target<arr[middle]){
-            return f(arr,target,left,right-1);
+            return f(arr,target,left,middle-1);
         }else if (arr[middle]<target){
-            return f(arr,target,left+1,right);
+            return f(arr,target,middle+1,right);
         }else {
             return middle;
         }

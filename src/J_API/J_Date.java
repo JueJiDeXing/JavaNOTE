@@ -129,6 +129,7 @@ class 一年的第几天 {
         System.out.println(date.getDayOfYear());
     }
 }
+
 class 日期之差 {
     public static void main(String[] args) {
         LocalDate startDate = LocalDate.of(2022, 1, 1);
@@ -142,5 +143,51 @@ class 日期之差 {
 
         long years = ChronoUnit.YEARS.between(startDate, endDate);
         System.out.println("相差年数：" + years);
+    }
+}
+
+class 星期几 {
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        int year = sc.nextInt();
+        int month = sc.nextInt();
+        int day = sc.nextInt();
+        LocalDate date = LocalDate.of(year, month, day);
+        System.out.println(date.getDayOfWeek());
+    }
+
+    /**
+     <h1>Zeller公式法</h1>
+     w=( c/4 - 2c + y + y/4 + 13(m+1)/5 + d - 1 ) % 7
+     c:世纪,c=year/100
+     y:世纪中的年数
+     m:月数,当年的1,2月要当成上一年的13,14月进行计算
+     d:日
+
+     @param day YYYYMMDD格式的日期
+     */
+    public void getWeek(int day) {
+        int c, y, m, d, w; // c: century-1, y: year, m:month, w:week, d:day
+        y = day / 10000;
+        m = (day % 10000) / 100;
+        d = day % 100; //这里提取出的是日数，代入zeller公式中的应该是d-1
+        if (m < 3) {//是1月或2月,要作为去年的13月和14月计算
+            y = y - 1;
+            m = m + 12;
+        }
+        c = y / 100;
+        y = y % 100;
+        w = (y + y / 4 + c / 4 - 2 * c + (13 * (m + 1)) / 5 + d - 1) % 7; // Zeller公式
+        if (w < 0) w += 7;
+        switch (w) {
+            case 0 -> System.out.println("Sun");
+            case 1 -> System.out.println("Mon");
+            case 2 -> System.out.println("Tur");
+            case 3 -> System.out.println("Wen");
+            case 4 -> System.out.println("Thu");
+            case 5 -> System.out.println("Fri");
+            case 6 -> System.out.println("Sat");
+            default -> throw new RuntimeException("错误日期");
+        }
     }
 }
