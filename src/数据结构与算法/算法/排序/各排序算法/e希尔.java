@@ -1,13 +1,21 @@
 package 数据结构与算法.算法.排序.各排序算法;
 
+import java.util.Arrays;
+
 public class e希尔 {
+    public static void main(String[] args) {
+        e希尔 test = new e希尔();
+        int[] a = {4, 3, 6, 8, 7, 9, 5, 1};
+        test.shellSort(a);
+        System.out.println(Arrays.toString(a));
+    }
     //数据分组,每组间隙为gap(例如8个元素分4组,间隙为4,索引0与4 1与5 2与6 3与7)
     // 每组内插入排序,排序后gap变小,直到gap为1完成排序(每次除2)
 
-    //对插入排序的优化,希尔排序使元素更快速地交换到最终位置,每个元素步子跨地大了,logn
+    //对插入排序的优化,希尔排序使元素更快速地交换到最终位置,每个元素步子跨地大了,log(n)
 
     public void shellSort(int[] a) {
-        for (int gap = a.length >> 2; gap >= 1; gap >>= 2) {
+        for (int gap = a.length >> 1; gap >= 1; gap >>= 1) {
             //插入排序,但是不比较相邻元素,而是相隔gap的元素
             for (int low = gap; low < a.length; low++) {//low++,排下一组
                 int t = a[low];//当前未排序元素
