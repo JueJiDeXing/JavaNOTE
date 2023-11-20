@@ -1,5 +1,3 @@
-import java.io.BufferedInputStream;
-import java.io.PrintWriter;
 import java.util.*;
 
 class ListNode {
@@ -72,15 +70,5 @@ public class Main {
         //System.out.println(head3);
         //System.out.println(test.isAdditiveNumber("199100199"));
         //System.out.println(test.isAdditiveNumber("112358"));
-        BufferedInputStream bis = new BufferedInputStream(System.in);
-        PrintWriter pw = new PrintWriter(System.out);
-        int read;
-        while ((read = bis.read()) != -1) {
-
-           pw.write(read);
-           pw.flush();
-        }
-        bis.close();
-        pw.close();
     }
 }

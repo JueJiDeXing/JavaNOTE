@@ -19,7 +19,7 @@ public class e希尔 {
             //插入排序,但是不比较相邻元素,而是相隔gap的元素
             for (int low = gap; low < a.length; low++) {//low=gap,第一个元素视为已排;low++,排下一组
                 int t = a[low];//当前未排序元素
-                int i = low - gap;//同组的最右侧已排序元素
+                int i = low - gap;//同组的最右侧已排序元素索引
                 while (0 <= i && t < a[i]) {//寻找插入位置
                     a[i + gap] = a[i];//比待插入值大的右移,空出一个位置
                     i -= gap;//同组的元素
