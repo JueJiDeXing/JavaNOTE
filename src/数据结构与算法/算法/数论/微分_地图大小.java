@@ -54,6 +54,7 @@ public class 微分_地图大小 {
      */
     private static double[] getY(double x0, int n, double[] x1, double[] y1, double[] x2, double[] y2) {
         //TODO 地图在中间有缺块,y是分离的,如何处理
+        // 使用线段树做法
         double y_max = 0;
         double y_min = 9999999;
         for (int i = 0; i < n; i++) {//遍历所有地图块
