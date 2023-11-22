@@ -8,32 +8,6 @@ public class 递归 {
 
     /**
      <div color=rgb(155,200,80)>
-     <h1>插入排序:优化</h1>
-     使用递归<br>
-
-     </div>
-     */
-    public static void insertSort(int[] arr, int low) {
-        if (low == arr.length) {
-            return;
-        }
-        int temp = arr[low];//要排序的元素
-        int i = low - 1;//已排序的区域0~low-1
-        while (i >= 0 && arr[i] > temp) {
-            //从右向左查找第一个比arr[low]小的元素,确定插入位置
-            arr[i + 1] = arr[i];//比temp大的元素向后移动
-            i--;
-        }
-        //找到插入位置
-        if (i + 1 != low) {//小优化,如果插入位置就是low的位置,则可以减少一次赋值
-            arr[i + 1] = temp;
-        }
-
-        insertSort(arr, ++low);
-    }
-
-    /**
-     <div color=rgb(155,200,80)>
      <h1>斐波那契递归:优化</h1>
      使用Memoization(记忆法,备忘录法)优化<br>
      用数组存储计算出的值,这样就可以免去大量重复的计算(空间换时间)
@@ -77,7 +51,7 @@ public class 递归 {
         if (n == 1) {
             return 1 + accumulator;
         }
-        return sum(n - 1, n + accumulator);//尾递归,tailrec
+        return sum(n - 1, n + accumulator);//尾递归,tail rec
 
         /*递归的时间复杂度计算公式:(部分不能使用该公式,比如求和递归)
         T(n)=aT(n/b)+f(n)
@@ -160,7 +134,7 @@ public class 递归 {
     /**
      <div color=rgb(155,200,80)>
      <h1> 递归:杨辉三角优化2</h1>
-     一维数组记忆法<br>
+     一维(滚动)数组记忆法<br>
      </div>
 
      @param row 每一行的数据

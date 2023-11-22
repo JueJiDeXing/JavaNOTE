@@ -40,7 +40,7 @@ public class _850矩形面积 {
                     totalY += high - low;
                     low = cur[0];
                     high = cur[1];
-                } else if(cur[1]>high){//当前块与上一块有重叠
+                } else if (cur[1] > high) {//当前块与上一块有重叠
                     high = cur[1];
                 }
             }

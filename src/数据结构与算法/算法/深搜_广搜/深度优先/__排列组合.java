@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.搜索.深度优先;
+package 数据结构与算法.算法.深搜_广搜.深度优先;
 
 import java.util.*;
 
@@ -258,7 +258,7 @@ class _39组数总和 {
             if (remainder < candidate) {//剪枝
                 continue;
             }
-            //搜索
+            //深搜_广搜
             stack.push(candidate);
             dfs(candidates, remainder - candidate, i, stack);
             stack.pop();
@@ -301,7 +301,7 @@ class _40组数总和2 {
                 //遇到重复元素,必须先使用前面的才能使用后面重复的
                 continue;
             }
-            //搜索
+            //深搜_广搜
             stack.push(candidate);
             isUsed[i] = true;
             dfs(candidates, remainder - candidate, i + 1, stack, isUsed);//start从i+1开始,一个数字不能重复使用

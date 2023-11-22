@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.设计;
+package 数据结构与算法.数据结构.设计数据结构;
 
 import java.util.HashMap;
 import java.util.Map;

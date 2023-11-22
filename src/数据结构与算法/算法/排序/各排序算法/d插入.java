@@ -4,10 +4,11 @@ public class d插入 {
     //将数组分为两部分,已排序[0,low-1]和未排序[low,length-1]
     //每次从未排区取出low位置的元素,寻找插入位置
 
+    /**
+     <h1>使用递归</h1>
+     */
     public static void insertSort(int[] a) {
-        //insertion2(a, 1);
-        //改为非递归
-        for (int low=1;low<a.length;low++){
+        for (int low = 1; low < a.length; low++) {
             int t = a[low];
             int i = low - 1;
             while (0 <= i && t < a[i]) {//寻找插入位置
@@ -20,19 +21,25 @@ public class d插入 {
         }
     }
 
-    private void insertion(int[] a, int low) {
-        if (low == a.length) {
+    /**
+     <h1>使用递归</h1>
+     */
+    public static void insertSort(int[] arr, int low) {
+        if (low == arr.length) {
             return;
         }
-        int t = a[low];
-        int i = low - 1;
-        while (0 <= i && t < a[i]) {//寻找插入位置
-            a[i + 1] = a[i];//比待插入值大的右移,空出一个位置
+        int temp = arr[low];//要排序的元素
+        int i = low - 1;//已排序的区域0~low-1
+        while (i >= 0 && arr[i] > temp) {
+            //从右向左查找第一个比arr[low]小的元素,确定插入位置
+            arr[i + 1] = arr[i];//比temp大的元素向后移动
             i--;
         }
-        if (i != low - 1) {//找到插入位置
-            a[i + 1] = t;
+        //找到插入位置
+        if (i + 1 != low) {//小优化,如果插入位置就是low的位置,则可以减少一次赋值
+            arr[i + 1] = temp;
         }
-        insertion(a, low + 1);//递归插入下一个
+
+        insertSort(arr, low + 1);
     }
 }

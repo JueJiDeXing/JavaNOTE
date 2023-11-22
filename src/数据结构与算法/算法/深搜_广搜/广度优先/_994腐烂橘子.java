@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.搜索.广度优先;
+package 数据结构与算法.算法.深搜_广搜.广度优先;
 
 import java.util.*;
 

@@ -37,7 +37,7 @@ class TreeNode {
     }
 }
 
-public class 链表转二叉树 {
+public class 升序链表转二叉搜索树 {
     public TreeNode sortedListToBST(ListNode head) {
         if (head == null) {
             return null;
