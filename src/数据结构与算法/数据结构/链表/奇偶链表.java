@@ -1,52 +1,16 @@
 package 数据结构与算法.数据结构.链表;
 
 public class 奇偶链表 {
-    static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-            next = null;
-        }
-
-        public ListNode() {
-        }
-
-        public ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-
-        @Override
-        public String toString() {
-            ListNode p = this;
-            StringBuilder sb = new StringBuilder();
-            while (p != null) {
-                sb.append(p.val).append("->");
-                p = p.next;
-            }
-            sb.append("null");
-            return sb.toString();
-        }
-    }
-
-    ListNode createLinkedList(int[] values) {
-        ListNode head = new ListNode(0);
-        head.next = null;
-        ListNode p = head;
-        for (int value : values) {
-            p.next = new ListNode(value);
-            p = p.next;
-        }
-        return head.next;
-    }
-
-    public static void main(String[] args) {
-        奇偶链表 test = new 奇偶链表();
-        System.out.println(test.oddEvenList(test.createLinkedList(new int[]{1, 2, 3, 4, 5, 6, 7, 8})));
-    }
-
+    /*
+    给定单链表的头节点 head ，将所有索引为奇数的节点和索引为偶数的节点分别组合在一起，然后返回重新排序的列表。
+    第一个节点的索引被认为是 奇数 ， 第二个节点的索引为 偶数 ，以此类推。
+    请注意，偶数组和奇数组内部的相对顺序应该与输入时保持一致。
+    你必须在 O(1) 的额外空间复杂度和 O(n) 的时间复杂度下解决这个问题。
+    例如:
+    (带下划线的数为奇索引)
+    1_  2  3_  4  5_  ->  1_  3_  5_  2  4
+    2_  1  3_  5  6_  4  7_  ->  2_  3_  6_  7_  1  5  4
+     */
     public ListNode oddEvenList(ListNode head) {
         if (head == null || head.next == null || head.next.next == null) {
             return null;
