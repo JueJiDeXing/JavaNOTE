@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class 快速选择 {
     /*
-    求一个乱序数组里按升序索引为i的元素
+    求一个乱序数组里按升序索引为i的元素(第K小元素)
      */
     public static void main(String[] args) {
         int[] array = new int[]{6, 5, 1, 2, 4};

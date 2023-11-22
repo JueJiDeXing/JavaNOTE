@@ -6,11 +6,8 @@ import static 数据结构与算法.算法.快速选择算法.快速选择.quick
 
 public class 数组中的中位数 {
     //如果是偶数个元素,取平均值
-
-    /**
-
-     */
     public double findMedian(int[] nums) {
+        //import static 数据结构与算法.算法.快速选择算法.快速选择.quick;
         int len = nums.length;
         if (len % 2 == 1) {
             return quick(nums, 0, len - 1, len / 2);
