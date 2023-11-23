@@ -6,7 +6,6 @@ import 数据结构与算法.数据结构.二叉树.BTree.BNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 class TestBTree {
-
     @Test
     @DisplayName("split(t=2)")
     void split1() {

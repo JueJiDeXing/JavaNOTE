@@ -8,7 +8,7 @@ public class b选择 {
      <h1>选择排序</h1>
      </div>
      */
-    public void selectSort(int[] arr) {
+    public static void selectSort(int[] arr) {
         // 选择轮数:length-1
         // 交换位置(right) 初始length-1,每次递减
         for (int right = arr.length - 1; right > 0; right--) {
@@ -24,7 +24,7 @@ public class b选择 {
         }
     }
 
-    public void swap(int[] arr, int i, int j) {
+    public static void swap(int[] arr, int i, int j) {
         int t = arr[i];
         arr[i] = arr[j];
         arr[j] = t;

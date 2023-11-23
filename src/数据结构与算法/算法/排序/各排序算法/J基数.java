@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 public class J基数 {
     //场景:排序电话号码(字符串),数字太大用其他算法效率低
-
     //先按个位排序,再按十位排序...
-
     public void radixSort1(String[] a, int length) {//length:每个字符串的长度
         //准备桶
         ArrayList<String>[] buckets = new ArrayList[10];
@@ -15,11 +13,9 @@ public class J基数 {
         }
         //按位 桶排序
         for (int i = length - 1; i >= 0; i--) {
-
             for (String s : a) {
                 buckets[s.charAt(i) - '0'].add(s);
             }
-
             int k = 0;
             for (ArrayList<String> bucket : buckets) {
                 for (String s : bucket) {

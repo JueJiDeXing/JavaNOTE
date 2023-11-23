@@ -5,7 +5,7 @@ public class d插入 {
     //每次从未排区取出low位置的元素,寻找插入位置
 
     /**
-     <h1>使用递归</h1>
+     <h1>不使用递归</h1>
      */
     public static void insertSort(int[] a) {
         for (int low = 1; low < a.length; low++) {
@@ -23,6 +23,8 @@ public class d插入 {
 
     /**
      <h1>使用递归</h1>
+
+     @param low 初始值为1,表示索引0已排序,从索引1开始为未排序区域
      */
     public static void insertSort(int[] arr, int low) {
         if (low == arr.length) {
