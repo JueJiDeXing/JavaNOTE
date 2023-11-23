@@ -1,7 +1,7 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
 
-import 数据结构与算法.数据结构.二叉树.TreeNode;
+import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 
 public class 二叉树展开为链表 {
     //二叉搜索树,节点全部放右节点

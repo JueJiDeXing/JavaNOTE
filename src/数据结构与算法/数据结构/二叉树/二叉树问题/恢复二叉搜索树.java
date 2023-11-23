@@ -1,6 +1,6 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
-import 数据结构与算法.数据结构.二叉树.TreeNode;
+import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 
 public class 恢复二叉搜索树 {
     //有两个节点的值被交换的二叉搜索树

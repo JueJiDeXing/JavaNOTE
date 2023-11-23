@@ -2,7 +2,8 @@ package 数据结构与算法.数据结构.二叉树;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import 数据结构与算法.数据结构.二叉树.BTree.BNode;
+import 数据结构与算法.数据结构.二叉树.平衡搜索树.BTree;
+import 数据结构与算法.数据结构.二叉树.Node.BNode;
 
 import static org.junit.jupiter.api.Assertions.*;
 class TestBTree {

@@ -1,6 +1,8 @@
 package 数据结构与算法.数据结构.二叉树;
 
 import org.junit.Test;
+import 数据结构与算法.数据结构.二叉树.Node.RBNode;
+import 数据结构与算法.数据结构.二叉树.平衡搜索树.RBTree;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,8 +10,8 @@ import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static 数据结构与算法.数据结构.二叉树.RBTree.Color.*;
-import static 数据结构与算法.数据结构.二叉树.RBTree.RBNode;
+import static 数据结构与算法.数据结构.二叉树.Node.RBNode.Color.BLACK;
+import static 数据结构与算法.数据结构.二叉树.Node.RBNode.Color.RED;
 
 public class TestRBTree {
     @Test
