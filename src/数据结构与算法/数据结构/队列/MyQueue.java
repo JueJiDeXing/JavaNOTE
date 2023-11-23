@@ -3,7 +3,7 @@ package 数据结构与算法.数据结构.队列;
 /**
  <div color=rgb(155,200,80)>
  <h1>队列</h1>
- 手写队列接口</div>
+ 队列接口</div>
  */
 public interface MyQueue<E> {
     /**

@@ -173,10 +173,10 @@ class PriorityQueue3<E extends Priority> implements MyQueue<E> {
         if (isFull()) {
             return false;
         }
-        int child = size++;
+        int child = size++;//从最底层(小)向上(大)找插入位置
         int parent = (child - 1) / 2;
         while (child > 0 && value.priority() > array[parent].priority()) {
-            array[child] = array[parent];//比父节点大,将父节点向下移
+            array[child] = array[parent];//比父节点大,父节点优先级小,将父节点向下移
             child = parent;
             parent = (parent - 1) / 2;
         }
@@ -186,7 +186,7 @@ class PriorityQueue3<E extends Priority> implements MyQueue<E> {
 
 
     @Override
-    public E poll() {
+    public E poll() {//抛出堆顶元素(优先级最高)
         if (isEmpty()) {
             return null;
         }
@@ -199,10 +199,10 @@ class PriorityQueue3<E extends Priority> implements MyQueue<E> {
         return (E) value;
     }
 
-    private void down(int parent) {//优先级低的元素下潜
+    private void down(int parent) {//优先级小的元素下潜
         int left = 2 * parent + 1;
         int right = left + 1;
-        int max = parent;//寻找 父,左,右 三者较大的优先级
+        int max = parent;//大顶堆,寻找 父,左,右 三者较大的优先级
         if (left < size && array[left].priority() > array[max].priority()) {
             max = left;
         }

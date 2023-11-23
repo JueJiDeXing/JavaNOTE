@@ -42,7 +42,7 @@ class _239滑动窗口最大值 {
     public int[] maxSlidingWindow(int[] nums, int k) {
         int len = nums.length;
         int[] res = new int[len - k + 1];
-        MonotonicQueue queue = new MonotonicQueue();//单调队列
+        MonotonicQueue queue = new MonotonicQueue();//单调队列(单减)
         for (int i = 0; i < len; i++) {
             if (i >= k && queue.peek() == nums[i - k]) {
                 //检查队头元素是否超过滑动窗口范围
