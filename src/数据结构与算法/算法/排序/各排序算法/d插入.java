@@ -7,7 +7,7 @@ public class d插入 {
     /**
      <h1>不使用递归</h1>
      */
-    public static void insertSort(int[] a) {
+    public void insertSort(int[] a) {
         for (int low = 1; low < a.length; low++) {
             int t = a[low];
             int i = low - 1;
@@ -26,7 +26,7 @@ public class d插入 {
 
      @param low 初始值为1,表示索引0已排序,从索引1开始为未排序区域
      */
-    public static void insertSort(int[] arr, int low) {
+    public  void insertSort(int[] arr, int low) {
         if (low == arr.length) {
             return;
         }

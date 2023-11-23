@@ -2,8 +2,6 @@ package 数据结构与算法.算法.排序.各排序算法;
 
 import 数据结构与算法.数据结构.数组.DynamicArray;
 
-import static 数据结构与算法.算法.排序.各排序算法.d插入.insertSort;
-
 
 public class I桶排 {
 
@@ -12,7 +10,7 @@ public class I桶排 {
     (数组元素映射到外桶升序,再使内桶升序,放回原数组即可)
      */
 
-    public void bucketSort1(int[] ages) {
+    public void bucketSort1(int[] num) {//示例
         // 准备桶
         DynamicArray[] buckets = new DynamicArray[10];//年龄0~99
         for (int i = 0; i < buckets.length; i++) {
@@ -20,27 +18,28 @@ public class I桶排 {
         }
 
         //放入年龄数据
-        for (int age : ages) {
-            buckets[age / 10].add(age);
+        for (int n : num) {
+            buckets[n / 10].add(n);
         }
 
         int k = 0;
         for (DynamicArray bucket : buckets) {//桶为分区升序 0~9 10~19...
             //排序桶内元素
             int[] array = bucket.array();
-            insertSort(array);
+            new d插入().insertSort(array);
             //放入原数组
             for (int value : array) {
-                ages[k++] = value;
+                num[k++] = value;
             }
         }
     }
 
     /**
      <h1>优化:桶内元素分布不均</h1>
+
      @param range 每个桶的元素个数
      */
-    public static void bucketSort2(int[] a, int range) {
+    public void bucketSort2(int[] a, int range) {
         int max = a[0];
         int min = a[0];
         for (int i = 1; i < a.length; i++) {
@@ -62,7 +61,7 @@ public class I桶排 {
         for (DynamicArray bucket : buckets) {
             //排序桶内元素
             int[] array = bucket.array();
-            insertSort(array);
+            new d插入().insertSort(array);
             //放入原数组
             for (int value : array) {
                 a[k++] = value;

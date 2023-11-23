@@ -142,7 +142,7 @@ public class DynamicArray implements Iterable<Integer> {
      */
     @Override
     public Iterator<Integer> iterator() {
-        return new Iterator<Integer>() {
+        return new Iterator<>() {
             int i = 0;
 
             @Override
@@ -169,6 +169,6 @@ public class DynamicArray implements Iterable<Integer> {
 
 
     public int[] array() {
-        return array;
+        return Arrays.copyOfRange(array, 0, size);
     }
 }

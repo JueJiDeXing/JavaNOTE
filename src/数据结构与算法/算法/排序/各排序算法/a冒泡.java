@@ -21,7 +21,7 @@ public class a冒泡 {
      优化:新加入了一个指针,每次确定更合适的右边界,以减少if判断次数
      </div>
      */
-    public static void bubbleSort1(int[] arr, int j) {
+    public  void bubbleSort1(int[] arr, int j) {
         if (j == 0) {//排序已完成
             return;
         }
@@ -45,7 +45,7 @@ public class a冒泡 {
      优化:新加入了一个指针,每次确定更合适的右边界,以减少if判断次数
      </div>
      */
-    public static void bubbleSort2(int[] arr) {
+    public void bubbleSort2(int[] arr) {
         int j = arr.length - 1;
         do {
             int x = 0;

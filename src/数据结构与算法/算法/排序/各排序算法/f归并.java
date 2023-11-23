@@ -11,12 +11,22 @@ public class f归并 {
         1 2 3 4 5 7 8 9     merge
      */
 
-    public void sort(int[] a1) {
+    public void mergeSort(int[] a1) {
         int[] a2 = new int[a1.length];//临时数组,在合并时将数据放入
         split(a1, 0, a1.length - 1, a2);
     }
 
-    //合并数组,两个有序数组
+    /**
+     合并两个有序数组
+
+     @param a1   数据源
+     @param i    第一个数组的起始索引
+     @param iEnd 第一个数组的结束索引
+     @param j    第二个数组的起始索引
+     @param jEnd 第二个数组的结束索引
+     @param a2   临时数组
+     */
+
     public void merge(int[] a1, int i, int iEnd, int j, int jEnd, int[] a2) {
         int k = 0;
         while (i <= iEnd && j <= jEnd) {
@@ -36,6 +46,7 @@ public class f归并 {
         if (j > jEnd) {
             System.arraycopy(a1, i, a2, k, iEnd - i + 1);
         }
+
     }
 
     private void split(int[] a1, int left, int right, int[] a2) {
@@ -46,25 +57,25 @@ public class f归并 {
         // 1.分
         int m = (left + right) >>> 1;//从中间分隔
         split(a1, left, m, a2);
-        split(a1, m, right, a2);
+        split(a1, m + 1, right, a2);
 
         // 3.合
-        merge(a1, left, m, m + 1, right, a2);//合并两个有序区域
-        System.arraycopy(a2, left, a1, left, right - left + 1);//将合并后的再存入a1
+        merge(a1, left, m, m + 1, right, a2);//合并两个有序区域到a2
+        System.arraycopy(a2, 0, a1, left, right - left + 1);//将合并后的再存入a1
     }
 
-    //非递归实现----------------------------------------------------------
-    public void sort2(int[] a1) {
+    //非递归实现--------------------------------------------------------------
+    public void mergeSort2(int[] a1) {
         int n = a1.length;
         int[] a2 = new int[n];
-        for (int width = 1; width < n; width *= 2) {//width:有序区间的宽度
+        for (int width = 1; width < n; width *= 2) {//width:两个有序区间各自的宽度
             // [left,right] 待合并区间的左右边界
             for (int left = 0; left < n; left += 2 * width) {//width为1时,left:0,2,4,6  width为2时,left:0,4
-                int right = Math.min(n, left + 2 * width - 1);//right为下一个left-1
-                int m = Math.min(n, left + width - 1);
+                int right = Math.min(n - 1, left + 2 * width - 1);//right=left_next - 1,min防止越界
+                int m = Math.min(n - 1, left + width - 1);
                 merge(a1, left, m, m + 1, right, a2);
+                System.arraycopy(a2, 0, a1, left, Math.min(n - left, 2 * width));
             }
-            System.arraycopy(a2, 0, a1, 0, n);
         }
     }
 
@@ -78,8 +89,8 @@ public class f归并 {
         }
         // 1.分
         int m = (left + right) >>> 1;//从中间分隔
-        split(a1, left, m, a2);
-        split(a1, m, right, a2);
+        split2(a1, left, m, a2);
+        split2(a1, m + 1, right, a2);
 
         // 3.合
         merge(a1, left, m, m + 1, right, a2);//合并两个有序区域
