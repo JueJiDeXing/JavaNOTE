@@ -1,4 +1,4 @@
-package 数据结构与算法.数据结构.二叉树;
+package 数据结构与算法.数据结构.二叉树.平衡搜索树;
 
 import org.junit.Test;
 import 数据结构与算法.数据结构.二叉树.Node.RBNode;

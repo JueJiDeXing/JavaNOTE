@@ -1,49 +1,26 @@
 package 数据结构与算法.数据结构.二叉树.平衡搜索树;
 
+import 数据结构与算法.数据结构.二叉树.Node.AVLNode;
+
 /**
  在插入/删除节点时通过旋转保持平衡的自平衡二叉搜索树<br>
  AVL是实现之一
  */
 class AVLTree {
-    static class AVLNode {
-        int key;
-        Object value;
-        AVLTree.AVLNode left;
-        AVLTree.AVLNode right;
-        int height = 1;//高度
-
-        public AVLNode() {
-        }
-
-        public AVLNode(int key) {
-            this.key = key;
-        }
-
-        public AVLNode(int key, Object value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public AVLNode(int key, Object value, AVLTree.AVLNode left, AVLTree.AVLNode right) {
-            this.key = key;
-            this.value = value;
-            this.left = left;
-            this.right = right;
-        }
-    }
+    AVLNode root;
 
     //左右子树高度差大于1则旋转
-    private int getHeight(AVLTree.AVLNode node) {
+    private int getHeight(AVLNode node) {
         return node == null ? 0 : node.height;
     }
 
-    private void updateHeight(AVLTree.AVLNode node) {
+    private void updateHeight(AVLNode node) {
         int heightLeft = getHeight(node.left);
         int heightRight = getHeight(node.right);
         node.height = Integer.max(heightLeft, heightRight) + 1;
     }
 
-    private int balanceFactor(AVLTree.AVLNode node) {
+    private int balanceFactor(AVLNode node) {
         // -1,0,1表示平衡
         // <-1 表示右重
         // >1 表示左重
@@ -64,8 +41,8 @@ class AVLTree {
       RL:失衡节点右边高,左孩子左边高     需要对右子树左旋,再左旋
       RR:失衡节点右边高,左孩子右边高或等高      需要左旋
      */
-    private AVLTree.AVLNode rightRotate(AVLTree.AVLNode downNode) {
-        AVLTree.AVLNode upNode = downNode.left;
+    private AVLNode rightRotate(AVLNode downNode) {
+        AVLNode upNode = downNode.left;
         downNode.left = upNode.right;//给上位节点的右孩子换爹
         upNode.right = downNode;//上位
         updateHeight(downNode);//旋转只会改变上位与下潜的两个节点的高度
@@ -73,8 +50,8 @@ class AVLTree {
         return upNode;
     }
 
-    private AVLTree.AVLNode leftRotate(AVLTree.AVLNode downNode) {
-        AVLTree.AVLNode upNode = downNode.right;
+    private AVLNode leftRotate(AVLNode downNode) {
+        AVLNode upNode = downNode.right;
         downNode.right = upNode.left;
         upNode.left = downNode;
         updateHeight(downNode);
@@ -82,17 +59,17 @@ class AVLTree {
         return upNode;
     }
 
-    private AVLTree.AVLNode leftRightRotate(AVLTree.AVLNode node) {
+    private AVLNode leftRightRotate(AVLNode node) {
         leftRotate(node.left);
         return rightRotate(node);
     }
 
-    private AVLTree.AVLNode rightLeftRotate(AVLTree.AVLNode node) {
+    private AVLNode rightLeftRotate(AVLNode node) {
         rightRotate(node.right);
         return leftRotate(node);
     }
 
-    private AVLTree.AVLNode balance(AVLTree.AVLNode node) {
+    private AVLNode balance(AVLNode node) {
         if (node == null) {
             return null;
         }
@@ -116,17 +93,16 @@ class AVLTree {
         }
     }
 
-    AVLTree.AVLNode root;
 
     public void put(int key, Object value) {
         root = doPut(root, key, value);
 
     }
 
-    private AVLTree.AVLNode doPut(AVLTree.AVLNode node, int key, Object value) {
+    private AVLNode doPut(AVLNode node, int key, Object value) {
         //1.找到空位
         if (node == null) {
-            return new AVLTree.AVLNode(key, value);
+            return new AVLNode(key, value);
         }
         //2.已经存在key,更新节点值
         if (key == node.key) {
@@ -147,7 +123,7 @@ class AVLTree {
         root = doRemove(root, key);
     }
 
-    private AVLTree.AVLNode doRemove(AVLTree.AVLNode node, int key) {
+    private AVLNode doRemove(AVLNode node, int key) {
         // 1. node==null
         if (node == null) {
             return null;
@@ -167,7 +143,7 @@ class AVLTree {
                 node = node.left;//暂存
             } else { // (3)有两个孩子,后继上位,返回后继
                 //找后继
-                AVLTree.AVLNode s = node.right;
+                AVLNode s = node.right;
                 while (s.left != null) {
                     s = s.left;
                 }
