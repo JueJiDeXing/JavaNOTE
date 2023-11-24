@@ -17,6 +17,19 @@ class TestSort {
     @DisplayName("a冒泡1")
     void test_bubbleSort1() {
         shuffle(arr);
+        /*  cn.hutool.core.util.PrimitiveArrayUtil.shuffle源码:
+        public static int[] shuffle(int[] array, Random random) {
+        if (array != null && random != null && array.length > 1) {
+            for(int i = array.length; i > 1; --i) {
+                swap(array, i - 1, random.nextInt(i));
+            }
+
+            return array;
+        } else {
+            return array;//哈哈哈,搁这凑代码行数是吧?
+        }
+    }
+         */
         new a冒泡().bubbleSort1(arr, arr.length - 1);
         Assertions.assertEquals("[1, 2, 3, 4, 5, 6]", Arrays.toString(arr));
     }
