@@ -4,24 +4,25 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
+import java.util.Arrays;
 
 public class 反射 {
     //反射运行对封装类的成员变量,方法,构造函数的信息进行编程访问
-    //例:IDEA利用反射获取方法的形参并显示在界面上
+    //例:IDEA的提示功能 就是利用反射 获取方法的形参并显示在界面上
 
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchFieldException {
         //获取class对象的三种方式---------------------------------------------
         //Class.forName("全类名")  源代码阶段使用  .java和.class文件
         //类名.class  加载阶段使用   类加载到内存
         //对象.getClass()运行阶段使用 在内存中创建对象
-        Class class1 = Class.forName("反射reflect.Student");//最常用
+        Class<?> class1 = Class.forName("反射reflect.Student");//最常用
         System.out.println(class1);//包名＋类名
 
-        Class class2 = Student.class;//一般作为参数传入synchronized()线程锁
+        Class<Student> class2 = Student.class;//一般作为参数传入synchronized()线程锁
         System.out.println(class2);
 
         Student student=new Student();
-        Class class3=student.getClass();
+        Class<? extends Student> class3=student.getClass();
         System.out.println(class3);
 
         System.out.println((class3==class2)+","+(class2==class1));//都为true
@@ -31,15 +32,15 @@ public class 反射 {
         //Constructor<?>[] getDeclaredConstructors()返回所有构造方法对象的数组
         //Constructor<T>[] getConstructors(Class<?>...parameterTypes)返回单个公共构造方法对象
         //Constructor<T>[] getDeclaredConstructors()返回单个构造方法对象
-        Constructor[]constructors1= class1.getConstructors();
-        for (Constructor con:constructors1){
+        Constructor<?>[]constructors1= class1.getConstructors();
+        for (Constructor<?> con:constructors1){
             System.out.println(con);//只能获取public类型
             //public 反射reflect.Student(java.lang.String,int)
             //public 反射reflect.Student()
         }
         System.out.println("------------------------");
-        Constructor[]constructors2= class1.getDeclaredConstructors();
-        for (Constructor con:constructors2){
+        Constructor<?>[]constructors2= class1.getDeclaredConstructors();
+        for (Constructor<?> con:constructors2){
             System.out.println(con);//获取顺序随机
             //protected 反射reflect.Student(int)
             //public 反射reflect.Student(java.lang.String,int)
@@ -48,10 +49,10 @@ public class 反射 {
         }
         System.out.println("------------------------");
         //获取单个指定类型的公共构造方法,不传参则获取无参构造
-        Constructor constructors3= class1.getConstructor(String.class,int.class);
+        Constructor<?> constructors3= class1.getConstructor(String.class,int.class);
         System.out.println(constructors3);//public 反射reflect.Student(java.lang.String,int)
         //获取单个指定参数类型的构造方法
-        Constructor constructors4= class1.getDeclaredConstructor(String.class);
+        Constructor<?> constructors4= class1.getDeclaredConstructor(String.class);
         System.out.println(constructors4);//private 反射reflect.Student(java.lang.String)
 
         //获取构造方法的权限修饰符与参数等
@@ -60,7 +61,7 @@ public class 反射 {
         // 1表示public,2表示private,4表示protected,8表示static,16表示final,32表示synchronized,64表示volatile
         // 128表示transient,256表示native,512表示interface,1024表示abstract,2048表示strict
         Parameter[] parameters = constructors4.getParameters();//获取全部参数
-        System.out.println(parameters);
+        System.out.println(Arrays.toString(parameters));
 
         //利用反射创建对象
         //T newInstance(Object...initargs)根据指定方法创造Constructor对象

@@ -29,7 +29,7 @@ public class 最xx深度 {
         MyTreeNode pop = null;
         int max = 0;//栈的最大高度
         MyLinkedListStackClass<MyTreeNode> stack = new MyLinkedListStackClass<>();
-        while (curr != null && !stack.isEmpty()) {
+        while (curr != null || !stack.isEmpty()) {
             if (curr != null) {
                 stack.push(curr);
                 int size = stack.size;
