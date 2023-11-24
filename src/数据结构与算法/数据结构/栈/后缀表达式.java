@@ -2,18 +2,16 @@ package 数据结构与算法.数据结构.栈;
 
 import java.util.Stack;
 
+//已测试:src.java.数据结构与算法.数据结构.栈.TestRPN
 public class 后缀表达式 {
-
-
     /**
      <div color=rgb(155,200,80)>
      <h1>后缀转前缀</h1>
-     不考虑错误输入
+     考虑错误输入,但输入必须合法
      后缀表达式 ~~~~~~~~ 前缀表达式<br>
      3 4 + ~~~~~~~~~~~ + 3 4<br>
      5 2 * 8 7 - + ~~~~~~~ + * 5 2 - 8 7<br>
      9 2 7 * - 8 3 / + ~~~~~ + - 9 * 2 7 / 8 3<br>
-
      </div>
      */
     public String change(String[] tokens) {
@@ -25,12 +23,9 @@ public class 后缀表达式 {
         for (String token : tokens) {
             switch (token) {
                 case "+", "-", "*", "/" -> {
-                    if (curr < 2) {//遇到双目运算符,算子需要大于等于2个
-                        throw new RuntimeException("不是正确的表达式");
-                    }
+                    if (curr < 2) throw new RuntimeException("不是正确的表达式");//遇到双目运算符,算子需要大于等于2个
                     curr--;//计算后,两个数合为1个数,算子减1
-                    //抛出两个数字,如果不够抛,从res里抛
-                    if (numStack.isEmpty()) {
+                    if (numStack.isEmpty()) {//抛出两个数字,如果不够抛,从res里抛
                         String s1 = res.pop();
                         String s2 = res.pop();
                         res.push(token + s2 + s1);
@@ -149,13 +144,11 @@ public class 后缀表达式 {
      优先级:右括号<左括号<加号<乘号
      </div>
      */
-    public String infixToSuffix(String tokens) {
-        Stack<Character> stack = new Stack<>();
-        StringBuilder stringBuilder = new StringBuilder(tokens.length());
-        for (int i = 0; i < tokens.length() - 1; i++) {
-            char c = tokens.charAt(i);
+    public String[] infixToSuffix(String[] tokens) {
+        Stack<String> stack = new Stack<>(), res = new Stack<>();
+        for (String c : tokens) {
             switch (c) {
-                case '*', '+', '-', '/' -> {
+                case "*", "+", "-", "/" -> {
                     if (stack.isEmpty()) {
                         stack.push(c);//空栈直接推入操作符
                     } else {
@@ -165,28 +158,28 @@ public class 后缀表达式 {
                         } else {
                             //输入操作符优先级低(或平级)时,栈内优先级高的和平级的都出栈,再操作符入栈
                             while (!stack.isEmpty() && priority(stack.peek()) >= priority(c)) {
-                                stringBuilder.append(stack.pop());
+                                res.push(stack.pop());
                             }
                             stack.push(c);
                         }
                     }
                 }
-                case '(' -> stack.push(c);//左括号直接入栈
-                case ')' -> {
+                case "(" -> stack.push(c);//左括号直接入栈
+                case ")" -> {
                     //右括号则出栈到左括号
-                    while (!stack.isEmpty() && stack.peek() != '(') {
-                        stringBuilder.append(stack.pop());
+                    while (!stack.isEmpty() && stack.peek() != "(") {
+                        res.push(stack.pop());
                     }
                     stack.pop();
                 }
-                default -> stringBuilder.append(c);
-            }
-            //处理剩余栈内操作符
-            while (!stack.isEmpty()) {
-                stringBuilder.append(stack.pop());
+                default -> res.push(c);
             }
         }
-        return stringBuilder.toString();
+        //处理剩余栈内操作符
+        while (!stack.isEmpty()) {
+            res.push(stack.pop());
+        }
+        return res.toArray(new String[0]);
     }
 
     /**
@@ -195,11 +188,11 @@ public class 后缀表达式 {
      @param c 运算符
      @return 优先级权重, int
      */
-    static int priority(char c) {
+    static int priority(String c) {
         return switch (c) {
-            case '*', '/' -> 2;
-            case '+', '-' -> 1;
-            case '(' -> 0;
+            case "*", "/" -> 2;
+            case "+", "-" -> 1;
+            case "(" -> 0;
             default -> throw new RuntimeException("运算符不合法");
         };
     }

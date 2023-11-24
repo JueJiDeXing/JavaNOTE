@@ -9,9 +9,10 @@ import java.util.List;
 import static 数据结构与算法.数据结构.二叉树.Node.RBNode.Color.BLACK;
 import static 数据结构与算法.数据结构.二叉树.Node.RBNode.Color.RED;
 
-
+//已测试:src.java.数据结构与算法.数据结构.二叉树.平衡搜索树.TestRBTree
 /**
- 平衡搜索树,旋转次数少于AVL树
+ <h1>红黑树</h1>
+ 一种平衡搜索树,旋转次数少于AVL树
  */
 public class RBTree {
 
@@ -26,9 +27,6 @@ public class RBTree {
      */
 
     public RBNode root;
-
-
-
 
 
     public RBTree() {
@@ -399,7 +397,6 @@ public class RBTree {
         List<List<Object>> lists = levelOrder(root);
         return lists.toString();
     }
-
 
 
 }

@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.二分查找.排序.各排序算法;
+package 数据结构与算法.算法.各排序算法;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

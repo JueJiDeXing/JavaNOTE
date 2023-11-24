@@ -1,5 +1,6 @@
 package 数据结构与算法.算法.排序.各排序算法;
 
+//已测试:src.java.数据结构与算法.算法.各排序算法
 /*
     算法     最好       最坏      平均      空间      稳定      思想    注意事项
     冒泡     O(n)     O(n^2)    O(n^2)    O(1)     Y        比较    最好情况需要额外判断
@@ -21,7 +22,7 @@ public class a冒泡 {
      优化:新加入了一个指针,每次确定更合适的右边界,以减少if判断次数
      </div>
      */
-    public  void bubbleSort1(int[] arr, int j) {
+    public void bubbleSort1(int[] arr, int j) {
         if (j == 0) {//排序已完成
             return;
         }

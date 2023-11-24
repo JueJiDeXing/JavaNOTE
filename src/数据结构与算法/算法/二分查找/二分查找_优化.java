@@ -1,7 +1,7 @@
 package 数据结构与算法.算法.二分查找;
 
+//已测试:src.java.数据结构与算法.算法.二分查找.BinarySearchTest
 public class 二分查找_优化 {
-
     /**
      <h1>二分查找:原始未优化版</h1>
      <p><strong>缺陷:</strong></p>
