@@ -24,8 +24,7 @@ public class 反射 {
         Student student=new Student();
         Class<? extends Student> class3=student.getClass();
         System.out.println(class3);
-
-        System.out.println((class3==class2)+","+(class2==class1));//都为true
+        //System.out.println((class3==class2)+","+(class2==class1));//都为true
 
         //利用反射获取构造方法----------------------------------------------
         //Constructor<?>[] getConstructors()返回所有公共构造方法对象的数组
