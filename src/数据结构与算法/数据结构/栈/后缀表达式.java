@@ -3,26 +3,24 @@ package 数据结构与算法.数据结构.栈;
 import java.util.Stack;
 
 public class 后缀表达式 {
-    public static void main(String[] args) {
-
-        System.out.println(change(new String[]{"1", "2", "+", "3", "4", "+", "*"}));
-    }
 
 
     /**
      <div color=rgb(155,200,80)>
      <h1>后缀转前缀</h1>
+     不考虑错误输入
+     后缀表达式 ~~~~~~~~ 前缀表达式<br>
+     3 4 + ~~~~~~~~~~~ + 3 4<br>
+     5 2 * 8 7 - + ~~~~~~~ + * 5 2 - 8 7<br>
+     9 2 7 * - 8 3 / + ~~~~~ + - 9 * 2 7 / 8 3<br>
+
      </div>
      */
-    public static String change(String[] tokens) {
-        /*
-        后缀表达式               前缀表达式
-        3 4 +                   + 3 4
-        5 2 * 8 7 - +           + * 5 2 - 8 7
-        9 2 7 * - 8 3 / +       + - 9 * 2 7 / 8 3
-         */
-        Stack<String> stack = new Stack<>();//存数字
-        Stack<String> res = new Stack<>();//存结果
+    public String change(String[] tokens) {
+        Stack<String> numStack = new Stack<>(), res = new Stack<>();//分别存数字和结果
+        if (tokens.length == 0) {
+            return "";
+        }
         int curr = 0;//计数器,表示当前可参与运算的数字个数,用于判断表达式是否合法
         for (String token : tokens) {
             switch (token) {
@@ -32,28 +30,32 @@ public class 后缀表达式 {
                     }
                     curr--;//计算后,两个数合为1个数,算子减1
                     //抛出两个数字,如果不够抛,从res里抛
-                    if (stack.isEmpty()) {
+                    if (numStack.isEmpty()) {
                         String s1 = res.pop();
                         String s2 = res.pop();
                         res.push(token + s2 + s1);
                     } else {
-                        String s2 = stack.pop();
+                        String s2 = numStack.pop();
                         String s1;
-                        if (stack.isEmpty()) {
-                            s1 = res.pop();
+                        if (numStack.isEmpty()) {
+                            s1 = res.pop();//s1是从res栈抛,那么数字栈抛出的数字是在s1前面还没运算的数
+                            res.push(token + s2 + s1);
                         } else {
-                            s1 = stack.pop();
+                            s1 = numStack.pop();
+                            res.push(token + s1 + s2);//两个都从数字栈抛,先抛的放后面
                         }
-                        res.push(token + s1 + s2);
                     }
                 }
                 default -> {
-                    stack.push(token);
+                    numStack.push(token);
                     curr++;//算子加1
                 }
             }
         }
-        if (!stack.isEmpty()) {
+        if (!numStack.isEmpty()) {
+            if (tokens.length == 1) {
+                return tokens[0];
+            }
             throw new RuntimeException("不是正确的表达式");
         }
         return res.pop();
@@ -147,7 +149,7 @@ public class 后缀表达式 {
      优先级:右括号<左括号<加号<乘号
      </div>
      */
-    public static String infixToSuffix(String tokens) {
+    public String infixToSuffix(String tokens) {
         Stack<Character> stack = new Stack<>();
         StringBuilder stringBuilder = new StringBuilder(tokens.length());
         for (int i = 0; i < tokens.length() - 1; i++) {
