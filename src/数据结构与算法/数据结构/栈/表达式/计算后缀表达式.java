@@ -2,6 +2,7 @@ package 数据结构与算法.数据结构.栈.表达式;
 
 import java.util.Stack;
 
+//已测试:src.java.数据结构与算法.数据结构.栈.TestEvalRPN
 public class 计算后缀表达式 {
     /**
      <div color=rgb(155,200,80)>

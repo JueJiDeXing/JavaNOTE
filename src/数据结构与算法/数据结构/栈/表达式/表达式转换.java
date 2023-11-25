@@ -60,48 +60,41 @@ public class 表达式转换 {
     /**
      <div color=rgb(155,200,80)>
      <h1>中缀转后缀</h1>
-     遇到操作符则入栈,如果遇到更低级(或平级)的操作符则弹出栈内的高级和平级运算符<br>
+     遇到操作符则入栈, 如果遇到更低级(或平级)的操作符 则弹出栈内的高级、平级运算符<br>
      a+b*c-d -> a 栈[+] -> ab 栈[+,*] -> abc*+ 栈[-] -> abc*+d-<br>
-     括号也当做运算符,左括号都直接入栈, 右括号出栈到左括号<br>
+     括号也当做运算符, 左括号直接入栈, 右括号出栈到左括号<br>
      (a+b*c-d)*e -> 栈[(] -> ab 栈[(,+] -> abc 栈[(,+,*] -> abc*+d 栈[(,-]
      -> abc*+d- 栈[] -> abc*+d-e 栈[*] -> abc*+d-e*<br>
-     优先级:右括号<左括号<加号<乘号
+     优先级: 右括号<左括号<加号<乘号
      </div>
      */
     public String[] infixToSuffix(String[] tokens) {
-        Stack<String> stack = new Stack<>(), res = new Stack<>();
+        Stack<String> operatorStack = new Stack<>(), res = new Stack<>();
         for (String c : tokens) {
             switch (c) {
                 case "*", "+", "-", "/" -> {
-                    if (stack.isEmpty()) {
-                        stack.push(c);//空栈直接推入操作符
-                    } else {
-                        if (priority(c) > priority(stack.peek())) {
-                            //优先级高的运算符需要入栈
-                            stack.push(c);
-                        } else {
-                            //输入操作符优先级低(或平级)时,栈内优先级高的和平级的都出栈,再操作符入栈
-                            while (!stack.isEmpty() && priority(stack.peek()) >= priority(c)) {
-                                res.push(stack.pop());
-                            }
-                            stack.push(c);
-                        }
+                    //输入操作符优先级低(或平级)时,栈内优先级高的和平级的都出栈,再入栈操作符
+                    while (!operatorStack.isEmpty() && priority(operatorStack.peek()) >= priority(c)) {
+                        res.push(operatorStack.pop());
                     }
+                    //空栈直接推入操作符 、 优先级高的运算符直接入栈
+                    operatorStack.push(c);
                 }
-                case "(" -> stack.push(c);//左括号直接入栈
+                case "(" -> operatorStack.push(c);//左括号直接入栈
                 case ")" -> {
                     //右括号则出栈到左括号
-                    while (!stack.isEmpty() && stack.peek() != "(") {
-                        res.push(stack.pop());
+                    while (!operatorStack.isEmpty()) {
+                        String pop = operatorStack.pop();
+                        if (pop.equals("(")) break;
+                        res.push(pop);
                     }
-                    stack.pop();
                 }
                 default -> res.push(c);
             }
         }
         //处理剩余栈内操作符
-        while (!stack.isEmpty()) {
-            res.push(stack.pop());
+        while (!operatorStack.isEmpty()) {
+            res.push(operatorStack.pop());
         }
         return res.toArray(new String[0]);
     }
