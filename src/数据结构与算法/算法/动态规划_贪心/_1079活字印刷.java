@@ -10,7 +10,7 @@ public class _1079活字印刷 {
         解释:可能的序列为"A","B","AA","AB","BA","AAB","ABA","BAA"
      */
     public int numTilePossibilities(String tiles) {
-        int[][] c = getC();//???????
+        int[][] c = getC();//TODO 待解析
 
         int[] count = new int[26];//统计字符对应个数
         int totalNum = tiles.length();//总个数

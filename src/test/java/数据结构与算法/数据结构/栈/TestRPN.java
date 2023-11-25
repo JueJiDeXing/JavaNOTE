@@ -1,38 +1,25 @@
 package 数据结构与算法.数据结构.栈;
 
 import org.junit.jupiter.api.Test;
+import 数据结构与算法.数据结构.栈.表达式.表达式转换;
 
 import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TestRPN {
-    后缀表达式 test = new 后缀表达式();
+    表达式转换 test = new 表达式转换();
 
     @Test
-    void change() {
-        assertEquals("1", test.change(new String[]{"1"}));
-        assertThrows(RuntimeException.class, () -> test.change(new String[]{"*"}));
-        assertEquals("+12", test.change(new String[]{"1", "2", "+"}));
-        assertEquals("*+12+34", test.change(new String[]{"1", "2", "+", "3", "4", "+", "*"}));
-        assertEquals("-1+23", test.change(new String[]{"1", "2", "3", "+", "-"}));
+    void suffixToInfix() {
+        assertEquals("1", test.suffixToInfix(new String[]{"1"}));
+        assertThrows(RuntimeException.class, () -> test.suffixToInfix(new String[]{"*"}));
+        assertEquals("+12", test.suffixToInfix(new String[]{"1", "2", "+"}));
+        assertEquals("*+12+34", test.suffixToInfix(new String[]{"1", "2", "+", "3", "4", "+", "*"}));
+        assertEquals("-1+23", test.suffixToInfix(new String[]{"1", "2", "3", "+", "-"}));
     }
 
-    @Test
-    void evalRPN() {
-        assertEquals(1, test.evalRPN(new String[]{"1"}));
-        assertEquals(3, test.evalRPN(new String[]{"1", "2", "+"}));
-        assertEquals(21, test.evalRPN(new String[]{"1", "2", "+", "3", "4", "+", "*"}));
-        assertEquals(-4, test.evalRPN(new String[]{"1", "2", "3", "+", "-"}));
-    }
 
-    @Test
-    void evalRPN2() {
-        assertEquals(1, test.evalRPN2(new String[]{"1"}));
-        assertEquals(3, test.evalRPN2(new String[]{"1", "2", "+"}));
-        assertEquals(21, test.evalRPN2(new String[]{"1", "2", "+", "3", "4", "+", "*"}));
-        assertEquals(-4, test.evalRPN2(new String[]{"1", "2", "3", "+", "-"}));
-    }
 
     @Test
     void infixToSuffix() {
