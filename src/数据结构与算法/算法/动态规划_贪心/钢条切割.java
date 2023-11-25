@@ -2,7 +2,7 @@ package 数据结构与算法.算法.动态规划_贪心;
 
 import java.util.Arrays;
 
-public class _钢条切割 {
+public class 钢条切割 {
     /*
     不同长度的钢条有不同价值
     输入:价值数组(索引表示长度,值表示价值),n(总长度)
