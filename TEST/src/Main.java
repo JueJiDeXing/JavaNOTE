@@ -57,21 +57,18 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        Scanner sc=new Scanner(System.in);
-        int n=sc.nextInt();
-        int[]arr=new int[n];
-        for(int i=0;i<n;i++){
-            arr[i]=sc.nextInt();
-        }
-        int count=0;
-        for(int i=1;i<n;i++){
-            int t=arr[i];
-            for(int j=0;j<i;j++){
-                if(arr[j]>t){
-                    count++;
-                }
-            }
-        }
-        System.out.println(count);
+
+        TreeSet<Integer>set=new TreeSet<>();
+        set.add(4);
+        set.add(1);
+        set.add(18);
+        set.add(3);
+        set.add(13);
+        System.out.println(set);
+        System.out.println(set.ceiling(3));
+        System.out.println(set.ceiling(4));
+        System.out.println(set.ceiling(5));
+        System.out.println(set.higher(4));
+        set.pollLast();
     }
 }

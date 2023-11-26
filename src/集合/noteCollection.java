@@ -10,7 +10,7 @@ public class noteCollection {
     //       List(有序,可重复)          Set(无序,不重复)
     //    ┌──────────┼───────x───┐       ┌───────┴───────┐
     // ArrayList  LinkedList  Vector   HashSet        TreeSet
-    //  (动态数组)     (双链表)      (淘汰)   (哈希表)         (树表)
+    //  (动态数组)     (双链表)    (淘汰)   (哈希表)         (树表)
     //                                   └──LinkedHashSet(双链哈希表)
 
     //二叉树:每个结点的子结点数≤2
@@ -29,8 +29,6 @@ public class noteCollection {
         //note_HashSet();
         //note_LinkedHashSet();
         //note_TreeSet();
-
-
     }
 
     private static void note_Collection() {
@@ -253,7 +251,15 @@ public class noteCollection {
             }
         });
 
-        //创建TreeSet调用的时TreeMap构造
+        /*
+        T .celling(T e)返回大于等于e的最小值 .floor(T e)
+        T .higher(T e)返回大于e的最小值 lower(T e)
+        T .first()返回首位 .last
+        T .pollFirst()抛出首位 .pollLast()
+        boolean .contain(Object o)判断是否存在
+        boolean .remove(Object o)删除
+
+         */
     }
 }
 

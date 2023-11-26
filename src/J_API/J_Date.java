@@ -122,11 +122,21 @@ public class J_Date {
 }
 
 class 一年的第几天 {
+    //输入年月日,输出是这一年的第几天
     public static void main(String[] args) throws ParseException {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         LocalDate date = LocalDate.parse(str);
         System.out.println(date.getDayOfYear());
+    }
+}
+class 几月几号{
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int year=sc.nextInt();
+        int day= sc.nextInt();
+        LocalDate date=LocalDate.ofYearDay(year,day);
+        System.out.println(date.getMonthValue()+"月"+date.getDayOfMonth()+"号");
     }
 }
 

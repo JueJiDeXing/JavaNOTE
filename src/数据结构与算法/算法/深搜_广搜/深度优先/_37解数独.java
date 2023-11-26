@@ -66,11 +66,11 @@ public class _37解数独 {
                 //继续搜索
                 if (dfs(board, i, j)) {//找到解
                     return true;
-                } else {
-                    //回溯
-                    updateMap(i, j, x, false);
-                    board[i][j] = '.';
                 }
+                //没找到解,说明刚填入的不行,回溯
+                updateMap(i, j, x, false);
+                board[i][j] = '.';
+
             }
         }
         return false;
