@@ -1,30 +1,21 @@
 package 数据结构与算法.算法.动态规划_贪心;
 
-import java.util.Arrays;
-import java.util.Scanner;
-
 public class 盒子与球 {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("请输入盒子:");
-        String a = sc.nextLine();
-
-        int[] res = move(a);
-        System.out.println(Arrays.toString(res));
-    }
+    /*
+    移动所有球到每个盒子所需的最小操作数
+    有n个盒子。给你一个长度为 n 的二进制字符串 boxes,
+    其中boxes[i]的值为'0'表示第i个盒子是空的,而 boxes[i] 的值为 '1' 表示盒子里有 一个 小球。
+    在一步操作中，你可以将一个小球从某个盒子移动到一个与之相邻的盒子中。
+    注意，操作执行后，某些盒子中可能会存在不止一个小球。
+    返回一个长度为 n 的数组 answer,其中answer[i]是将所有小球移动到第 i 个盒子所需的 最小 操作数。
+    每个answer[i]都需要根据盒子的 初始状态 进行计算。
+     */
 
     /**
-     移动所有球到每个盒子所需的最小操作数<br>
-     有n个盒子。给你一个长度为 n 的二进制字符串 boxes,其中boxes[i]的值为'0'表示第i个盒子是空的,而 boxes[i] 的值为 '1' 表示盒子里有 一个 小球。
-     <br>在一步操作中，你可以将一个小球从某个盒子移动到一个与之相邻的盒子中。<br>
-     第 i 个盒子和第 j 个盒子相邻需满足 abs(i - j) == 1 。
-     <br>注意，操作执行后，某些盒子中可能会存在不止一个小球。<br>
-     返回一个长度为 n 的数组 answer,其中answer[i]是将所有小球移动到第 i 个盒子所需的 最小 操作数。
-     <br>每个answer[i]都需要根据盒子的 初始状态 进行计算。
-
-     @param boxes 盒子
-     @return int[]res 答案
+     @param boxes 盒子,二进制字符串形式,0表示空,1表示有一个球
+     @return int[]res 答案从初始状态,将球都移到索引i位置的操作次数
      */
+
     private static int[] move(String boxes) {
         int length = boxes.length();
         int[] res = new int[length];
@@ -53,8 +44,6 @@ public class 盒子与球 {
 
         每一次循环,指针向右移动一位
         如果第j-1位是1,左侧小球数+1;如果第j位是1,计算过后出操作数后右侧小球-1
-
-
          */
         for (int j = 1; j < length; j++) {
             if (boxes.charAt(j - 1) == '1') {
