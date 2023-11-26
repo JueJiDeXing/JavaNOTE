@@ -1,8 +1,7 @@
 package 数据结构与算法.算法.动态规划_贪心;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import 数据结构与算法.算法.动态规划_贪心.动态规划.放积木;
 
 class TestBlockPlace {
 

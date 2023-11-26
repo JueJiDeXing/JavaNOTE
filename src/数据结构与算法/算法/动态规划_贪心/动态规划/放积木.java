@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.动态规划_贪心;
+package 数据结构与算法.算法.动态规划_贪心.动态规划;
 
 //已测试:src.java.数据结构与算法.算法.动态规划_贪心.TestBlockPlace
 public class 放积木 {

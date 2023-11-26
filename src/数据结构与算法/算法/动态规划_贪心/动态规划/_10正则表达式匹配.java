@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.动态规划_贪心;
+package 数据结构与算法.算法.动态规划_贪心.动态规划;
 
 public class _10正则表达式匹配 {
     /*
@@ -8,16 +8,17 @@ public class _10正则表达式匹配 {
     所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。
 
      示例:
-        s       p
-        aa      a       F
-        aa      a*      T
-        ab      .*      T
-        aab     c*a*b   T     c*匹配null a*匹配aa b匹配b
+        s       p       输出      注释
+        aa      a       F       a匹配第一个a,第二个a不匹配
+        ab      .*      T       .*匹配所有字符
+        aa      a*      T       a*匹配aa
+        aaab    a*      F       a*匹配aaa,b不匹配
+        aab     c*a*b   T       c*匹配null a*匹配aa b匹配b
 
      */
 
     /**
-     <h1>动态规划_贪心</h1>
+     <h1>动态规划</h1>
      <ul>
      <li>
      思路:<br>

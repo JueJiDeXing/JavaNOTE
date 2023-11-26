@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.动态规划_贪心;
+package 数据结构与算法.算法.动态规划_贪心.动态规划;
 
 public class 斐波那契 {
     public int fibonacci(int n) {
