@@ -11,13 +11,12 @@ public class _85最大矩形 {
      */
 
     /**
-     <ul>
-     <li>
-     思路 :<br>
+     <h2>思路 :</h2>
      假设矩阵只到第i行, 那么统计第i行上方连续1的个数, 可以得到一个柱状图<br>
      此时就与{@link _84柱状图中的最大矩形}是一样的了, 可以使用单调栈进行求解<br>
      那么, 可以以行遍历这个矩阵, 计算以每一行为基准柱状图的最大矩形面积, 记录这个过程中的最大值即可<br>
-     </li>
+     <hr>
+     <ul>
      <li>
      1. 如何求得每行所对应的柱状图 : <br>
      这是一个动态规划递推的过程<br>
@@ -69,30 +68,44 @@ public class _85最大矩形 {
         return ans;
     }
 
+    public static void main(String[] args) {
+        _85最大矩形 test = new _85最大矩形();
+        System.out.println(test.maximalRectangle2(new char[][]{{'1'}}));
+    }
+
+    /**
+     使用数组代替栈
+     */
     public int maximalRectangle2(char[][] mat) {
         int n = mat.length, m = mat[0].length, ans = 0;
-        int[][] sum = new int[n + 10][m + 10];
+        int[][] sum = new int[n + 1][m];//空第一行
         for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= m; j++) {
-                sum[i][j] = mat[i - 1][j - 1] == '0' ? 0 : sum[i - 1][j] + 1;
+            for (int j = 0; j < m; j++) {
+                sum[i][j] = mat[i - 1][j] == '0' ? 0 : sum[i - 1][j] + 1;
             }
         }
-        int[] l = new int[m], r = new int[m];
-        for (int i = 1; i <= n; i++) {
-            int[] cur = sum[i];
+        int[] l = new int[m], r = new int[m], d = new int[m];//left,right,stack栈
+        for (int i = 1; i <= n; i++) {//sum空了第一行,i从1开始
+            int[] hs = sum[i];
             Arrays.fill(l, -1);
             Arrays.fill(r, m);
-            Deque<Integer> d = new ArrayDeque<>();
-            for (int j = 1; j <= m; j++) {
-                while (!d.isEmpty() && cur[d.peekLast()] > cur[j]) r[d.pollLast()] = j;
-                d.addLast(j);
+            int k = 0;//栈内元素个数
+            for (int j = 0; j < m; j++) {
+                while (k != 0 && hs[d[k - 1]] > hs[j]) {
+                    r[d[--k]] = j;
+                }
+                d[k++] = j;
             }
-            d.clear();
+            k = 0;
             for (int j = m - 1; j >= 0; j--) {
-                while (!d.isEmpty() && cur[d.peekLast()] > cur[j]) l[d.pollLast()] = j;
-                d.addLast(j);
+                while (k != 0 && hs[d[k - 1]] > hs[j]) {
+                    l[d[--k]] = j;
+                }
+                d[k++] = j;
             }
-            for (int j = 0; j < m; j++) ans = Math.max(ans, cur[j] * (r[j] - l[j] - 1));
+            for (int j = 0; j < m; j++) {
+                ans = Math.max(ans, hs[j] * (r[j] - l[j] - 1));
+            }
         }
         return ans;
     }
