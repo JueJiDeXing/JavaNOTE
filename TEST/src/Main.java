@@ -56,129 +56,75 @@ public class Main {
     TreeSet<Integer> ______;
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         Main test = new Main();
-        System.out.println(test.queensAttacktheKing(new int[][]{{0, 1}, {1, 0}, {4, 0}, {0, 4}, {3, 3}, {2, 4}}, new int[]{0, 0}));
+        System.out.println(test.cal(new int[][]{
+                {1, 2, 3, 4},
+                {2, 3, 4, 6},
+                {6, 5, 4, 3}
+        }));
     }
 
-    public List<List<Integer>> queensAttacktheKing(int[][] queens, int[] king) {
-        int[][] rowQueens = new int[7][2], colQueens = new int[7][2];
-        int[][] mainDiagonalQueens = new int[7][2], subDiagonalQueens = new int[7][2];
-        int i1 = 0, i2 = 0, i3 = 0, i4 = 0;
-        for (int[] pos : queens) {
-            if (pos[1] == king[1]) {
-                rowQueens[i1++] = pos;
-            } else if (pos[0] == king[0]) {
-                colQueens[i2++] = pos;
-            } else if (pos[0] - pos[1] == king[0] - king[1]) {
-                mainDiagonalQueens[i3++] = pos;
-            } else if (pos[0] + pos[1] == king[0] + king[1]) {
-                subDiagonalQueens[i4++] = pos;
-            }
-        }
-        List<List<Integer>> ans = new ArrayList<>();
-        //固定列
-        outer1:
-        for (int i = king[0] - 1; i >= 0; i--) {//向上
-            for (int k = 0; k < i1; k++) {
-                if (i == rowQueens[k][0]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(i);
-                    r.add(king[1]);
-                    ans.add(r);
-                    break outer1;
+    /**
+     <h1>暴力枚举</h1>
+     对于一支股票,要画在一幅图上,它需要与这幅图上的所有股票都保持严格大于或严格小于的关系
+     遍历所有图,判断当前股票是否能插入到图中,如果不能插入则新建一幅图,图数+1
+
+     @param mat n支股票
+     @return 股票最少画多少幅图
+     */
+    public int cal(int[][] mat) {
+        int n = mat.length;//n支股票
+        List<Integer>[] map = new ArrayList[n];//map[i]表示第i幅图画了哪些股票
+        List<Integer> first = new ArrayList();//第一幅图
+        first.add(0);//画第1支(索引0)股票
+        map[0] = first;//第一幅图
+        int count = 1;//图的数量
+        for (int i = 1; i < n; i++) {
+            int[] s = mat[i];
+            boolean canInsert = false;
+            //将股票mat[i]插在哪幅图上
+            outer:
+            for (List<Integer> m : map) {
+                if (m == null) continue;
+                for (Integer index : m) {//图m是否与第i支股票没有交叉
+                    if (!isStrictly(s, mat[index])) {
+                        //如果某支股票不是严格大于或严格小于的,则判断下一幅图
+                        continue outer;
+                    }
                 }
+                //没有交叉,图m可以画第i支股票
+                m.add(i);
+                canInsert = true;
+                break;
+            }
+            if (!canInsert) {//不能画
+                //新建一幅图
+                List<Integer> newMap = new ArrayList<>();
+                newMap.add(i);
+                map[count++] = newMap;
             }
         }
-        outer2:
-        for (int i = king[0] + 1; i < 8; i++) {//向下
-            for (int k = 0; k < i1; k++) {
-                if (i == rowQueens[k][0]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(i);
-                    r.add(king[1]);
-                    ans.add(r);
-                    break outer2;
-                }
-            }
-        }
-        //固定行
-        outer3:
-        for (int i = king[1] - 1; i >= 0; i--) {//向左
-            for (int k = 0; k < i2; k++) {
-                if (i == colQueens[k][1]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(king[1]);
-                    r.add(i);
-                    ans.add(r);
-                    break outer3;
-                }
-            }
-        }
-        outer4:
-        for (int i = king[1] + 1; i < 8; i++) {//向右
-            for (int k = 0; k < i2; k++) {
-                if (i == colQueens[k][1]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(king[1]);
-                    r.add(i);
-                    ans.add(r);
-                    break outer4;
-                }
-            }
-        }
-        //主对角线
-        outer5:
-        for (int i = king[0] - 1, j = king[1] - 1; i >= 0 && j >= 0; i--, j--) {//向左上
-            for (int k = 0; k < i3; k++) {
-                if (i == mainDiagonalQueens[k][0] && j == mainDiagonalQueens[k][1]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(i);
-                    r.add(j);
-                    ans.add(r);
-                    break outer5;
-                }
-            }
-        }
-        outer6:
-        for (int i = king[0] + 1, j = king[1] + 1; i < 8 && j < 8; i++, j++) {//向右下
-            for (int k = 0; k < i3; k++) {
-                if (i == mainDiagonalQueens[k][0] && j == mainDiagonalQueens[k][1]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(i);
-                    r.add(j);
-                    ans.add(r);
-                    break outer6;
-                }
-            }
-        }
-        //副对角线
-        outer7:
-        for (int i = king[0] + 1, j = king[1] - 1; i < 8 && j >= 0; i++, j--) {//向右上
-            for (int k = 0; k < i4; k++) {
-                if (i == subDiagonalQueens[k][0] && j == subDiagonalQueens[k][1]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(i);
-                    r.add(j);
-                    ans.add(r);
-                    break outer7;
-                }
-            }
-        }
-        outer8:
-        for (int i = king[0] - 1, j = king[1] + 1; i >= 0 && j < 8; i--, j++) {//向左下
-            for (int k = 0; k < i4; k++) {
-                if (i == subDiagonalQueens[k][0] && j == subDiagonalQueens[k][1]) {
-                    List<Integer> r = new ArrayList<>();
-                    r.add(i);
-                    r.add(j);
-                    ans.add(r);
-                    break outer8;
-                }
-            }
-        }
-        return ans;
+        return count;//返回图的数量
     }
 
-
+    /**
+     是否严格大于或严格小于
+     */
+    private boolean isStrictly(int[] s1, int[] s2) {
+        if (s1[0] > s2[0]) {
+            for (int i = 0; i < s1.length; i++) {
+                if (s1[i] < s2[i]) {
+                    return false;
+                }
+            }
+        } else {
+            for (int i = 0; i < s1.length; i++) {
+                if (s1[i] > s2[i]) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
