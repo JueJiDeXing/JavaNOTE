@@ -58,73 +58,50 @@ public class Main {
 
     public static void main(String[] args) {
         Main test = new Main();
-        System.out.println(test.cal(new int[][]{
-                {1, 2, 3, 4},
-                {2, 3, 4, 6},
-                {6, 5, 4, 3}
-        }));
+        System.out.println(4 ^ 5 ^ 13 ^ 12);
+        int[] arr = {13, 2, 8, 6, 16, 4, 12, 15, 11, 14, 1, 7, 3, 9, 5, 10};
+        int[][] mat = {
+                {1, 3, 6, 16},
+                {14, 7, 11, 10},
+                {4, 5, 13, 12},
+                {15, 2, 8, 9}
+        };
+        //System.out.println(test.firstCompleteIndex(arr, mat));
     }
 
-    /**
-     <h1>暴力枚举</h1>
-     对于一支股票,要画在一幅图上,它需要与这幅图上的所有股票都保持严格大于或严格小于的关系
-     遍历所有图,判断当前股票是否能插入到图中,如果不能插入则新建一幅图,图数+1
-
-     @param mat n支股票
-     @return 股票最少画多少幅图
-     */
-    public int cal(int[][] mat) {
-        int n = mat.length;//n支股票
-        List<Integer>[] map = new ArrayList[n];//map[i]表示第i幅图画了哪些股票
-        List<Integer> first = new ArrayList();//第一幅图
-        first.add(0);//画第1支(索引0)股票
-        map[0] = first;//第一幅图
-        int count = 1;//图的数量
-        for (int i = 1; i < n; i++) {
-            int[] s = mat[i];
-            boolean canInsert = false;
-            //将股票mat[i]插在哪幅图上
-            outer:
-            for (List<Integer> m : map) {
-                if (m == null) continue;
-                for (Integer index : m) {//图m是否与第i支股票没有交叉
-                    if (!isStrictly(s, mat[index])) {
-                        //如果某支股票不是严格大于或严格小于的,则判断下一幅图
-                        continue outer;
-                    }
-                }
-                //没有交叉,图m可以画第i支股票
-                m.add(i);
-                canInsert = true;
-                break;
-            }
-            if (!canInsert) {//不能画
-                //新建一幅图
-                List<Integer> newMap = new ArrayList<>();
-                newMap.add(i);
-                map[count++] = newMap;
-            }
+    public int robotSim(int[] commands, int[][] obstacles) {
+        int[][] dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+        int currX = 0, currY = 0, d = 1;
+        //存储障碍物
+        Set<Integer> set = new HashSet<>();
+        for (int[] obstacle : obstacles) {
+            set.add(obstacle[0] * 60001 + obstacle[1]);//行坐标乘六万,用一个数字存储位置信息
         }
-        return count;//返回图的数量
-    }
-
-    /**
-     是否严格大于或严格小于
-     */
-    private boolean isStrictly(int[] s1, int[] s2) {
-        if (s1[0] > s2[0]) {
-            for (int i = 0; i < s1.length; i++) {
-                if (s1[i] < s2[i]) {
-                    return false;
+        int res = 0;//记录最大距离
+        for (int command : commands) {
+            //转向指令
+            if (command < 0) {
+                d += command == -1 ? 1 : -1;
+                d %= 4;
+                if (d < 0) {
+                    d += 4;
                 }
+                continue;
             }
-        } else {
-            for (int i = 0; i < s1.length; i++) {
-                if (s1[i] > s2[i]) {
-                    return false;
+            //前进指令
+            int dx = dirs[d][0];//前进方向
+            int dy = dirs[d][1];
+            for (int i = 0; i < command; i++) {//前进command步
+                //如果下一个位置遇到障碍物则停止前进
+                if (set.contains((currX + dx) * 60001 + currY + dy)) {
+                    break;
                 }
+                //前进
+                currX += dx;
+                currY += dy;
             }
+            res = Math.max(res, currX * currX + currY * currY);
         }
-        return true;
+        return res;
     }
 }
