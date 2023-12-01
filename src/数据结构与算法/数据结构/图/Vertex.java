@@ -10,14 +10,14 @@ import java.util.Objects;
  */
 @Data
 public class Vertex {
-    String name;
-    List<Edge> edges;//与顶点连接的边
-    boolean visited = false;//是否被访问过
-    int inDegree;//入度
-    int outDegree;//出度
-    int status;//0-未访问 1-访问中 2-已访问
-    int distance = Integer.MAX_VALUE;//和起点的距离
-    Vertex prev = null;//上级(最短路径)
+   public String name;
+   public List<Edge> edges;//与顶点连接的边
+   public boolean visited = false;//是否被访问过
+   public int inDegree;//入度
+   public int outDegree;//出度
+   public int status;//0-未访问 1-访问中 2-已访问
+   public int distance = Integer.MAX_VALUE;//和起点的距离
+   public Vertex prev = null;//上级(最短路径)
 
     @Override
     public boolean equals(Object o) {

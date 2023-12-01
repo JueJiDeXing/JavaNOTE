@@ -93,10 +93,11 @@ class AVLTree {
         }
     }
 
-
+    /**
+     添加一个节点(键值对)到AVL树
+     */
     public void put(int key, Object value) {
         root = doPut(root, key, value);
-
     }
 
     private AVLNode doPut(AVLNode node, int key, Object value) {
@@ -119,6 +120,9 @@ class AVLTree {
         return balance(node);//检查失衡,返回子树根节点
     }
 
+    /**
+     从AVL树中删除一个节点(根据key)
+     */
     public void remove(int key) {
         root = doRemove(root, key);
     }

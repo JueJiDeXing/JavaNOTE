@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Data
 public class Edge implements Comparable<Edge> {
-    Vertex linked;//终点
+    public Vertex linked;//终点
     public int from;//起点距离
     public int to;//终点距离
     public Edge(int from, int to, int weight) {
@@ -18,10 +18,10 @@ public class Edge implements Comparable<Edge> {
         this.weight = weight;
     }
 
-    List<Vertex> vertices;
-    int start;
-    int weight;//边权
-    int end;
+   public List<Vertex> vertices;
+   public int start;
+   public int weight;//边权
+   public int end;
 
 
     public Edge(List<Vertex> vertices, int start, int end,int weight ) {

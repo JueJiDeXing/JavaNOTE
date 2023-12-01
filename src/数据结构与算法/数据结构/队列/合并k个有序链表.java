@@ -16,7 +16,7 @@ public class 合并k个有序链表 {
         }
         ListNode s = new ListNode(-1, null);//哨兵
         ListNode t = s;//尾指针
-        while (!heap.isEmpty()) {//从堆顶(最小)移除元素,并添加到新链尾
+        while (!heap.isEmpty()) {//从堆顶(最小生成树)移除元素,并添加到新链尾
             ListNode min = heap.poll();
             t.next = min;
             t = min;

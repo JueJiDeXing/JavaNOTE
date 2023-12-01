@@ -9,18 +9,14 @@ public class _395至少有K个重复字符的最长子串 {
     输出：5
     解释：最长子串为 "ababb" ，其中 'a' 重复了 2 次， 'b' 重复了 3 次。
      */
-    public static void main(String[] args) {
-        System.out.println(longestSubstring("ababbc", 2));//len(ababb)=5
-        System.out.println(longestSubstring("ababbc", 3));//0
-        System.out.println(longestSubstring("dddxaabaaabaacciiiiefbff", 3));//0
-    }
 
-    /*
-    思路:以少于K的字符分隔,子串递归分隔...
-    s="dddxaabaaabaacciiiiefbff", k=3
-    -> ddd aabaabaa  iiii fbff
-    -> 3 aa aa aa  4 f ff
-    ->4
+    /**
+     <h1>分治思想</h1>
+     思路:以少于K的字符分隔,子串递归分隔...<br>
+     s="dddxaabaaabaacciiiiefbff", k=3<br>
+     -> ddd aabaabaa  iiii fbff<br>
+     -> 3 aa aa aa  4 f ff<br>
+     ->4<br>
      */
     public static int longestSubstring(String s, int k) {
         if (s.length() < k) {//子串落选
