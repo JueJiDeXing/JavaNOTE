@@ -2,13 +2,18 @@ package 数据结构与算法.算法.数论;
 
 import java.util.Scanner;
 
-public class 微分_地图大小 {
+public class 微分思想_地图大小 {
     /*
     输入整数n,表示有n块地图
     然后输入n行,每行四个浮点数x1,y1,x2,y2
     (x1,y1)为左上角,(x2,y2)为右下角,构成一个地图块
     求地图的总面积(n个地图块的并集),精确到小数点后两位
     0 <= x,y <= 10^5
+     */
+
+    /**
+      TODO 地图在中间有缺块, y是分离的, 如何处理,
+       要得到精确结果应当使用线段树{@link 数据结构与算法.数据结构.二叉树.线段树.SegmentTree}
      */
     public static void main(String[] args) {
         /*
@@ -53,8 +58,6 @@ public class 微分_地图大小 {
      获取x=x0时y的max和min
      */
     private static double[] getY(double x0, int n, double[] x1, double[] y1, double[] x2, double[] y2) {
-        //TODO 地图在中间有缺块,y是分离的,如何处理
-        // 使用线段树做法
         double y_max = 0;
         double y_min = 9999999;
         for (int i = 0; i < n; i++) {//遍历所有地图块

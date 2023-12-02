@@ -29,6 +29,4 @@ public class b选择 {
         arr[i] = arr[j];
         arr[j] = t;
     }
-
-
 }

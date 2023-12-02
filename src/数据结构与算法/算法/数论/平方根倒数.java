@@ -1,13 +1,12 @@
 package 数据结构与算法.算法.数论;
 
 public class 平方根倒数 {
-    public static void main(String[] args) {
+    void dir() {
         Q_rsqrt(1.0F);//源码
         Q_rsqrt2();//修改后代码 C标准
         Q_rsqrt3();//修改后代码 C++20
         //TODO 寻找java版本
         算法解析();
-
     }
 
     /**
@@ -15,7 +14,7 @@ public class 平方根倒数 {
      该算法已经是很久远的算法了,现在用的是64位操作系统，很多long不是32位而是64位，跟32位的float对不齐<br>
      所以需要进行修改才能使用
      */
-    static float Q_rsqrt(float number) {
+    public float Q_rsqrt(float number) {
         long i;
         float x2, y;
         float threehalfs = 1.5F;
@@ -30,7 +29,7 @@ public class 平方根倒数 {
         return y;
     }
 
-    static void Q_rsqrt2() {
+    public void Q_rsqrt2() {
         /*
         #include <stdint.h> // uint32_t
 
@@ -57,7 +56,7 @@ public class 平方根倒数 {
          */
     }
 
-    static void Q_rsqrt3() {
+    public void Q_rsqrt3() {
         /*
         //注意需要C++20标准
 
@@ -72,7 +71,7 @@ public class 平方根倒数 {
          */
     }
 
-    static void 算法解析() {
+    public void 算法解析() {
     /*
     前置知识:浮点数的二进制存储
         0          0000_0000    0000_0000_0000_0000_0000_000

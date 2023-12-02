@@ -1,11 +1,11 @@
-package 数据结构与算法.算法.字符串;
+package 数据结构与算法.算法.数论.模拟;
 
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestMultiplyString {
 
