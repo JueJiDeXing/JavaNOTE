@@ -16,12 +16,13 @@ public class _99恢复二叉搜索树 {
 
     public void recoverTree(TreeNode root) {
         dfs(root);
-        if (x != null && y != null) {
-            //如果x和y都不为空，说明二叉搜索树出现错误的节点，将其交换
-            int tmp = x.val;
-            x.val = y.val;
-            y.val = tmp;
+        if (x == null || y == null) {
+            throw new RuntimeException();
         }
+        //如果x和y都不为空，说明二叉搜索树出现错误的节点，将其交换
+        int tmp = x.val;
+        x.val = y.val;
+        y.val = tmp;
     }
 
     //中序遍历
