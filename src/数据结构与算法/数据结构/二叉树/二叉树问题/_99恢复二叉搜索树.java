@@ -2,7 +2,7 @@ package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
 import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 
-public class 恢复二叉搜索树 {
+public class _99恢复二叉搜索树 {
     //有两个节点的值被交换的二叉搜索树
     /*
     相当于一个升序数组被交换了两个位置的值
@@ -16,8 +16,8 @@ public class 恢复二叉搜索树 {
 
     public void recoverTree(TreeNode root) {
         dfs(root);
-        //如果x和y都不为空，说明二叉搜索树出现错误的节点，将其交换
         if (x != null && y != null) {
+            //如果x和y都不为空，说明二叉搜索树出现错误的节点，将其交换
             int tmp = x.val;
             x.val = y.val;
             y.val = tmp;
@@ -30,19 +30,15 @@ public class 恢复二叉搜索树 {
             return;
         }
         dfs(node.left);
-
-        if (pre == null) {
-            pre = node;
-        } else {
+        if (pre != null) {
             if (pre.val > node.val) {//逆序
                 y = node;
                 if (x == null) {
                     x = pre;
                 }
             }
-            pre = node;
         }
-
+        pre = node;
         dfs(node.right);
     }
 }
