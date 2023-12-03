@@ -1,6 +1,7 @@
 package 数据结构与算法.数据结构.二叉树.线段树;
 
 public class SegmentTreeArray {
+    //使用数组表达的线段树
     int MAXN;
     int[] arr;
     int[] sum;

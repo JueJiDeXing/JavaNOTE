@@ -11,21 +11,6 @@ public class Prim {
     public static void main(String[] args) {
         Prim test = new Prim();
         /*
-                   3
-              v1------ v3                     v1      v3
-            1/  2\  4/  2\                  1/  2\  4/  2\
-           v0     v2     v4                v0     v2     v4
-            5\    4\   /2                               /2
-               ----- v5                               v5
-
-         */
-        int[][] graph = new int[][]{{0, 1, 0, 0, 0, 5}, {1, 0, 2, 3, 0, 0}, {0, 2, 0, 4, 0, 4}, {0, 3, 4, 0, 2, 0}, {0, 0, 0, 2, 0, 2}, {5, 0, 4, 0, 2, 0}};
-        List<int[]> prev = test.prim2(graph);
-        for (int[] p : prev) {
-            System.out.print("(" + p[0] + "," + p[1] + ") ");
-        }
-        System.out.println();
-               /*
                    2                              2
               v1------ v3                     v1 ---- v3
             1/  6\  4/  2\                  1/          2\

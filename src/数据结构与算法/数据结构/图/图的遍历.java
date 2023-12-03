@@ -13,7 +13,6 @@ public class 图的遍历 {
        v1----v3     v5
          \     \   /
            ---- v6
-
          */
         Vertex v1 = new Vertex("v1");
         Vertex v2 = new Vertex("v2");
