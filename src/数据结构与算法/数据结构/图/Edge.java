@@ -9,22 +9,24 @@ import java.util.List;
  */
 @Data
 public class Edge implements Comparable<Edge> {
+    //以下属性自行选择添加
     public Vertex linked;//终点
     public int from;//起点距离
     public int to;//终点距离
+    public List<Vertex> vertices;
+    public int start;
+    public int weight;//边权
+    public int end;
+
+
     public Edge(int from, int to, int weight) {
         this.from = from;
         this.to = to;
         this.weight = weight;
     }
 
-   public List<Vertex> vertices;
-   public int start;
-   public int weight;//边权
-   public int end;
 
-
-    public Edge(List<Vertex> vertices, int start, int end,int weight ) {
+    public Edge(List<Vertex> vertices, int start, int end, int weight) {
         this.weight = weight;
         this.vertices = vertices;
         this.start = start;
@@ -42,11 +44,11 @@ public class Edge implements Comparable<Edge> {
 
     @Override
     public String toString() {
-        return vertices.get(start).name+"<->"+vertices.get(end).name+"("+weight+")";
+        return vertices.get(start).name + "<->" + vertices.get(end).name + "(" + weight + ")";
     }
 
     @Override
     public int compareTo(Edge o) {
-        return Integer.compare(this.weight,o.weight);
+        return Integer.compare(this.weight, o.weight);
     }
 }

@@ -1,8 +1,8 @@
 package 数据结构与算法.数据结构.图;
 
-import java.util.*;
-
-import static 数据结构与算法.数据结构.图.三种最短路径算法.FloydWarshall;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 
 public class 图的遍历 {
@@ -34,7 +34,7 @@ public class 图的遍历 {
         graph.add(v4);
         graph.add(v5);
         graph.add(v6);
-        FloydWarshall(graph);
+
     }
 
     /**

@@ -55,18 +55,30 @@ public class Main {
     HashMap<Integer, Integer> _____;
     TreeSet<Integer> ______;
 
+    static class Pair {
+        String s;
+        Integer p = 1;
+
+        public Pair(String s, Integer p) {
+            this.s = s;
+            this.p = p;
+        }
+
+        public Pair(Integer p) {
+            this.p = p;
+        }
+
+        @Override
+        public String toString() {
+            return "Pair{" +
+                    "s='" + s + '\'' +
+                    ", p=" + p +
+                    '}';
+        }
+    }
 
     public static void main(String[] args) {
-        Main test = new Main();
-        System.out.println(4 ^ 5 ^ 13 ^ 12);
-        int[] arr = {13, 2, 8, 6, 16, 4, 12, 15, 11, 14, 1, 7, 3, 9, 5, 10};
-        int[][] mat = {
-                {1, 3, 6, 16},
-                {14, 7, 11, 10},
-                {4, 5, 13, 12},
-                {15, 2, 8, 9}
-        };
-        //System.out.println(test.firstCompleteIndex(arr, mat));
+
     }
 
     public int robotSim(int[] commands, int[][] obstacles) {
