@@ -60,7 +60,7 @@ public class FloydWarshall多源最短路径 {
         int[][] prev = ints[1];
         System.out.println(Arrays.deepToString(distance));
         System.out.println(Arrays.deepToString(prev));
-        test.printPath(prev, 0, 2);
+        BellManFord单源最短路径.printPath(prev[0], 0, 2);
 
     }
 
@@ -216,25 +216,6 @@ public class FloydWarshall多源最短路径 {
         return new int[][][]{distance, prev};
     }
 
-    private void printPath(int[][] prev, int from, int to) {
-        int i = to;
-        int[] p = new int[prev.length];
-        int[] path = prev[from];
-        int k = 0;
-        while (i != from) {
-            p[k++] = i;
-            i = path[i];
-            if (i == -1) {
-                System.out.printf("(%d -> %d)没有可到达的路径", from, to);
-                return;
-            }
-        }
-        while (k >= 0) {
-            System.out.print(p[k]);
-            if (k != 0) System.out.print("->");
-            k--;
-        }
-    }
 
     /**
      <h1>例题</h1>

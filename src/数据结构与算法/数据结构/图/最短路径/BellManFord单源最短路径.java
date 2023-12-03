@@ -156,7 +156,7 @@ public class BellManFord单源最短路径 {
      @param from 起点
      @param to   终点
      */
-    private static void printPath(int[] path, int from, int to) {
+    public static void printPath(int[] path, int from, int to) {
         int i = to;
         int[] p = new int[path.length];
         int k = 0;

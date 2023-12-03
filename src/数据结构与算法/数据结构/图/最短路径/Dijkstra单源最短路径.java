@@ -2,6 +2,8 @@ package 数据结构与算法.数据结构.图.最短路径;
 
 import java.util.*;
 
+import static 数据结构与算法.数据结构.图.最短路径.BellManFord单源最短路径.printPath;
+
 
 class Edge1 implements Comparable<Edge1> {
     public Vertex1 linked;//终点
@@ -68,7 +70,7 @@ public class Dijkstra单源最短路径 {
         int[] prev = ints[1];
         System.out.println(Arrays.toString(distance));
         System.out.println(Arrays.toString(prev));
-        test.printPath(prev, 0, 2);
+        printPath(prev, 0, 2);
     }
 
     /**
@@ -233,25 +235,6 @@ public class Dijkstra单源最短路径 {
                 distance[i] = newDistance;
                 prev[i] = v;//记录最短路径时的上级
             }
-        }
-    }
-
-    private void printPath(int[] path, int from, int to) {
-        int i = to;
-        int[] p = new int[path.length];
-        int k = 0;
-        while (i != from) {
-            p[k++] = i;
-            i = path[i];
-            if (i == -1) {
-                System.out.printf("(%d -> %d)没有可到达的路径", from, to);
-                return;
-            }
-        }
-        while (k >= 0) {
-            System.out.print(p[k]);
-            if (k != 0) System.out.print("->");
-            k--;
         }
     }
 
