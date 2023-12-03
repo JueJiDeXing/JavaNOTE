@@ -78,42 +78,34 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
+        Main test = new Main();
+        System.out.println(test.maxScore(new int[]{1, 2, 3, 4, 5, 6, 1}, 3));
     }
 
-    public int robotSim(int[] commands, int[][] obstacles) {
-        int[][] dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
-        int currX = 0, currY = 0, d = 1;
-        //存储障碍物
-        Set<Integer> set = new HashSet<>();
-        for (int[] obstacle : obstacles) {
-            set.add(obstacle[0] * 60001 + obstacle[1]);//行坐标乘六万,用一个数字存储位置信息
+    //连续子数组最小和
+    public int maxScore(int[] cardPoints, int k) {
+        int n = cardPoints.length - k;
+        int sum = 0;
+        for (int p : cardPoints) {
+            sum += p;
         }
-        int res = 0;//记录最大距离
-        for (int command : commands) {
-            //转向指令
-            if (command < 0) {
-                d += command == -1 ? 1 : -1;
-                d %= 4;
-                if (d < 0) {
-                    d += 4;
-                }
-                continue;
-            }
-            //前进指令
-            int dx = dirs[d][0];//前进方向
-            int dy = dirs[d][1];
-            for (int i = 0; i < command; i++) {//前进command步
-                //如果下一个位置遇到障碍物则停止前进
-                if (set.contains((currX + dx) * 60001 + currY + dy)) {
-                    break;
-                }
-                //前进
-                currX += dx;
-                currY += dy;
-            }
-            res = Math.max(res, currX * currX + currY * currY);
+        if (n == 0) return sum;
+        return sum - minSum(cardPoints, n);
+    }
+
+    public int minSum(int[] arr, int n) {
+        int min = Integer.MAX_VALUE;
+        int[] prev = new int[arr.length + 1];
+        prev[0] = 0;
+        for (int i = 1; i <= arr.length; i++) {
+            prev[i] = arr[i - 1] + prev[i - 1];
         }
-        return res;
+        for (int i = n - 1; i < arr.length; i++) {
+            int sum = prev[i] - prev[i - n];
+            if (sum < min) {
+                min = sum;
+            }
+        }
+        return min;
     }
 }
