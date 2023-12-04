@@ -55,57 +55,28 @@ public class Main {
     HashMap<Integer, Integer> _____;
     TreeSet<Integer> ______;
 
-    static class Pair {
-        String s;
-        Integer p = 1;
-
-        public Pair(String s, Integer p) {
-            this.s = s;
-            this.p = p;
-        }
-
-        public Pair(Integer p) {
-            this.p = p;
-        }
-
-        @Override
-        public String toString() {
-            return "Pair{" +
-                    "s='" + s + '\'' +
-                    ", p=" + p +
-                    '}';
-        }
-    }
 
     public static void main(String[] args) {
         Main test = new Main();
-        System.out.println(test.maxScore(new int[]{1, 2, 3, 4, 5, 6, 1}, 3));
+
     }
 
-    //连续子数组最小和
-    public int maxScore(int[] cardPoints, int k) {
-        int n = cardPoints.length - k;
-        int sum = 0;
-        for (int p : cardPoints) {
-            sum += p;
+    static class Pair {
+        String s;
+        Integer freq = 0;
+
+        public Pair(String str) {
+            s = str;
         }
-        if (n == 0) return sum;
-        return sum - minSum(cardPoints, n);
     }
 
-    public int minSum(int[] arr, int n) {
-        int min = Integer.MAX_VALUE;
-        int[] prev = new int[arr.length + 1];
-        prev[0] = 0;
-        for (int i = 1; i <= arr.length; i++) {
-            prev[i] = arr[i - 1] + prev[i - 1];
-        }
-        for (int i = n - 1; i < arr.length; i++) {
-            int sum = prev[i] - prev[i - n];
-            if (sum < min) {
-                min = sum;
-            }
-        }
-        return min;
+    Map<String, Pair> map = new HashMap<>();
+    Map<Pair, Integer> treeMap = new TreeMap<>(Comparator.comparingInt(e -> e.freq));
+
+    public void inc(String key) {
+        Pair pair = map.computeIfAbsent(key, Pair::new);
+        pair.freq++;
+        map.put(key, pair);
+        treeMap.put(pair, pair.freq);
     }
 }
