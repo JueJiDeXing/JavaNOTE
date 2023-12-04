@@ -204,4 +204,55 @@ public class _65有效数字 {
         CHAR_ILLEGAL
     }
 
+    /**
+     <h1>模拟</h1>
+     case1: 有多个e,返回false<br>
+     case2: 有一个e,检查e的两边是否符合要求<br>
+     case3: 没有e,检查整个数<br>
+     */
+    public boolean isNumber4(String s) {
+        int n = s.length();
+        char[] cs = s.toCharArray();
+        //检查e的出现位置
+        int idx = -1;
+        for (int i = 0; i < n; i++) {
+            if (cs[i] == 'e' || cs[i] == 'E') {
+                if (idx == -1) idx = i;
+                else return false;//有多个e
+            }
+        }
+        boolean ans = true;
+        if (idx != -1) {//有e
+            //检查e的两边
+            //左边要为整数或小数,右边必须为整数
+            return check(cs, 0, idx - 1, false) && check(cs, idx + 1, n - 1, true);
+        }
+        //没有e
+        return check(cs, 0, n - 1, false);//整数或小数
+    }
+
+    /**
+     检查一个数是否符合要求(整数/小数)
+
+     @param cs          数
+     @param start       起始索引
+     @param end         结束索引
+     @param mustInteger 是否必须为整数
+     */
+    boolean check(char[] cs, int start, int end, boolean mustInteger) {
+        if (start > end) return false;
+        if (cs[start] == '+' || cs[start] == '-') start++;
+        boolean hasDot = false, hasNum = false;
+        for (int i = start; i <= end; i++) {
+            if (cs[i] == '.') {
+                if (mustInteger || hasDot) return false;
+                hasDot = true;
+            } else if (cs[i] >= '0' && cs[i] <= '9') {
+                hasNum = true;
+            } else {
+                return false;
+            }
+        }
+        return hasNum;
+    }
 }
