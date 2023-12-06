@@ -1,10 +1,9 @@
-package MyNote;
+package J_API;
 
 import java.util.Arrays;
 import java.util.Comparator;
 
-public class noteArrays {
-    //操作数组的工具类
+public class J_Arrays {//操作数组的工具类
     public static void main(String[] args) {
         //String Arrays.toString(Array arr)
         int[]arr={1,2,3,4,5,6,7,8};
@@ -31,7 +30,7 @@ public class noteArrays {
             }
         });
         System.out.println(Arrays.toString(arr4));
-      //compare(Integer o1, Integer o2)
+        //compare(Integer o1, Integer o2)
         //o1:无序序列的元素(即遍历的某一个数组元素,开始时为第二个元素)
         //o2:有序序列的元素(已排序的元素,开始时为第一个元素,后面从已排序的部分倒着遍历与o1比较)
         //返回值:负数表示当前插入的数是小的,要放在前面  正数表示当前插入的数是大的,要放在后面  0表示相等,也放在后面

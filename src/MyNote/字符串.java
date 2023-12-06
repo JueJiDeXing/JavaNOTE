@@ -4,11 +4,11 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.StringJoiner;
 
-public class noteString {
+public class 字符串 {
     public static void main(String[] args) {
         String name="abc";
 
-        //1 构造方法
+        // 1 构造方法
         String name2= new String();
         //参数:空参/字符String original/字符数组char[] chs/字节数组byte[]chs
         String name3= new String("abc");
@@ -17,7 +17,7 @@ public class noteString {
         byte[]bytes={97,98,100};
         String name5= new String(bytes);
 
-        //2 字符串池和字符串拼接原理
+        // 2 字符串池和字符串拼接原理
         String a1="abc";//"abc"存储在堆中
         String a2="abc";//a2和a1指向同一个值
         String b1= new String(chs);

@@ -1,6 +1,6 @@
 package MyNote;
 
-public class 异常处理 {
+public class 异常 {
     //异常体系
     //      Java.lang.Throwable
     //    ┌──────────┴─────────┐

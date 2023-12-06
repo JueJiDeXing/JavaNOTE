@@ -10,7 +10,7 @@ import java.util.Scanner;//导包写在类定义上面
 * public class 类名{成员变量(属性},成员方法(行为)}
 * 创建类对象:    类名 对象名=new 类名();
 * */
-public class Note {//类名要与文件名相同,否则不能用public修饰类
+public class 一些基础语法 {//类名要与文件名相同,否则不能用public修饰类
     public static void main(String[] args) {
         //main程序主入口
         // String[] args 程序实参,可在"编辑配置"里填写,"运行"的左边
