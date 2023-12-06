@@ -103,23 +103,23 @@ public class MaxHeap {
         return value;
     }
 
-    //小元素上浮
+    //大元素上浮
     private void up(int offered) {
         int child = size;
         int parent = (child - 1) / 2;
         while (child > 0 && offered > array[parent]) {
-            array[child] = array[parent];//比父节点大,将上浮
+            array[child] = array[parent];//offered比父节点大,将offered上浮
             child = parent;
             parent = (parent - 1) / 2;
         }
         array[child] = offered;//插入
     }
 
-    //大的元素下潜
+    //小的元素下潜
     public void down(int parent) {
         int left = 2 * parent + 1;
         int right = left + 1;
-        int max = parent;//寻找 父,左,右 三者较大的优先级
+        int max = parent;//寻找 父,左,右 三者最大的元素
         if (left < size && array[left] > array[max]) {
             max = left;
         }

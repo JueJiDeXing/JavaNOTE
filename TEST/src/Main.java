@@ -56,9 +56,13 @@ public class Main {
     TreeSet<Integer> ______;
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Main test = new Main();
-
+        Object a = new Object();
+        a.notify();
+        synchronized (a) {
+            a.wait();
+        }
     }
 
     static class Pair {

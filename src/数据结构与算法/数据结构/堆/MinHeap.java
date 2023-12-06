@@ -35,28 +35,26 @@ public class MinHeap {
         if (isEmpty()) {
             throw IllegalIndex(0);
         }
-        swap(0, size - 1);//交换头元素与尾元素再将尾元素抛出
+        int e = array[0];
         size--;
-        int e = array[size];
-
+        swap(0, size);//交换头元素与尾元素再将尾元素抛出
         down(0);//下潜
-
         return e;
     }
 
-    private void down(int parent) {//优先级低的元素下潜
+    private void down(int parent) {//大元素下潜
         int left = 2 * parent + 1;
         int right = left + 1;
-        int min = parent;//寻找 父,左,右 三者较大<!--小顶堆,查找最小-->的优先级
+        int min = parent;//寻找 父,左,右 三者较最小的元素
         if (left < size && array[left] < array[min]) {
             min = left;
         }
         if (right < size && array[right] < array[min]) {
             min = right;
         }
-        if (min != parent) {//如果子节点比父节点优先级大
+        if (min != parent) {//如果子节点比父节点小
             swap(parent, min);// 交换
-            down(min);//递归,直到max==parent,父节点大于左右子节点时停止
+            down(min);//递归,直到min==parent,父节点小于左右子节点时停止
         }
     }
 
