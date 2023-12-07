@@ -1,7 +1,5 @@
 package 数据结构与算法.算法.深搜_广搜.深度优先;
 
-import java.util.*;
-
 public class _2646最小化旅行的价格总和 {
     /*
     现有一棵无向、无根的树，树中有 n 个节点，按从 0 到 n - 1 编号。
@@ -21,7 +19,7 @@ public class _2646最小化旅行的价格总和 {
      */
 
     /**
-     <h1>顶点贡献法:深度优先搜索+动态规划</h1>
+     <h1>顶点贡献法:深度优先+动态规划</h1>
      <ul>
      <li>
      <b>顶点贡献:</b><br>
@@ -40,69 +38,14 @@ public class _2646最小化旅行的价格总和 {
      dp[parent][1] += sum( dp[node_i][0] ) // parent价格减半,那么node_i不能减半
      </li>
      </ul>
-
-     @param n     n个节点
-     @param edges 节点的连接关系
-     @param price 节点的价格数组
-     @param trips trip[i]=[starti,endi]为第i次旅行从strati到endi
-     @return 旅行的最小价格
+     <p>
+     {@link 数据结构与算法.数据结构.图.图的深搜和广搜._2646最小化旅行的价格总和}
      */
     public int minimumTotalPrice(int n, int[][] edges, int[] price, int[][] trips) {
-        //邻接表建图
-        List<Integer>[] graph = new List[n];
-        Arrays.setAll(graph, e -> new ArrayList<>());
-        for (int[] edge : edges) {
-            graph[edge[0]].add(edge[1]);
-            graph[edge[1]].add(edge[0]);
-        }
-        //深度搜索,计算每个顶点包含endi的数量
-        int[] count = new int[n];
-        for (int[] trip : trips) {
-            dfs(trip[0], -1, trip[1], graph, count);
-        }
-        //树型dp,对于一个node,它有减半和不减半两种操作(如果上一次减半,这次不能减半)
-        int[] pair = dp(0, -1, price, graph, count);
-        return Math.min(pair[0], pair[1]);
+        return 0;
     }
 
-    public boolean dfs(int node, int parent, int end, List<Integer>[] graph, int[] count) {
-        if (node == end) {
-            count[node]++;
-            return true;
-        }
-        for (int child : graph[node]) {
-            if (child == parent) {
-                continue;
-            }
-            if (dfs(child, node, end, graph, count)) {
-                count[node]++;
-                return true;
-            }
-        }
-        return false;
-    }
 
-    /**
-     @param node   当前节点
-     @param parent 当前节点的父节点
-     @param price  节点的价格数组
-     @param graph  图(邻接表)
-     @param count  节点贡献数组,存储了每个节点经过的次数
-     @return 返回pair=[p1,p2]其中 p1=以node为根,node不减半的最小价格 , p2=以node为根,node减半的最小价格
-     */
-    public int[] dp(int node, int parent, int[] price, List<Integer>[] graph, int[] count) {
-        int p = price[node] * count[node];
-        int[] res = {p, p / 2};
-        for (int child : graph[node]) {
-            if (child == parent) {
-                continue;
-            }
-            int[] pair = dp(child, node, price, graph, count);
-            res[0] += Math.min(pair[0], pair[1]); // node 没有减半，因此可以取子树的两种情况的最小值
-            res[1] += pair[0]; // node 减半，只能取子树没有减半的情况
-        }
-        return res;
-    }
 }
 
 

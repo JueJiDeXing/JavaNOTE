@@ -1,4 +1,7 @@
-package 数据结构与算法.数据结构.图;
+package 数据结构与算法.数据结构.图.图的深搜和广搜;
+
+import 数据结构与算法.数据结构.图.Edge;
+import 数据结构与算法.数据结构.图.Vertex;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
