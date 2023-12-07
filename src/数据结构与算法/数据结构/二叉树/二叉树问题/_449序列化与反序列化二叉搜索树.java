@@ -101,3 +101,36 @@ class Codec2 {
     }
 }
 
+/**
+ 取巧做法进阶
+ */
+class Codec3 {
+    static Map<String, TreeNode> map1 = new HashMap<>();
+    static Map<TreeNode, String> map2 = new HashMap<>();
+    static int count = 0;
+
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if (map2.containsKey(root)) {
+            return map2.get(root);
+        }
+        String str = String.valueOf(count);
+        map2.put(root, str);
+        map1.put(str, root);
+        count++;
+        return str;
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if (map1.containsKey(data)) {
+            return map1.get(data);
+        }
+        TreeNode root = new TreeNode();
+        String str = String.valueOf(count);
+        map2.put(root, str);
+        map1.put(str, root);
+        count++;
+        return root;
+    }
+}
