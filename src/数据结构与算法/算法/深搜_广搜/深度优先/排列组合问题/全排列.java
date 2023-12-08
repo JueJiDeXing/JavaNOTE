@@ -6,9 +6,6 @@ import java.util.List;
 
 public class 全排列 {
     //求一个序列的全部排列
-    public static void main(String[] args) {
-        System.out.println(permute(new int[]{2, 2, 1, 1}));
-    }
 
     /**
      @param nums 不含重复元素的序列
@@ -82,5 +79,6 @@ public class 全排列 {
             isUsed[i] = false;
         }
     }
+
 
 }

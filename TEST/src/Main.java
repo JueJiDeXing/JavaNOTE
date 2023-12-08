@@ -58,29 +58,8 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         Main test = new Main();
-        Object a = new Object();
-        a.notify();
-        synchronized (a) {
-            a.wait();
-        }
     }
 
-    static class Pair {
-        String s;
-        Integer freq = 0;
 
-        public Pair(String str) {
-            s = str;
-        }
-    }
 
-    Map<String, Pair> map = new HashMap<>();
-    Map<Pair, Integer> treeMap = new TreeMap<>(Comparator.comparingInt(e -> e.freq));
-
-    public void inc(String key) {
-        Pair pair = map.computeIfAbsent(key, Pair::new);
-        pair.freq++;
-        map.put(key, pair);
-        treeMap.put(pair, pair.freq);
-    }
 }
