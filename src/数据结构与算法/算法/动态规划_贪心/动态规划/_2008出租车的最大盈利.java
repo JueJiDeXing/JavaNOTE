@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class _2008出租车的最大盈利 {
+
     /*
     你驾驶出租车行驶在一条有 n 个地点的路上。
     这 n 个地点从近到远编号为 1 到 n ，你想要从 1 开到 n ，通过接乘客订单盈利。

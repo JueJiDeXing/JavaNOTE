@@ -39,6 +39,7 @@ public class 素数筛 {
      <h1>埃氏筛法</h1>
      */
     public int count2(int N) {
+        if (N < 2) return 0;
         boolean[] isComposite = new boolean[N + 1];//是否为合数
         for (int i = 2; i <= N / i; i++) {
             if (!isComposite[i]) {
@@ -63,19 +64,25 @@ public class 素数筛 {
      埃氏筛的改进
      */
     public int count3(int N) {
+        if (N < 2) return 0;
         boolean[] isComposite = new boolean[N + 1];//是否为合数
         isComposite[0] = isComposite[1] = true;
-        int[] prime = new int[N + 1];
+        int[] prime = new int[N + 1];//存储素数
         int sum = 0;
         for (int i = 2; i <= N; i++) {
             if (!isComposite[i]) {
                 prime[sum++] = i;//是素数
             }
-            //把后面的合数(i的倍数)筛掉
+            //把后面的合数( i与现有质数的倍数(含自身) )筛掉
             for (int j = 0; prime[j] * i <= N && j <= sum; j++) {
                 isComposite[prime[j] * i] = true;
-                if (i % prime[j] == 0) break;
+                if (i % prime[j] == 0) break;//防止重复筛
             }
+            //for (int p : prime) {
+            //    if (p * i > N) break;
+            //    isComposite[p * i] = true;
+            //    if (i % p == 0) break;//防止重复筛
+            //}
         }
         return sum;
     }
