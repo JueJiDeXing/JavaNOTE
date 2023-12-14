@@ -1,4 +1,4 @@
-package 数据库;
+package 数据库jdbc;
 
 import java.sql.*;
 
