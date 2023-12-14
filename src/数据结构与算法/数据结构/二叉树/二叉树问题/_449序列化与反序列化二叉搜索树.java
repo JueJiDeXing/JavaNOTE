@@ -107,7 +107,7 @@ class Codec2 {
 class Codec3 {
     static Map<String, TreeNode> map1 = new HashMap<>();
     static Map<TreeNode, String> map2 = new HashMap<>();
-    static int count = 0;
+    static int count = 0;//全局计数器
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {

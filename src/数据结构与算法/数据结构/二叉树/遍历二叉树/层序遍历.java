@@ -1,7 +1,7 @@
 package 数据结构与算法.数据结构.二叉树.遍历二叉树;
 
 import 数据结构与算法.数据结构.二叉树.Node.MyTreeNode;
-import 数据结构与算法.数据结构.队列.LinkedListQueue;
+import 数据结构与算法.数据结构.队列.队列实现.链队列.LinkedListQueue;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

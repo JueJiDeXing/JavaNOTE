@@ -1,7 +1,7 @@
 package 数据结构与算法.数据结构.栈;
 
 import org.junit.jupiter.api.Test;
-import 数据结构与算法.数据结构.栈.表达式.表达式转换;
+import 数据结构与算法.数据结构.栈.栈问题.表达式.表达式转换;
 
 import java.util.Arrays;
 

@@ -14,12 +14,20 @@ public class _147伪回文路径 {
       3  1     1
       有[2,3,3]和[2,1,1]这两条伪回文路径
      */
-    int sum = 0;
 
+
+    /**
+     <h1>深度优先搜索</h1>
+     由于数字只有1~9这些数字,所以使用9个比特位count进行记录<br>
+     成对数字需要相消,使用异或运算<br>
+     遇到叶子节点则判断count是否为0,或者只有一位为1(count&(count-1))==0
+     */
     public int pseudoPalindromicPaths(TreeNode root) {
         dfs(root, 1 << root.val);
         return sum;
     }
+
+    int sum = 0;
 
     public void dfs(TreeNode node, int curr) {
         if (node.left == null && node.right == null) {

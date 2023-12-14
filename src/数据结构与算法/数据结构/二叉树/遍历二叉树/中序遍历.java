@@ -1,7 +1,7 @@
 package 数据结构与算法.数据结构.二叉树.遍历二叉树;
 
 import 数据结构与算法.数据结构.二叉树.Node.MyTreeNode;
-import 数据结构与算法.数据结构.栈.MyLinkedListStackClass;
+import 数据结构与算法.数据结构.栈.栈实现.MyLinkedListStackClass;
 
 //深度优先
 public class 中序遍历 {

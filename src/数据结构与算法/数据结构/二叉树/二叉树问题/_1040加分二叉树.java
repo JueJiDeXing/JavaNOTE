@@ -41,10 +41,11 @@ public class _1040加分二叉树 {
         //输入
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
-        String s = scanner.nextLine();
+        String[] str = scanner.nextLine().split(" ");
         /*
         dp[i][j]表示由i到j可组成的最大加分子树的分数
-        dp[i][i]为初始分数
+        dp[i][i] = e为初始分数
+        dp[i][i - 1] = 1;//前一项表示起点左边的空左子树,分值为1
         在区间i~j内枚举根节点k,dp[i][j]=MAX(dp[i][k-1]+dp[k-1][j]+dp[k][k])
          */
         int[][] dp = new int[n + 1][n + 1];
@@ -54,7 +55,6 @@ public class _1040加分二叉树 {
         在区间i~j内枚举根节点k,dp[i][j]=MAX(dp[i][k-1]+dp[k-1][j]+dp[k][k]),最大的k即为root[i][j]
          */
         int[][] roots = new int[n + 1][n + 1];
-        String[] str = s.split(" ");
         for (int i = 1; i <= str.length; i++) {
             int e = Integer.parseInt(str[i - 1]);
             dp[i][i] = e;
@@ -64,7 +64,25 @@ public class _1040加分二叉树 {
         doAdd(n, dp, roots);
         System.out.println(dp[1][n]);
         print(1, n, roots);
+    }
 
+    public static void doAdd(int n, int[][] dp, int[][] roots) {
+
+        for (int len = 1; len <= n; len++) {//枚举区间长度
+            for (int start = 1; start + len <= n; start++) {//枚举起点
+                int end = start + len;//终点
+                dp[start][end] = dp[start + 1][end] + dp[start][start];//以start为根,左子树为空,右子树分数为dp[start + 1][end]
+                roots[start][end] = start;
+                for (int root = start + 1; root < end; root++) {//枚举根节点
+                    //start ~ root-1为左子树,root+1 ~ end为右子树
+                    int newScore = dp[start][root - 1] * dp[root + 1][end] + dp[root][root];
+                    if (dp[start][end] < newScore) {//以当前root为根分数更高
+                        dp[start][end] = newScore;
+                        roots[start][end] = root;
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -80,20 +98,5 @@ public class _1040加分二叉树 {
         print(roots[start][end] + 1, end, roots);
     }
 
-    public static void doAdd(int n, int[][] dp, int[][] roots) {
-        for (int len = 1; len <= n; len++) {//区间长度
-            for (int start = 1; start + len <= n; start++) {//起点
-                int end = start + len;//终点
-                dp[start][end] = dp[start + 1][end] + dp[start][start];//以start为根,左子树为空,右子树分数为dp[start + 1][end]
-                roots[start][end] = start;
-                for (int root = start + 1; root < end; root++) {
-                    //枚举根节点,start~root-1为左子树,root+1~end为右子树
-                    if (dp[start][end] < dp[start][root - 1] * dp[root + 1][end] + dp[root][root]) {
-                        dp[start][end] = dp[start][root - 1] * dp[root + 1][end] + dp[root][root];
-                        roots[start][end] = root;
-                    }
-                }
-            }
-        }
-    }
+
 }

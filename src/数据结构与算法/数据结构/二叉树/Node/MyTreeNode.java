@@ -6,19 +6,19 @@ package 数据结构与算法.数据结构.二叉树.Node;
  <h1> 二叉树节点类</h1>
  </div>
  */
-public class MyTreeNode {
-    public Object value;
-    public MyTreeNode left;
-    public MyTreeNode right;
+public class MyTreeNode<T> {
+    public T value;
+    public MyTreeNode<T> left;
+    public MyTreeNode<T> right;
 
-    public MyTreeNode(Object value) {
+    public MyTreeNode(T value) {
         this.value = value;
     }
 
     public MyTreeNode() {
     }
 
-    public MyTreeNode(MyTreeNode left,Object value, MyTreeNode right) {
+    public MyTreeNode(MyTreeNode<T> left, T value, MyTreeNode<T> right) {
         this.value = value;
         this.left = left;
         this.right = right;

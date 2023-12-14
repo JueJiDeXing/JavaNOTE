@@ -1,7 +1,7 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
 import 数据结构与算法.数据结构.二叉树.Node.MyTreeNode;
-import 数据结构与算法.数据结构.栈.MyLinkedListStackClass;
+import 数据结构与算法.数据结构.栈.栈实现.MyLinkedListStackClass;
 
 import java.util.LinkedList;
 import java.util.Queue;

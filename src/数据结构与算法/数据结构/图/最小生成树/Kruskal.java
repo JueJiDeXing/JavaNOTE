@@ -1,6 +1,6 @@
 package 数据结构与算法.数据结构.图.最小生成树;
 
-import 数据结构与算法.数据结构.并查集.DisjointSet;
+import 数据结构与算法.数据结构.并查集.并查集实现.DisjointSet;
 
 import java.util.*;
 

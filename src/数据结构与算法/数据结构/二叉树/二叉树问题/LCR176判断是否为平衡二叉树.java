@@ -7,7 +7,7 @@ public class LCR176判断是否为平衡二叉树 {
     输入一棵二叉树的根节点，判断该树是不是平衡二叉树。
     如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。
      */
-    public boolean isBalanced1(TreeNode root) {
+    public boolean isBalanced(TreeNode root) {
         return getHeight(root) != -1;
     }
 
@@ -21,7 +21,7 @@ public class LCR176判断是否为平衡二叉树 {
     }
 
 
-    public boolean isBalanced(TreeNode root) {
+    public boolean isBalanced_(TreeNode root) {
         if (root == null) {//空节点,平衡
             return true;
         }
@@ -30,7 +30,7 @@ public class LCR176判断是否为平衡二叉树 {
             return true;
         }
         //搜索左右子树是否都平衡
-        boolean ans = isBalanced(root.left) && isBalanced(root.right);
+        boolean ans = isBalanced_(root.left) && isBalanced_(root.right);
         if (!ans) {//左子树或右子树不平衡
             return false;
         }

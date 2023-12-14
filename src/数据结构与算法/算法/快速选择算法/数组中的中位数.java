@@ -1,5 +1,5 @@
 package 数据结构与算法.算法.快速选择算法;
-import 数据结构与算法.数据结构.堆.Heap;
+import 数据结构与算法.数据结构.堆.堆实现.Heap;
 import static 数据结构与算法.算法.快速选择算法.快速选择.quick;
 
 public class 数组中的中位数 {
