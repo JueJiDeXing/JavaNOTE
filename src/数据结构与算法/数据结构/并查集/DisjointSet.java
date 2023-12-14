@@ -29,7 +29,7 @@ public class DisjointSet {
            find(0)
      */
     public int find(int x) {
-        if (x < 0 || x > s.length) {
+        if (x < 0 || x >= s.length) {
             throw new RuntimeException("索引越界");
         }
         if (x == s[x]) {//索引对应自身的为老大
@@ -45,13 +45,17 @@ public class DisjointSet {
     0 3再与5 6 相连 -> union(0,5) -> 5索引对应值改为0
      */
     public void union(int x, int y) {
-        int rx=find(x),ry=find(y);
+        int rx = find(x), ry = find(y);
         s[ry] = rx;
     }
 
     @Override
     public String toString() {
         return Arrays.toString(s);
+    }
+
+    public boolean isConnect(int x, int y) {
+        return find(x) == find(y);
     }
 }
 

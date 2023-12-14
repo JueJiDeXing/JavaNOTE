@@ -24,9 +24,9 @@ public class 第39级台阶 {
      */
     public static void main(String[] args) {
         int[][] dp = new int[40][2];
-        dp[1][1] = 1;
-        dp[2][1] = 1;
-        dp[2][0] = 1;
+        dp[1][1] = 1;//走1步(1次,奇数)
+        dp[2][0] = 1;//走1步,走1步(2次,偶数)
+        dp[2][1] = 1;//走2步(1次,奇数)
         for (int i = 3; i < 40; i++) {
             dp[i][0] = dp[i - 1][1] + dp[i - 2][1];
             dp[i][1] = dp[i - 1][0] + dp[i - 2][0];

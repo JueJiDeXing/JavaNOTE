@@ -45,9 +45,7 @@ public class 素数筛 {
             if (!isComposite[i]) {
                 //是质数,把后面的合数筛掉
                 for (int j = i * i; j <= N; j += i) {
-                    //从i^2开始是因为:
-                    // 假设前面质数是ai,这次质数是b
-                    // 则筛ai的时候把ai*b都已经筛掉了,所以从b^2开始即可
+                    //从i^2开始是因为:假设前面质数是ai,这次质数是b,则筛ai的时候把ai*b都已经筛掉了,所以从b^2开始即可
                     isComposite[j] = true;
                 }
             }
@@ -78,11 +76,11 @@ public class 素数筛 {
                 isComposite[prime[j] * i] = true;
                 if (i % prime[j] == 0) break;//防止重复筛
             }
-            //for (int p : prime) {
-            //    if (p * i > N) break;
-            //    isComposite[p * i] = true;
-            //    if (i % p == 0) break;//防止重复筛
-            //}
+            // for (int p : prime) {
+            //     if (p * i > N) break;
+            //     isComposite[p * i] = true;
+            //     if (i % p == 0) break;//防止重复筛
+            // }
         }
         return sum;
     }

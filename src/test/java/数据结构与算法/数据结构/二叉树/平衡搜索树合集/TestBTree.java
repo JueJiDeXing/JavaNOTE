@@ -1,4 +1,4 @@
-package 数据结构与算法.数据结构.二叉树.平衡搜索树;
+package 数据结构与算法.数据结构.二叉树.平衡搜索树合集;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

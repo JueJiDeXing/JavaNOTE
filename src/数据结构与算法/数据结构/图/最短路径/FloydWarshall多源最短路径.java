@@ -217,41 +217,7 @@ public class FloydWarshall多源最短路径 {
     }
 
 
-    /**
-     <h1>例题</h1>
-     给定一个无向、连通的树。树中有 n 个标记为 0...n-1 的节点以及 n-1 条边 。<br>
-     给定整数 n 和数组 edges ， edges[i] = [ai, bi]表示树中的节点 ai 和 bi 之间有一条边。<br>
-     返回长度为 n 的数组 answer ，其中 answer[i] 是树中第 i 个节点与所有其他节点之间的距离之和。
-     */
-    public int[] sumOfDistancesInTree(int n, int[][] edges) {
-        int[][] distance = new int[n][n];
-        for (int i = 0; i < n; i++) {
-            Arrays.fill(distance[i], Integer.MAX_VALUE);
-        }
-        for (int[] edge : edges) {
-            distance[edge[0]][edge[1]] = 1;
-            distance[edge[1]][edge[0]] = 1;
-        }
-        for (int k = 0; k < n; k++) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (distance[i][k] != Integer.MAX_VALUE && distance[k][j] != Integer.MAX_VALUE &&
-                            distance[i][k] + distance[k][j] < distance[i][j]) {//如果借k到j比i直接到j更短则更新
-                        distance[i][j] = distance[i][k] + distance[k][j];
-                    }
-                }
-            }
-        }
-        int[] ans = new int[n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i != j) {
-                    ans[i] += distance[i][j];
-                }
-            }
-        }
-        return ans;
-    }
+
 }
 
 

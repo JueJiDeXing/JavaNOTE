@@ -147,8 +147,8 @@ public class 二分查找_优化 {
                 left = middle + 1;
             }
         }
-        return left;
-        //要返回比目标小的,并且是最右侧的索引,return left-1,并且target < arr[middle]
+        return left;//返回≥target的,并且是最左侧的索引(leftMost)
+        //如果要返回比目标小的,并且是最右侧的索引,return left-1,并且target < arr[middle]
     }
 
 

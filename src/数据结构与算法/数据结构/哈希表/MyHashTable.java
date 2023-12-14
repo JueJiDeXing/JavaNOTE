@@ -79,42 +79,42 @@ public class MyHashTable {
         MyEntry[] newTable = new MyEntry[table.length << 1];//扩容两倍
         for (int i = 0; i < table.length; i++) {
             MyEntry p = table[i];//链表头
-            if (p != null) {
-                //拆分链表到新数组
-                //拆分规律:一个链表最多拆分为两个,按hash & length是否为0
-                //  2^n 对于后n位与后n+1位相同的index,扩容后位置不变
-                //  例如 8 0100 扩容后还是原位置  ; 9 1001 扩容后 位置改变
-                //  所以 检查倒数第n+1位是否为0即可
-                MyEntry aHead = null, bHead = null;//拆分的两个新链表
-                MyEntry a = null, b = null;
-                while (p != null) {
-                    if ((p.hash & table.length) == 0) {
-                        if (a != null) {
-                            a.next = p;//先指向下一个节点
-                        } else {
-                            aHead = p;//第一次记录头指针
-                        }
-                        a = p;//再更新位置
+            if (p == null) continue;
+            //拆分链表到新数组
+            //拆分规律:一个链表最多拆分为两个,按hash & length是否为0
+            //  2^n 对于后n位与后n+1位相同的index,扩容后位置不变
+            //  例如 8 0100 扩容后还是原位置  ; 9 1001 扩容后 位置改变
+            //  所以 检查倒数第n+1位是否为0即可
+            MyEntry aHead = null, bHead = null;//拆分的两个新链表
+            MyEntry a = null, b = null;
+            while (p != null) {
+                if ((p.hash & table.length) == 0) {
+                    if (a != null) {
+                        a.next = p;//先指向下一个节点
                     } else {
-                        if (b != null) {
-                            b.next = p;
-                        } else {
-                            bHead = p;
-                        }
-                        b = p;
+                        aHead = p;//第一次记录头指针
                     }
-                    p = p.next;
+                    a = p;//再更新位置
+                } else {
+                    if (b != null) {
+                        b.next = p;
+                    } else {
+                        bHead = p;
+                    }
+                    b = p;
                 }
-                //循环后将两个新链的尾节点指向null
-                if (a != null) {
-                    a.next = null;
-                    newTable[i] = aHead;//a表位置不变
-                }
-                if (b != null) {
-                    b.next = null;
-                    newTable[i + table.length] = bHead;//b表为索引加数组长
-                }
+                p = p.next;
             }
+            //循环后将两个新链的尾节点指向null
+            if (a != null) {
+                a.next = null;
+                newTable[i] = aHead;//a表位置不变
+            }
+            if (b != null) {
+                b.next = null;
+                newTable[i + table.length] = bHead;//b表为索引加数组长
+            }
+
         }
         table = newTable;
         threshold = (int) (loadFactor * table.length);
@@ -175,6 +175,17 @@ public class MyHashTable {
             //优化 hash*31 -> hash*32-hash > (hash<<5)-hash
         }
         return hash ^ (hash >>> 16);
+    }
+
+    public boolean containsKey(Object key) {
+        int hash = getHash(key);
+        int index = (hash & 0x7FFFFFFF) % table.length;
+        for (MyEntry e = table[index]; e != null; e = e.next) {
+            if ((e.hash == hash) && e.key.equals(key)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 

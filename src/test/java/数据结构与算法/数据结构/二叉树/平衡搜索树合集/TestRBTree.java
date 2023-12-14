@@ -1,8 +1,7 @@
-package 数据结构与算法.数据结构.二叉树.平衡搜索树;
+package 数据结构与算法.数据结构.二叉树.平衡搜索树合集;
 
 import org.junit.Test;
 import 数据结构与算法.数据结构.二叉树.Node.RBNode;
-import 数据结构与算法.数据结构.二叉树.平衡搜索树.RBTree;
 
 import java.util.ArrayList;
 import java.util.Arrays;

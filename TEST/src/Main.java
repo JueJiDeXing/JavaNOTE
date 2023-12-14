@@ -49,17 +49,44 @@ class TreeNode {
 }
 
 public class Main {
-    List<Integer> __;
-    ArrayList<Integer> ___;
-    Map<Integer, Integer> ____;
-    HashMap<Integer, Integer> _____;
-    TreeSet<Integer> ______;
+    List<Integer> LLLLLLLLLLL;
+    ArrayList<Integer> ALALALALALAL;
+    Map<Integer, Integer> MMMMMMMMM;
+    HashMap<Integer, Integer> HHHHHHHH;
+    Hashtable<Integer, Integer> HTHTHTHTHTHT;
+    TreeMap<Integer, Integer> TMTMTMTMTMT;
+    TreeSet<Integer> TSTSTSTSTS;
+    LinkedList<Integer> LILILILILILI;
+    StringBuilder SBSBSBSBSB;
+    HashSet<Integer> HSHSHSHSHSHSHS;
+    static Main test = new Main();
 
+    public static int[][] change(String str) {
+        String[] split = str.split("],\\[");
+        int row = split.length;
+        int col = 1;
+        for (char ch : split[0].toCharArray()) {
+            if (ch == ',') col++;
+        }
+        int[][] arr = new int[row][col];
+        int currCol = 0, currRow = 0;
+        for (char ch : str.toCharArray()) {
+            if (ch == '[' || ch == ',' || ch == ']') continue;
+            arr[currRow][currCol] = ch - '0';
+            if (++currCol == col) {
+                currCol = 0;
+                currRow++;
+            }
 
-    public static void main(String[] args) throws Exception {
-        Main test = new Main();
+        }
+        return arr;
     }
 
-
-
+    public static void main(String[] args) {
+        String s="";
+        
+    }
 }
+
+
+

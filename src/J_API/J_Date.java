@@ -130,20 +130,21 @@ class 一年的第几天 {
         System.out.println(date.getDayOfYear());
     }
 }
-class 几月几号{
+
+class 几月几号 {
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        int year=sc.nextInt();
-        int day= sc.nextInt();
-        LocalDate date=LocalDate.ofYearDay(year,day);
-        System.out.println(date.getMonthValue()+"月"+date.getDayOfMonth()+"号");
+        Scanner sc = new Scanner(System.in);
+        int year = sc.nextInt();
+        int day = sc.nextInt();
+        LocalDate date = LocalDate.ofYearDay(year, day);
+        System.out.println(date.getMonthValue() + "月" + date.getDayOfMonth() + "号");
     }
 }
 
 class 日期之差 {
     public static void main(String[] args) {
         LocalDate startDate = LocalDate.of(2022, 1, 1);
-        LocalDate endDate = LocalDate.of(2022, 1, 10);
+        LocalDate endDate = LocalDate.of(2022, 2, 10);
 
         long days = ChronoUnit.DAYS.between(startDate, endDate);
         System.out.println("相差天数：" + days);

@@ -1,4 +1,4 @@
-package 数据结构与算法.数据结构.二叉树.平衡搜索树;
+package 数据结构与算法.数据结构.二叉树.平衡搜索树合集;
 
 import 数据结构与算法.数据结构.二叉树.Node.RBNode;
 import 数据结构与算法.数据结构.队列.LinkedListQueue;
@@ -9,7 +9,8 @@ import java.util.List;
 import static 数据结构与算法.数据结构.二叉树.Node.RBNode.Color.BLACK;
 import static 数据结构与算法.数据结构.二叉树.Node.RBNode.Color.RED;
 
-//已测试:src.java.数据结构与算法.数据结构.二叉树.平衡搜索树.TestRBTree
+//已测试:src.java.数据结构与算法.数据结构.二叉树.平衡搜索树合集.TestRBTree
+
 /**
  <h1>红黑树</h1>
  一种平衡搜索树,旋转次数少于AVL树
@@ -28,7 +29,6 @@ public class RBTree {
 
     public RBNode root;
 
-
     public RBTree() {
     }
 
@@ -43,16 +43,21 @@ public class RBTree {
     }
 
     boolean isBlack(RBNode node) {
-        return node == null || node.color == BLACK;
+        return node == null || node.color == BLACK;//叶子(空节点)默认为黑
     }
 
     public boolean contains(int key) {
-        RBNode rbNode = find(key);
-        return rbNode != null;
+        return find(key) != null;
     }
 
     //旋转
     // 不同点: 需要处理parent ,旋转后的父子关系需要在函数内完成
+
+    /**
+     左旋
+
+     @param downNode 旋转下降节点
+     */
     private void leftRotate(RBNode downNode) {
         RBNode upNode = downNode.right;//上位节点
         RBNode parentNode = downNode.parent;//更上层节点
@@ -76,6 +81,9 @@ public class RBTree {
         }
     }
 
+    /**
+     右旋
+     */
     private void rightRotate(RBNode downNode) {
         RBNode upNode = downNode.left; //上位节点
         RBNode parentNode = downNode.parent;//更上层节点
@@ -100,7 +108,43 @@ public class RBTree {
     }
 
     /**
-     新增/更新<br>
+     旋转
+     */
+    private void rotate(RBNode downNode, boolean isLeft) {
+        RBNode upNode = downNode.right;//上位节点
+        RBNode parentNode = downNode.parent;//更上层节点
+
+        RBNode child = isLeft ? upNode.left : upNode.right;//上位节点左孩子
+        //左孩子托孤
+        if (isLeft) {
+            downNode.right = child;
+        } else {
+            downNode.left = child;
+        }
+        if (child != null) {
+            child.parent = downNode;
+        }
+        //上位
+        if (isLeft) {
+            upNode.left = downNode;
+        } else {
+            upNode.right = downNode;
+        }
+        upNode.parent = parentNode;
+        downNode.parent = upNode;
+
+        if (parentNode == null) {//新根
+            root = upNode;
+        } else if (parentNode.left == downNode) {
+            parentNode.left = upNode;
+        } else {
+            parentNode.right = upNode;
+        }
+    }
+
+    /**
+     <h1>插入节点</h1>
+     如果节点已存在则更新节点
      如果遇到红红不平衡则需要调整
      */
     public void put(int key, Object value) {
@@ -130,8 +174,39 @@ public class RBTree {
         fixRedRed(inserted);//检查红黑规则-红红不能相邻
     }
 
+    /**
+     <h1>检查插入节点,如果红红不平衡则修正</h1>
+
+     <ul>
+     <li> case 1 : 插入为根. <br>
+     节点染黑</li>
+     <li> case 2 : 父节点为黑.   <br>
+     不需要改变 </li>
+     <li> case 3 : 父节点为红.   <br>
+     触发红红不平衡</li>
+     <ul>
+     <li> case 3.1 : 叔叔为红.  <br>
+     将父和叔染黑, 祖父染红, 递归判断祖父</li>
+     <li> case 3.2 : 叔叔为黑.  <br>
+     需要旋转保持平衡</li>
+     <ul>
+     <li> case 3.2.1 : 父亲(红)为左孩子, 节点(红)为左孩子. (LL) <br>
+     将父亲变黑, 祖父变红, 叔叔分支黑色减少, 右旋祖父, 父亲上位补黑 </li>
+     <li> case 3.2.2 : 父亲为左孩子, 节点为右孩子. (LR) <br>
+     左旋父节点, 回到3.2.1情况 (旋转后, 节点变为新的父节点) </li>
+     <p>
+     <li> case 3.2.3 : 父亲为右孩子,节点为右孩子. (RR) <br>
+     将父亲变黑, 祖父变红, 叔叔分支黑色减少, 左旋祖父, 父亲上位补黑</li>
+     <li> case 3.2.4 : 父亲为右孩子,节点为左孩子.  (RL) <br>
+     右旋父节点, 回到 3.2.3 情况 (旋转后, 节点变为新的父节点) </li>
+     </ul></li>
+     </ul>
+     </ul>
+
+     @param node 插入的节点
+     */
     void fixRedRed(RBNode node) {
-        if (node == root) {// 1.插入的为根节点,将节点变黑
+        if (node == root) {// 1.根节点,将节点变黑
             node.color = BLACK;
             return;
         }
@@ -178,18 +253,20 @@ public class RBTree {
     }
 
     /**
-     删除<br>
+     <h1>删除节点</h1>
      如果遇到黑黑不平衡则需要调整
      */
     public void remove(int key) {
         RBNode deleted = find(key);
         if (deleted == null) {
-            return;
+            return;//节点不存在
         }
         doRemove(deleted);
     }
 
-    //查找删除节点
+    /**
+     <h1>查找节点</h1>
+     */
     RBNode find(int key) {
         RBNode p = root;
         while (p != null) {
@@ -204,7 +281,10 @@ public class RBTree {
         return null;
     }
 
-    //查找剩余节点
+    /**
+     <h1>(删除时)查找替换节点</h1>
+     没有孩子返回null,有一个孩子返回孩子节点,有两个孩子返回后继
+     */
     RBNode findReplaced(RBNode deleted) {
         if (deleted.left == null && deleted.right == null) {//没有孩子返回null,
             return null;
@@ -216,15 +296,46 @@ public class RBTree {
             return deleted.left;
         }
         //有两个孩子,查找后继
-        RBNode s = deleted.right;
+        RBNode s = deleted.right;//右子树的最左侧节点
         while (s.left != null) {
             s = s.left;
         }
         return s;
     }
 
+    /**
+     <h1>删除节点</h1>
+     主要思想: 李代桃僵, 与后继交换后删除本节点
+     <ul>
+     <li> case 1:要删除节点没有孩子<br>
+     <ul>
+     <li> case 1.1 : 删除根.<br>
+     将root置空</li>
+     <li> case 1.2 : 非根.<br>
+     检查节点颜色,如果为黑则触发双黑(少一个黑),调整颜色<br>
+     将父节点的对应孩子置空即可
+     </li>
+     </ul>
+     <li> case 2 : 有一个孩子</li>
+     <ul>
+     <li> case 2.1 : 删除为根<br>
+     根节点如果只有一个孩子,那么孩子一定为红色<br>
+     将根节点与孩子节点进行键值交换,再删除孩子即可</li>
+     <li> case 2.2 : 非根<br>
+     父节点的对应孩子指针指向替换节点,替换节点父指针指向父节点,删除节点脱离树<br>
+     判断删除节点和替换节点颜色<br>
+     case 1: 如果都为黑, 则说明删除了一个黑, 触发双黑不平衡<br>
+     case 2: 如果一红一黑, 删黑剩红,将替换节点(剩)置黑; 删红剩黑,平衡,不用改变<br>
+     // 不可能两红,因为case2中删除节点只有一个孩子(替换节点),相邻不可能都为红,否则树是不平衡的
+     </li>
+     </ul>
+     </li>
+     <li> case 3 : 有两个孩子<br>
+     将被删除节点与它的后继键值交换,然后递归删除后继节点即可
+     </ul>
+     */
     void doRemove(RBNode deleted) {
-        RBNode replaced = findReplaced(deleted);
+        RBNode replaced = findReplaced(deleted);//查找后继
         RBNode parent = deleted.parent;
         // 1.没有孩子
         if (replaced == null) {
@@ -233,10 +344,9 @@ public class RBTree {
             } else {//非根节点(叶子)
                 // 颜色检查
                 if (isBlack(deleted)) {
-                    //删除的为黑色节点,触发双黑(少了一个节点)
+                    //要删除的为黑色节点,触发双黑(少了一个黑色)
                     fixDoubleBlack(deleted);
-                    //删除红色节点不需要考虑平衡
-                    // 红色节点要么是叶子节点,可以直接删除; 要么是有两个黑色孩子节点,可以使用李代桃僵法删除后继
+                    //删除红色节点叶子不需要考虑平衡
                 }
 
                 if (deleted.isLeftChild()) {
@@ -256,7 +366,7 @@ public class RBTree {
                 root.key = replaced.key;
                 root.value = replaced.value;
                 root.left = root.right = null;
-            } else {//非根节点(叶子)
+            } else {//非根节点
                 if (deleted.isLeftChild()) {
                     parent.left = replaced;
                 } else {
@@ -268,13 +378,14 @@ public class RBTree {
                     //删黑,剩黑,触发双黑(少了一个节点)
                     fixDoubleBlack(replaced);//因为先调整的位置,所以传入replaced
                 } else {
-                    // 删黑,剩红,用红色补齐
+                    // 若删黑剩红,将替换节点置黑; 若删红剩黑,则是平衡的,不用改变
                     replaced.color = BLACK;
                 }
+                // 不可能两红,因为删除节点只有一个孩子(替换节点),相邻不可能都为红,否则树是不平衡的
             }
             return;
         }
-        // 3.有两个孩子 -> 1 or 2
+        // 3.有两个孩子 to case 1 or case 2
         // 李代桃僵:将待删除节点与它的后继进行键值交换,再删除后继(递归走上面的没有孩子和只有一个孩子的分支)
         int tempKey = deleted.key;
         Object tempValue = deleted.value;
@@ -282,13 +393,53 @@ public class RBTree {
         deleted.value = replaced.value;
         replaced.key = tempKey;
         replaced.value = tempValue;
+
         doRemove(replaced);
     }
 
-    /*双黑
-    1.被调整节点的兄弟为红,此时两个侄子定为黑,通过一次旋转获取一个侄子成为黑色兄弟,过渡到下面的两个情况
-    2.兄弟为黑,两个侄子都为黑
-    3.兄弟为黑,两个侄子至少一个红色
+    /**
+     <h1>双黑不平衡(少一个黑)</h1>
+     本节点为黑,但是子树仍少一个黑
+     <ul>
+     <li> case 1 : 被调整节点的兄弟为红<br>
+     由于红红不相邻规则, 此时两个侄子定为黑<br>
+     可对父节点通过一次旋转(向自己方向), 使自己获取一个侄子<br>
+     即拥有一个黑色兄弟, 然后过渡到下面的两个情况
+     </li>
+     <li> case 2 : 兄弟为黑<br>
+     <ul>
+     <li> case 2.1 : 两个侄子都为黑<br>
+     将兄弟变红, 使兄弟分支也缺一个黑<br>
+     如果此时父节点为红, 那么父节点可以填补两个分支的黑<br>
+     如果父节点为黑, 那么整个子树少一个黑, 父节点进入递归</li>
+     <li> case 2.2 : 两个侄子不都为黑</li>
+     <ul>
+     <li> case 2.2.1 : LL, 兄弟为左孩子, 左侄子为红<br>
+     对父节点右旋, 使兄弟上位, 兄弟取代父亲(颜色), 并将左侄子置黑<br>
+     如果父亲为黑, 则兄弟上位后补足了自己的黑, 右侄子分支被托孤后黑数不变<br>
+     如果父亲为红, 则兄弟上位后变红, 为了补足黑色, 需要将父亲置黑<br>
+     (总的来说,父节点直接置黑)</li>
+     <li> case 2.2.2 : LR, 兄弟为左孩子,右侄子为红<br>
+     红色侄子取代父亲(颜色)<br>
+     对兄弟左旋, 父亲右旋, 右侄子上位<br>
+     如果父亲为黑, 则侄子变黑, 兄弟分支不变, 自己分支被侄子补齐<br>
+     如果父亲为红, 则侄子变红, 兄弟分支不变, 自己分支仍缺一个黑, 将父节点置黑<br>
+     (总的来说,父节点直接置黑)</li>
+     <li> case 2.2.2 : RR, 兄弟为右孩子, 右侄子为红<br>
+     对父节点左旋, 使兄弟上位, 兄弟取代父亲(颜色), 并将右侄子置黑<br>
+     如果父亲为黑, 则兄弟上位后补足了自己的黑, 左侄子分支被托孤后黑数不变<br>
+     如果父亲为红, 则兄弟上位后变红, 为了补足黑色, 需要将父亲置黑<br>
+     (总的来说,父节点直接置黑)</li>
+     <li> case 2.2.3 : RL , 兄弟为右孩子, 左侄子为红<br>
+     红色侄子取代父亲(颜色)<br>
+     对兄弟左旋, 父亲右旋, 左侄子上位<br>
+     如果父亲为黑, 则侄子变黑, 兄弟分支不变, 自己分支被侄子补齐<br>
+     如果父亲为红, 则侄子变红, 兄弟分支不变, 自己分支仍缺一个黑, 将父节点置黑<br>
+     (总的来说,父节点直接置黑)</li>
+     </ul>
+     </li>
+     </ul>
+     </ul>
      */
     private void fixDoubleBlack(RBNode node) {
         if (node == root) {//递归到根节点不需要调整
@@ -297,26 +448,27 @@ public class RBTree {
         RBNode parent = node.parent;
         RBNode brother = node.brother();
         //1.被调整节点的兄弟为红
-        if (isRed(brother)) {//对父亲左旋or右旋
+        if (isRed(brother)) {
+            //对父亲左旋or右旋,捕获一个黑色侄子成为自己的兄弟
             if (node.isLeftChild()) {
                 leftRotate(parent);
             } else {
                 rightRotate(parent);
             }
-            //换颜色,暂时平衡
-            parent.color = RED;//因为兄弟为红,所以父亲一定为黑色
+            //因为原兄弟为红,所以父亲一定为黑色
+            parent.color = RED;//将父亲置空,兄弟置黑
             brother.color = BLACK;
-            fixDoubleBlack(node);
+            fixDoubleBlack(node);//此时兄弟分支保持平衡原样,自身分支保持原样缺少一个黑,进入递归
             return;
         }
-        if (brother == null) {// TODO 不可能发生的情况,兄弟为null,树一定不平衡???
+        if (brother == null) {// 不可能发生的情况
+            // 兄弟为null,此时有两种情况,父为黑和父为红(双黑函数,自身一定为黑),这两种情况都是不平衡的树
             fixDoubleBlack(parent);
-            System.out.println("---兄弟为null---");
             return;
         }
         //2.兄弟为黑,两个侄子都为黑
         if (isBlack(brother.left) && isBlack(brother.right)) {
-            //将兄弟变红,两边黑色同时减1
+            //将兄弟变红,使兄弟分支也缺一个黑
             brother.color = RED;
             if (isRed(parent)) {// 如果父亲为红,则直接用父亲填补即可
                 parent.color = BLACK;
@@ -359,6 +511,9 @@ public class RBTree {
         }
     }
 
+    /**
+     层序遍历
+     */
     public static List<List<Object>> levelOrder(RBNode root) {
         List<List<Object>> result = new ArrayList<>();//存储层序遍历的结果
         if (root == null) {

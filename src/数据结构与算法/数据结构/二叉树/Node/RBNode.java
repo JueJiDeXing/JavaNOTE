@@ -3,15 +3,16 @@ package 数据结构与算法.数据结构.二叉树.Node;
 
 import static 数据结构与算法.数据结构.二叉树.Node.RBNode.Color.RED;
 
+/**
+ 红黑树节点
+ */
 public class RBNode {
     public enum Color {RED, BLACK}
 
     public int key;
     public Object value;
     public Color color = RED;
-    public RBNode left;
-    public RBNode right;
-    public RBNode parent;
+    public RBNode left, right, parent;
 
     public RBNode(int key, Color color, RBNode left, RBNode right) {
         this.key = key;

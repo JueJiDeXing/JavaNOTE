@@ -30,7 +30,7 @@ public class _918环形子数组的最大和 {
             min = Math.min(preMin, min);
             sum += num;//全部和
         }
-        if (max < 0) return max;//全是负数,返回最小的一个负数
+        if (max < 0) return max;//全是负数,返回最大的一个负数
         return Math.max(max, sum - min);
     }
 }

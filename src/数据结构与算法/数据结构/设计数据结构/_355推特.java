@@ -1,6 +1,6 @@
 package 数据结构与算法.数据结构.设计数据结构;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.*;
 
@@ -25,14 +25,19 @@ public class _355推特 {
     void unfollow(int followerId, int followeeId)
          ID 为 followerId 的用户不再关注 ID 为 followeeId 的用户。
      */
+    public static void main(String[] args) {
+        Twitter twitter = new Twitter();
+        twitter.follow(1, 5);
+        List<Integer> res = twitter.getNewsFeed(1);
+        System.out.println(res);
+    }
 }
 
 class Twitter {
 
-    @Data
-    static class Tweet {//文章
-        int id;
-        int time;
+    @Getter
+    static class Tweet {//文章,链表型
+        int id, time;
         Tweet next;
 
         public Tweet(int id, int time, Tweet next) {
@@ -52,32 +57,45 @@ class Twitter {
             this.id = id;
         }
 
-        Set<Integer> followees = new HashSet<>();
-        Tweet head = new Tweet();
+        Set<Integer> followees = new HashSet<>();//用户的关注列表
+        Tweet head = new Tweet();//用户的文章链表
     }
 
-    Map<Integer, User> userMap = new HashMap<>();
-    private static int time;
+    Map<Integer, User> userMap = new HashMap<>();// 用户id -> 用户对象
+    private static int time = 0;//全局时间戳
 
     public Twitter() {
 
     }
 
+    /**
+     用户发一篇文章
+
+     @param userId  用户id
+     @param tweetId 文章id
+     */
     public void postTweet(int userId, int tweetId) {
-        User user = userMap.computeIfAbsent(userId, User::new);
-        user.head.next = new Tweet(tweetId, time++, user.head.next);
+        User user = userMap.computeIfAbsent(userId, User::new);//根据id获取用户对象
+        user.head.next = new Tweet(tweetId, time++, user.head.next);//向用户文章链表头插入一篇文章
     }
 
+    /**
+     获取最新的10篇文章,文章必须是用户和用户关注的人发的
+
+     @param userId 用户id
+     @return List<Integer>10篇文章对应的id
+     */
     public List<Integer> getNewsFeed(int userId) {
         User user = userMap.get(userId);
-        if (user == null) return List.of();
+        if (user == null) return List.of();//没有这个用户,没有文章
+
         PriorityQueue<Tweet> queue = new PriorityQueue<>(
                 Comparator.comparingInt(Tweet::getTime).reversed()
-        );
+        );//优先级队列,按时间排序
         if (user.head.next != null) {
-            queue.offer(user.head.next);
+            queue.offer(user.head.next);//添加用户发的文章
         }
-        for (Integer id : user.followees) {
+        for (Integer id : user.followees) {//添加用户的关注列表发的文章
             User followee = userMap.get(id);
             if (followee.head.next != null) {
                 queue.offer(followee.head.next);
@@ -86,24 +104,37 @@ class Twitter {
         //合并k个有序链表
         List<Integer> res = new ArrayList<>();
         int count = 0;
-        while (!queue.isEmpty() && count < 10) {
-            Tweet max = queue.poll();
+        while (!queue.isEmpty() && count < 10) {//选择时间最靠前的十篇
+            Tweet max = queue.poll();//抛出最早的一篇
             res.add(max.id);
             if (max.next != null) {
-                queue.offer(max.next);
+                queue.offer(max.next);//选择一篇文章后,将下一篇文章加入
             }
             count++;
         }
         return res;
     }
 
+    /**
+     用户关注某人
+
+     @param followerId 用户id
+     @param followeeId 关注人
+     */
     public void follow(int followerId, int followeeId) {
-        User user = userMap.get(followerId);
+        User user = userMap.computeIfAbsent(followerId, User::new);
+        userMap.computeIfAbsent(followeeId, User::new);//没有则需要创建关注对象
         user.followees.add(followeeId);
     }
 
+    /**
+     用户取关某人
+
+     @param followerId 用户id
+     @param followeeId 关注人
+     */
     public void unfollow(int followerId, int followeeId) {
-        User user = userMap.get(followerId);
-        user.followees.remove(followeeId);
+        User user = userMap.computeIfAbsent(followerId, User::new);
+        user.followees.remove(followeeId);//直接remove,元素不存在不会报错
     }
 }

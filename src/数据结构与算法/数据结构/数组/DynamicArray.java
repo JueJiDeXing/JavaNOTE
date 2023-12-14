@@ -8,7 +8,6 @@ import java.util.stream.IntStream;
 /**
  <div color=rgb(150,200,80)>
  <h1>动态数组</h1>
- 手写数组源码
  </div>
  */
 public class DynamicArray implements Iterable<Integer> {

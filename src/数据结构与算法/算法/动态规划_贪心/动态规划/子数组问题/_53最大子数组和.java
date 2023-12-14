@@ -9,7 +9,7 @@ public class _53最大子数组和 {
         int pre=0;//连续子数组和
         int max=Integer.MIN_VALUE;
         for(int n:nums){
-            pre=Math.max(pre+n,n);//如果pre为负,从新项开始求,否则继续加这一项
+            pre=Math.max(pre+n,n);//如果pre为负,会从新项开始求,否则继续加这一项
             max=Math.max(max,pre);//最大和
         }
         return max;

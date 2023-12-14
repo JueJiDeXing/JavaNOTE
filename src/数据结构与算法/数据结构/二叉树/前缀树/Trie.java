@@ -1,5 +1,9 @@
 package 数据结构与算法.数据结构.二叉树.前缀树;
 
+/**
+ <h1>前缀树/字典树</h1>
+ 用于记录单词信息
+ */
 public class Trie {
 
     static class Node {

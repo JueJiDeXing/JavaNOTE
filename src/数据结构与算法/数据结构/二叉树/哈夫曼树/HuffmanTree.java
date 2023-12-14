@@ -8,8 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
+/**
+ <h1>哈夫曼树/带权路径长度最短树</h1>
+ 根据频次进行编码,实现最少字节传输
+ */
 public class HuffmanTree {
-    //根据频次进行编码,实现最少字节传输
+
     /*示例:
         n                                          n
        / \                                        / \

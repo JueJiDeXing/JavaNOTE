@@ -22,7 +22,7 @@ public class Heap {
         if (max) {
             cmp = (a, b) -> Integer.compare(a, b);//大
         } else {
-            cmp = (a, b) -> Integer.compare(b, a);
+            cmp = (a, b) -> Integer.compare(b, a);//小
         }
     }
 
