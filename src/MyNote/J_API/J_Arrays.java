@@ -8,14 +8,18 @@ public class J_Arrays {//操作数组的工具类
         //String Arrays.toString(Array arr)
         int[]arr={1,2,3,4,5,6,7,8};
         System.out.println(Arrays.toString(arr));
+
         //int Arrays.binarySearch(Array arr,number key)二分查找,返回索引值,未找到返回-插入点-1   (要求数组升序)
         System.out.println(Arrays.binarySearch(arr,10));//输出-9,key10应在数组的index=8处,-8-1=-9
+
         //Array Arrays.copyOf(Array arr,int length)指定长度拷贝数组,越界补0
         int[] arr2 = Arrays.copyOf(arr, 5);
         System.out.println(Arrays.toString(arr2));
+
         //Array Arrays.copyOf(Array arr,int startIndex ,int endIndex)指定索引范围(左闭右开)拷贝数组,越界补0
         int[]arr3=Arrays.copyOfRange(arr,1,7);
         System.out.println(Arrays.toString(arr3));
+
         //Arrays.fill(arr,val) 把数组的元素值都改为val
         Arrays.fill(arr,10);
         System.out.println(Arrays.toString(arr));
@@ -30,6 +34,7 @@ public class J_Arrays {//操作数组的工具类
             }
         });
         System.out.println(Arrays.toString(arr4));
+
         //compare(Integer o1, Integer o2)
         //o1:无序序列的元素(即遍历的某一个数组元素,开始时为第二个元素)
         //o2:有序序列的元素(已排序的元素,开始时为第一个元素,后面从已排序的部分倒着遍历与o1比较)
