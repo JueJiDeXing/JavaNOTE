@@ -2,7 +2,7 @@ package 数据结构与算法.算法.深搜_广搜.深度优先.排列组合问�
 
 import java.util.*;
 
-public class 重复集合的子集 {
+public class 含重复元素集合的子集 {
     //含重复元素的集合,求它的所有子集
     /*
     示例 ：

@@ -400,7 +400,7 @@ public class BSTree {
     }
 
     /**
-     查找处于key1与key2之间的节点的value
+     查找所有处于key1与key2之间的节点的value<br>
      [key1,key2] -> list:values
      */
     public List<Object> between(int key1, int key2) {

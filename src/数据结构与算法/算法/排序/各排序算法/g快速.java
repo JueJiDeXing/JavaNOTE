@@ -4,10 +4,6 @@ import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class g快速 {
-    int ONE = 1;
-    int TWO = 2;
-    int THREE = 3;
-    int FOUR = 4;
 
     //每轮找一个基准点,小的放左边,大的右边
     public void quickSort(int[] a, int partitionMethod) {
@@ -28,6 +24,7 @@ public class g快速 {
             case 4 -> partition4(a, left, right);
             default -> throw new RuntimeException("partitionMethod:" + partitionMethod + "错误");
         };
+        System.out.println("分区:" + Arrays.toString(a));
 
         quick(a, left, p - 1, partitionMethod);//对两个区域再次分区排序
         quick(a, p + 1, right, partitionMethod);
@@ -92,7 +89,7 @@ public class g快速 {
      */
     private int partition2(int[] a, int left, int right) {
         int pv = a[left];//基准点元素值
-        int i = left + 1;
+        int i = left;
         int j = right;
         while (i < j) {
             //必须先找小的再找大的(先j后i),否则最后与基准点互换时会把大的换到左边(因为此时i,j相遇,而i找的是大的)
@@ -100,7 +97,7 @@ public class g快速 {
                 //寻找小的
                 j--;
             }
-            while (i < j && pv > a[i]) {
+            while (i < j && pv >= a[i]) {
                 //寻找大的
                 i++;
             }
@@ -116,8 +113,7 @@ public class g快速 {
      优化1:随机基准点<br>
      */
     private int partition3(int[] a, int left, int right) {
-        int index = ThreadLocalRandom.current()
-                .nextInt(right - left + 1) + left;
+        int index = ThreadLocalRandom.current().nextInt(right - left + 1) + left;
         swap(a, index, left);
         int pv = a[left];//基准点元素值
         int i = left;

@@ -3,8 +3,7 @@ package 数据结构与算法.数据结构.二叉树.Node;
 public class BSTNode {
     public int key;//使用key比较大小
     public Object value;
-    public BSTNode left;
-    public BSTNode right;
+    public BSTNode left, right;
 
     public BSTNode() {
     }
