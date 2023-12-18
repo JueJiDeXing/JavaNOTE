@@ -1,29 +1,29 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
-import 数据结构与算法.数据结构.二叉树.Node.MyTreeNode;
+import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 
 import java.util.LinkedList;
 
 public class 范围和 {
+    //求二叉搜索树[low,high]的和
     //中序遍历
-    public int rangeSumBST1(MyTreeNode node, int low, int high) {
-        MyTreeNode p = node;
-        LinkedList<MyTreeNode> stack = new LinkedList<>();
+    public int rangeSumBST1(TreeNode node, int low, int high) {
+        TreeNode p = node;
+        LinkedList<TreeNode> stack = new LinkedList<>();
         int sum = 0;
         while (p != null || !stack.isEmpty()) {
             if (p != null) {
                 stack.push(p);
                 p = p.left;
             } else {
-                MyTreeNode pop = stack.pop();
-                int value = (int) pop.value;
+                TreeNode pop = stack.pop();
+                int value = pop.val;
                 if (value > high) {//剪枝
                     break;
                 }
                 if (low <= value) {
                     sum += value;
                 }
-
                 p = pop.right;
             }
         }
@@ -31,11 +31,11 @@ public class 范围和 {
     }
 
     //上下限递归
-    public int rangeSumBST2(MyTreeNode node, int low, int high) {
+    public int rangeSumBST2(TreeNode node, int low, int high) {
         if (node == null) {
             return 0;
         }
-        int value = (int) node.value;
+        int value = node.val;
         if (value < low) {
             return rangeSumBST2(node.right, low, high);
         }

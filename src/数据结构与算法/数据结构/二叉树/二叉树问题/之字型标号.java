@@ -25,7 +25,7 @@ public class 之字型标号 {
         }
 
         if (row % 2 == 0) {
-            label = reverse(label, row);//初始label在偶数行为反转标号,再次反转后正常
+            label = reverse(label, row);//初始label在偶数行,为反转标号,再次反转后正常
         }
         while (row > 0) {
             if (row % 2 == 0) {//偶数行,反转标号

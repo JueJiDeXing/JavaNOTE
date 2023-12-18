@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class 搜索树校验 {
-
+    //判断一颗树是否为二叉搜索树
     // 中序遍历-非递归
     public static boolean isValidBST1(TreeNode node) {
         TreeNode p = node;

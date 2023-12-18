@@ -1,19 +1,21 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
-import 数据结构与算法.数据结构.二叉树.Node.MyTreeNode;
+import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 
 public class 镜像翻转 {
+    //将二叉树镜像翻转
+
     //交换左右子树
-    public MyTreeNode invertTree(MyTreeNode root) {
+    public TreeNode invertTree(TreeNode root) {
         fn(root);
         return root;
     }
 
-    private static void fn(MyTreeNode node) {
+    private static void fn(TreeNode node) {
         if (node == null) {
             return;
         }
-        MyTreeNode temp = node.left;
+        TreeNode temp = node.left;
         node.left = node.right;
         node.right = temp;
         fn(node.left);

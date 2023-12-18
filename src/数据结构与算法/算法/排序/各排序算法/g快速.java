@@ -53,20 +53,17 @@ public class g快速 {
      */
     private int partition1(int[] a, int left, int right) {
         int pv = a[right];//基准点元素值
-        int i = left;
-        int j = left;
+        int i = left, j = left;
         while (j < right) {
-            if (a[j] < pv) {//找到小的
-                if (i != j) {
-                    swap(a, i, j);
-                    i++;
-                }
+            if (a[j] < pv && i != j) {//找到小的(相等没必要交换)
+                swap(a, i, j);
+                i++;
             }
-            if (a[right] >= a[i]) {//i没有找到大的则自增,否则停止等待j找到小的元素并互换
+            if (a[right] >= a[i]) {//i没有找到大的则自增,否则停止,等待j找到小的元素并互换
                 i++;
             }
             j++;
-            System.out.println(Arrays.toString(a) + " i=" + i + " j=" + j);
+            //System.out.println(Arrays.toString(a) + " i=" + i + " j=" + j);
         }
         swap(a, i, right);//最后交换
         return i;
@@ -89,20 +86,16 @@ public class g快速 {
      */
     private int partition2(int[] a, int left, int right) {
         int pv = a[left];//基准点元素值
-        int i = left;
-        int j = right;
+        int i = left, j = right;
         while (i < j) {
             //必须先找小的再找大的(先j后i),否则最后与基准点互换时会把大的换到左边(因为此时i,j相遇,而i找的是大的)
             while (i < j && a[j] > pv) {
-                //寻找小的
-                j--;
+                j--;//寻找小的
             }
             while (i < j && pv >= a[i]) {
-                //寻找大的
-                i++;
+                i++;//寻找大的
             }
-            //找到则交换
-            swap(a, i, j);
+            swap(a, i, j);  //找到则交换
         }
         swap(a, left, i);
         return i;
@@ -115,27 +108,24 @@ public class g快速 {
     private int partition3(int[] a, int left, int right) {
         int index = ThreadLocalRandom.current().nextInt(right - left + 1) + left;
         swap(a, index, left);
+        //以下与双边快排一样
         int pv = a[left];//基准点元素值
-        int i = left;
-        int j = right;
+        int i = left, j = right;
         while (i < j) {
-            while (i < j && a[j] > pv) {
-                //寻找小的
-                j--;
+            while (i < j && a[j] > pv) {//内层循环也要判断i<j
+                j--; //寻找小的
             }
-            while (i < j && pv >= a[i]) {//内层循环也要判断i<j
-                //寻找大的
-                i++;
+            while (i < j && pv >= a[i]) {
+                i++; //寻找大的
             }
-            //找到则交换
-            swap(a, i, j);
+            swap(a, i, j);  //找到则交换
         }
         swap(a, left, i);
         return i;
     }
 
     /**
-     <h1>快速排序:优化</h1>
+     <h1>快速排序</h1>
      优化2:重复元素处理<br>
      循环内,i从left+1(left为基准点)开始,从左到右找大于等于的,j从right开始,从右到左找小于等于的<br>
      ij找到后交换,i++,j-- <br>
@@ -146,10 +136,6 @@ public class g快速 {
         int pv = a[left];
         int i = left + 1;
         int j = right;
-        //while循环是小于等于
-        // 因为i是从left+1开始的,可以想象在最后left+1=right时,i=j=right
-        // while循环不进入,直接交换了left与right
-        // 而使用<=会进入循环,ij的位置一定是正确的,退出循环后j的位置从right减到left,left与j交换不会破坏结果的正确性
         while (i <= j) {
             while (i <= j && a[i] < pv) {
                 i++; //寻找大的
@@ -157,8 +143,7 @@ public class g快速 {
             while (i <= j && a[j] > pv) {
                 j--; //寻找小的
             }
-            //上面两个循环确保ij都在正确的位置
-            if (i <= j) {//如果i>j则不交换,保证不会交换错
+            if (i <= j) {
                 swap(a, i, j);
                 i++;
                 j--;

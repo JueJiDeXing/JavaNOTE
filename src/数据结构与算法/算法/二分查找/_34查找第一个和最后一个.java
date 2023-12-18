@@ -1,0 +1,84 @@
+package 数据结构与算法.算法.二分查找;
+
+public class _34查找第一个和最后一个 {
+
+
+    /**
+     解法1: 先查找leftMost然后在left基础上查找rightMost
+     */
+    public int[] searchRange(int[] nums, int target) {
+        int first = -1, last = -1;
+        //查找第一个
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (nums[mid] < target) {//在右边
+                left = mid + 1;
+            } else if (nums[mid] == target) {//找到了,向左找更靠前的
+                first = mid;
+                right = mid - 1;
+            } else {//在左边
+                right = mid - 1;
+            }
+        }
+        //查找最后一个
+        right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) >>> 1;
+            if (nums[mid] < target) {//在右边
+                left = mid + 1;
+            } else if (nums[mid] == target) {//找到了,向右找更靠后的
+                left = mid + 1;
+                last = mid;
+            } else {//在左边
+                right = mid - 1;
+            }
+        }
+
+        return new int[]{first, last};
+    }
+
+    /**
+     解法2,从两端for循环遍历找第一个相等的
+     */
+    public int[] searchRange2(int[] nums, int target) {
+        int[] ans = new int[2];
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                ans[0] = i;
+                break;
+            }
+        }
+        for (int i = nums.length - 1; i >= 0; i--) {
+            if (nums[i] == target) {
+                ans[1] = i;
+                break;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     解法3: 查找target的leftMost,再查找target+1的leftMost-1
+     */
+    public int[] searchRange3(int[] nums, int target) {
+        int l = search(nums, target);
+        int r = search(nums, target + 1);
+        if (l == nums.length || nums[l] != target)
+            return new int[]{-1, -1};
+        return new int[]{l, r - 1};
+    }
+
+    //找>=target的第一个
+    public int search(int[] nums, int target) {
+        int l = 0, r = nums.length;
+        while (l < r) {
+            int mid = (r + l) >> 1;
+            if (nums[mid] >= target)
+                r = mid;
+            else
+                l = mid + 1;
+        }
+        return l;
+    }
+}

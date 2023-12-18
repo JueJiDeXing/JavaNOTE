@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.数论;
 
+import java.util.Scanner;
+
 public class 素数筛 {
     //求[0,N]的质数数量、对[0,N]的质数求和、求[0,N]的第k个质数
 
@@ -84,4 +86,51 @@ public class 素数筛 {
         }
         return sum;
     }
+
+    /*
+    定义函数f(x)为x不同的素因子个数，
+    对于一个正整数a，请找到一个最小的正整数b，使得a<b,f(a)<f(b) 。
+
+    题目描述给定一个数q，表示询问数，
+    以及q个正整数，表示题目背景中的a，
+    对每个a，你需要求出相应的b。
+
+    格式输入格式第一行一个正整数q，表示询问数第2∼q+1行每行一个正整数，表示题目背景中的a
+    输出格式每行一个正整数b
+     */
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int q = sc.nextInt();
+        int N = 40000;//3万过不了
+        //素数筛
+        boolean[] isHeShu = new boolean[N];
+        isHeShu[0] = isHeShu[1] = true;
+        int[] ShuShu = new int[N];
+        int ShuShuNum = 0;
+        int[] count = new int[N];
+        //求素因子统计
+        for (int i = 2; i < N; i++) {
+            if (!isHeShu[i]) {
+                ShuShu[ShuShuNum++] = i;
+                for (int j = 1; i * j < N; j++) {
+                    count[i * j]++;
+                }
+            }
+            for (int j = 0; j < ShuShuNum; j++) {
+                if (j > i || i * ShuShu[j] >= N) break;
+                isHeShu[i * ShuShu[j]] = true;
+            }
+        }
+        //q个询问
+        for (int i = 0; i < q; i++) {
+            int n = sc.nextInt();
+            for (int j = n + 1; j < N; j++) {
+                if (count[j] > count[n]) {
+                    System.out.println(j);
+                    break;
+                }
+            }
+        }
+    }
+
 }

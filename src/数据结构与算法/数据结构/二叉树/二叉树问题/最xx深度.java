@@ -1,6 +1,6 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
-import 数据结构与算法.数据结构.二叉树.Node.MyTreeNode;
+import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 import 数据结构与算法.数据结构.栈.栈实现.MyLinkedListStackClass;
 
 import java.util.LinkedList;
@@ -11,7 +11,7 @@ public class 最xx深度 {
     // max(左子树深度,右子树深度)+1
     // 因为要得到左右子树的深度,显然是后序遍历的典型应用
 
-    public int maxDepth(MyTreeNode node) {
+    public int maxDepth(TreeNode node) {
         if (node == null) {
             return 0;
         }
@@ -24,11 +24,11 @@ public class 最xx深度 {
     }
 
     //非递归实现
-    public int maxDepth_(MyTreeNode node) {
-        MyTreeNode curr = node;
-        MyTreeNode pop = null;
+    public int maxDepth_(TreeNode node) {
+        TreeNode curr = node;
+        TreeNode pop = null;
         int max = 0;//栈的最大高度
-        MyLinkedListStackClass<MyTreeNode> stack = new MyLinkedListStackClass<>();
+        MyLinkedListStackClass<TreeNode> stack = new MyLinkedListStackClass<>();
         while (curr != null || !stack.isEmpty()) {
             if (curr != null) {
                 stack.push(curr);
@@ -38,7 +38,7 @@ public class 最xx深度 {
                 }
                 curr = curr.left;
             } else {
-                MyTreeNode peek = stack.peek();
+                TreeNode peek = stack.peek();
                 if (peek.right == null || peek.right == pop) {//右子树处理完
                     pop = stack.pop();
                 } else {
@@ -50,11 +50,11 @@ public class 最xx深度 {
     }
 
     //层序遍历法
-    public static int maxDepth2(MyTreeNode root) {
+    public static int maxDepth2(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        Queue<MyTreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         //int c1 = 1;//当前层元素个数
         int max = 0;
@@ -63,7 +63,7 @@ public class 最xx深度 {
             //int c2 = 0;//下一层个数
             int size = queue.size();//用size代替c1
             for (int i = 0; i < size; i++) {
-                MyTreeNode poll = queue.poll();
+                TreeNode poll = queue.poll();
                 assert poll != null;
                 if (poll.left != null) {
                     queue.offer(poll.left);
@@ -80,9 +80,9 @@ public class 最xx深度 {
         return max;
     }
 
-    //最小深度--------------------------------------------------------------------
+    //最小深度----------------------------------------------------------------------
     // min(左,右)+1
-    public int minDepth(MyTreeNode node) {
+    public int minDepth(TreeNode node) {
         if (node == null) {
             return 0;
         }
@@ -102,11 +102,11 @@ public class 最xx深度 {
     }
 
     //层序遍历,遇到的第一个叶子节点即为最小深度
-    public static int minDepth2(MyTreeNode root) {
+    public static int minDepth2(TreeNode root) {
         if (root == null) {
             return 0;
         }
-        Queue<MyTreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         //int c1 = 1;//当前层元素个数
         int min = 0;
@@ -115,7 +115,7 @@ public class 最xx深度 {
             //int c2 = 0;//下一层个数
             int size = queue.size();//用size代替c1
             for (int i = 0; i < size; i++) {
-                MyTreeNode poll = queue.poll();
+                TreeNode poll = queue.poll();
                 assert poll != null;
                 if (poll.left == null && poll.right == null) {
                     return min;

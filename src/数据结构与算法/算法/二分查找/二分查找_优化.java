@@ -14,8 +14,7 @@ public class 二分查找_优化 {
      @return 返回查找值在数组中的索引<br>未找到则返回-1
      */
     public int binarySearch_原(int[] arr, int target) {
-        int left = 0;
-        int right = arr.length;//右指针不参与目标值比较
+        int left = 0, right = arr.length;//右指针不参与目标值比较
         while (left < right) {
             int middle = (left + right) / 2;
             if (target < arr[middle]) {// 目标在左边
@@ -71,7 +70,7 @@ public class 二分查找_优化 {
         int right = arr.length;
         while (left + 1 < right) {//差距1时退出循环,因为右指针不参与比较,所以这时左指针要么找到目标,要么数组中没有目标
             int middle = (left + right) >>> 1;
-            System.out.println(left + "," + middle + "," + right);
+            //System.out.println(left + "," + middle + "," + right);
             if (target < arr[middle]) {// 目标在左边
                 right = middle;
             } else {//找到目标或目标在右边
@@ -89,9 +88,8 @@ public class 二分查找_优化 {
 
     /**
      <div color=rgb(155,200,80)>
-     <h1>二分查找:LeftMost</h1>
+     <h1>二分查找:LeftMost(没有则返回-1)</h1>
      <p>有多个重复值,返回最左边的索引</p>
-     <p>没有则返回-1</p>
      </div>
      <hr>
 
@@ -102,24 +100,24 @@ public class 二分查找_优化 {
     public int binarySearch_repeat(int[] arr, int target) {
         int left = 0;
         int right = arr.length - 1;
-        int temp = -1;//记录候选位置,每次遇到更靠前的索引时更新
+        int ans = -1;//记录候选位置,每次遇到更靠前的索引时更新
         while (left <= right) {
             int middle = (left + right) >>> 1;
             if (target < arr[middle]) {// 目标在左边
                 right = middle - 1;
             } else if (arr[middle] < target) {//目标在右边
                 left = middle + 1;
-            } else {
-                temp = middle;//记录
+            } else {//相等
+                ans = middle;//记录候选位置
                 right = middle - 1;//如果要做查找最右的元素索引,这一步改为left=middle+1即可
             }
         }
-        return temp;
+        return ans;
     }
 
     /**
      <div color=rgb(155,200,80)>
-     <h1>二分查找:LeftMost</h1>
+     <h1>二分查找:LeftMost(大于等于)</h1>
      <p>例:[1,2,-?-,4,4,4,7,8]查找3,最终left=2,right=1退出循环,返回2</p>
      <p>例:[1,2,4,4,4,-?-,7,8]查找5,最终left=5,right=4退出循环,返回5</p>
      <p>应用场景1:求排名;<br>
@@ -154,7 +152,7 @@ public class 二分查找_优化 {
 
     /**
      <div color=rgb(155,200,80)>
-     <h1>二分查找:递归</h1>
+     <h1>二分查找:递归写法</h1>
      <hr>
      </div>
 

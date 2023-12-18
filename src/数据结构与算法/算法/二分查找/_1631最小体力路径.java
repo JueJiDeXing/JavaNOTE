@@ -5,6 +5,7 @@ import 数据结构与算法.数据结构.并查集.并查集实现.DisjointSet;
 import java.util.*;
 
 public class _1631最小体力路径 {
+
     public static int[][] change(String str) {
         String[] split = str.split("],\\[");
         int row = split.length;
@@ -41,19 +42,19 @@ public class _1631最小体力路径 {
      */
 
     /**
-     <h1>二分查找+广度搜索</h>
+     <h1>二分查找+广度搜索</h1>
      1 <= heights[i][j] <= 10^6<br>
-     枚举高度x,判定在x高度下,能否从左上角走到右下角
+     枚举体力x,判定在x体力下,能否从左上角走到右下角
      */
     public int minimumEffortPath(int[][] heights) {
-        int left = 0, right = 1000000;
+        int left = 0, right = 1000000;//heights[i][j] <= 10^6
         int m = heights.length, n = heights[0].length;
         int ans = 0;
         while (left <= right) {
             int mid = (left + right) >>> 1;
-            if (can(heights, mid, m, n)) { //TODO 尝试dfs
-                ans = mid;
-                right = mid - 1;
+            if (can(heights, mid, m, n)) { //TODO 当前为bfs,尝试dfs
+                ans = mid;//leftMost,ans记录候选位置
+                right = mid - 1;//继续向左查找
             } else {
                 left = mid + 1;
             }
@@ -63,21 +64,27 @@ public class _1631最小体力路径 {
 
     int[][] directions = new int[][]{{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
 
+    /**
+     判断在体力h下能否从左上角走到右下角
+
+     @param h 最大消耗体力
+     */
     private boolean can(int[][] heights, int h, int m, int n) {
         Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{0, 0});
+        queue.offer(new int[]{0, 0});//从(0,0)开始
         boolean[][] isVisited = new boolean[m][n];
         isVisited[0][0] = true;
         while (!queue.isEmpty()) {
             int[] cell = queue.poll();
             int x = cell[0], y = cell[1];
-            for (int i = 0; i < 4; ++i) {
+            for (int i = 0; i < 4; ++i) {//查看相邻四格
                 int nx = x + directions[i][0];
                 int ny = y + directions[i][1];
-                if (!isValidIndex(heights, nx, ny) || isVisited[nx][ny]) {
+                if (!isValidIndex(heights, nx, ny) || isVisited[nx][ny]) {//走过不重复走
                     continue;
                 }
                 if (Math.abs(heights[x][y] - heights[nx][ny]) <= h) {
+                    //体力消耗值不超过h
                     queue.offer(new int[]{nx, ny});
                     isVisited[nx][ny] = true;
                 }
@@ -113,11 +120,13 @@ public class _1631最小体力路径 {
 
     /**
      <h1>Kruskal最小生成树</h1>
+     将矩阵视为图,每个元素与相邻元素构成一条无向边,高度差为边的边权<br>
      每次选取最小边权的边加入并查集中<br>
-     当加入一条边后,左上角与右下角连通,则此边权为最小消耗值
+     当加入一条边后,左上角与右下角连通,则当前选取边权为最小体力消耗值
      */
     public int minimumEffortPath2(int[][] heights) {
         int m = heights.length, n = heights[0].length;
+        //建立边权队列
         Queue<int[]> queue = new PriorityQueue<>((Comparator.comparingInt(o -> o[2])));
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
@@ -134,6 +143,7 @@ public class _1631最小体力路径 {
                 }
             }
         }
+        //选取边连通
         int size = m * n;
         DisjointSet set = new DisjointSet(size);
         int[] edge = new int[3];

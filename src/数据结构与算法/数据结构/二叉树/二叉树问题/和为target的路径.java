@@ -1,60 +1,57 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
+import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
+
+import java.util.LinkedList;
+
 public class 和为target的路径 {
-    /*
 
-#include "MyTree.c"
-#include <stdio.h>
-
-
-    void printStack(SqStack stack) {
-        printf("path: ");
-        int len = StackLength(stack);
-        for (int i = 0; i < len; i++) {
-            printf("%c", stack.base[i]->data);
-            if (i != len - 1) {
-                printf("->");
-            }
-        }
-        printf("\n");
-
+    void findPath(TreeNode root, int target) {
+        LinkedList<TreeNode> stack = new LinkedList<>();//用栈存储路径
+        stack.push(root);
+        search(root, target - root.val, stack);//搜索左右,+'0'是因为存储的数据为字符类型,要转为数字
     }
 
-    void search(BiTNode *node, int target, SqStack *stack) {
+
+    void search(TreeNode node, int target, LinkedList<TreeNode> stack) {
         //当node为叶子节点,且target为0时说明找到路径
-        if (node->left == NULL && node->right == NULL && target == 0) {
-            printStack(*stack);
+        if (node.left == null && node.right == null && target == 0) {
+            printStack(stack);
             return;
         }
         //如果node为叶子节点,而target不为0
         //或者target小于等于0,而node不是叶子节点
         //出栈回溯
-        if (node->left == NULL && node->right == NULL || target <= 0) {
+        if (node.left == null && node.right == null || target <= 0) {
             return;
         }
-        BiTree _;//pop函数的占位参数
+
         //搜索左边
-        if (node->left != NULL) {
-            Push(stack, node->left);
-            search(node->left, target - node->left->data + '0', stack);
-            Pop(stack, &_);//回溯
+        if (node.left != null) {
+            stack.push(node.left);
+            search(node.left, target - node.left.val, stack);
+            stack.pop();
         }
         //搜索右边
-        if (node->right != NULL) {
-            Push(stack, node->right);
-            search(node->right, target - node->right->data + '0', stack);
-            Pop(stack, &_);//回溯
+        if (node.right != null) {
+            stack.push(node.right);
+            search(node.right, target - node.right.val, stack);
+            stack.pop();
         }
 
     }
 
-    void printPath(BiTNode T, int target) {
-        SqStack stack;//用栈存储路径
-        InitStack(&stack);
-        Push(&stack, &T);//根节点必须入栈
+    void printStack(LinkedList<TreeNode> stack) {
+        System.out.print("path: ");
+        int len = stack.size();
+        for (int i = 0; i < len; i++) {
+            System.out.print(stack.get(i).val);
+            if (i != len - 1) {
+                System.out.print("->");
+            }
+        }
+        System.out.println();
 
-        search(&T, target - T.data + '0', &stack);//搜索左右,+'0'是因为存储的数据为字符类型,要转为数字
     }
 
-     */
 }

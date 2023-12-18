@@ -1,6 +1,7 @@
 package 数据结构与算法.数据结构.二叉树.二叉树问题;
 
 public class _117填充右指针 {
+    //给二叉树填充next指针
     // Definition for a Node.
     static class Node {
         public int val;
