@@ -216,7 +216,23 @@ public class FloydWarshall多源最短路径 {
         return new int[][][]{distance, prev};
     }
 
+    /**
+     <h1>Floyd的单源递归写法</h1>
+     假设要从i走到j,那么取i~j之间的最大编号的点k
+     此时有两种选择
+     1. k不在最短路径上,此时问题转变为i到j上最短路径编号<=k-1
+     2. k在最短路径上,此时问题分解为两个 i到k上最短路径变号<=k-1 和 k到j上最短路径编号<=k-1
 
+     @param i 起点
+     @param j 终点
+     @param k 终点
+     @param w 图(邻接矩阵)
+     @return 返回i到j的最短路径长度
+     */
+    public int dfs(int i, int j, int k, int[][] w) {//@cache
+        if (k < 0) return w[i][j];
+        return Math.min(dfs(k - 1, i, j, w), dfs(k - 1, i, k, w) + dfs(k - 1, k, j, w));
+    }
 
 }
 

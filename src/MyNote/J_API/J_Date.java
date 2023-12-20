@@ -30,7 +30,7 @@ public class J_Date {
         //格式化时间展示,解析时间字符串
         //空参构造SimpleDateFormat()默认格式
         SimpleDateFormat sdf = new SimpleDateFormat();
-        //有参构造SimpleDateFormat(String pattern)指定格式
+        //有参构造SimpleDateFormat(String 模式)指定格式
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         // y年 M月 d日 H时 m分 s秒 S毫秒
         // 其他的字母可在API文档中查询

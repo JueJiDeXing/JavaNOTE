@@ -5,12 +5,12 @@ import java.util.Arrays;
 public class 最长公共子串 {
     /*
     输入两个字符串,找最长的公共子串的长度
-    例:"itheima" "thema"
+    例:"jjdx" "thema"
     len("the")>len("ma")
     result=3
      */
     public static void main(String[] args) {
-        System.out.println(lcs("itheima", "thema"));
+        System.out.println(lcs("jjdx", "thema"));
     }
     /**
      <h1>动态规划</h1>

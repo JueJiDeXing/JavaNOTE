@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 class ListNode {
     int val;
@@ -83,14 +84,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.print("0.00%");
-        for (int i = 0; i <= 10000; i++) {
-            System.out.print("\r" + (double) i / 100 + "%");
-            try {
-                Thread.sleep(1);
-            } catch (Exception ignored) {
-            }
-        }
+        ConcurrentSkipListMap<Integer,Integer>map=new ConcurrentSkipListMap<>();
 
     }
 

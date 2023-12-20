@@ -3,6 +3,18 @@ package 数据结构与算法.算法.数论.数学知识的运用;
 import java.util.Arrays;
 
 public class _60排列序列 {
+    /*
+    给出集合 [1,2,3,...,n]，其所有元素共有 n! 种排列。
+
+    按大小顺序列出所有排列情况，并一一标记，当 n = 3 时, 所有排列如下：
+    "123"
+    "132"
+    "213"
+    "231"
+    "312"
+    "321"
+    给定 n 和 k，返回第 k 个排列。
+     */
     public static void main(String[] args) {
         _60排列序列 test = new _60排列序列();
         System.out.println(test.getPermutation(5, 11));
