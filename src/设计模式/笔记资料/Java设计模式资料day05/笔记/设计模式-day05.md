@@ -944,7 +944,7 @@ public class StudentAggregateImpl implements StudentAggregate {
 
 ```java
 List<String> list = new ArrayList<>();
-Iterator<String> iterator = list.iterator(); //list.iterator()方法返回的肯定是Iterator接口的子实现类对象
+Iterator<String> iterator = list.iterator(); //list.iterator迭代器()方法返回的肯定是Iterator接口的子实现类对象
 while (iterator.hasNext()) {
     System.out.println(iterator.next());
 }

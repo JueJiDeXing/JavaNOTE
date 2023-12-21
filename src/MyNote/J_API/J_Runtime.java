@@ -19,7 +19,7 @@ public class J_Runtime {
         System.out.println(r1.maxMemory()/1024/1024);//3550M
         //long totalMemory()JVM已经从系统获取的总内存大小,/JVM剩余内存大小(byte)
         System.out.println(r1.totalMemory()/1024/1024);//222M
-        //Process exec(String command)运行cmd命令
+        //Process exec(String command命令)运行cmd命令
         r1.exec("qq");//打开qq,exec报错可以添加异常方法到签名
         /*cmd命令:
         * 关机shutdown:

@@ -49,7 +49,7 @@ public class noteCollection {
 
         //遍历--------------------------------------------
         //迭代器
-        //Iterator<E>iterator()返回迭代器对象
+        //Iterator<E>iterator迭代器()返回迭代器对象
         //boolean .hasNext()判断当前位置是否有元素
         //E .next()获取当前位置元素并将迭代器移至下一个位置
         // 指针不会复位,要再次遍历需要生成一个新迭代器对象

@@ -118,7 +118,7 @@ public class ProxyFactory {
                 new InvocationHandler() {
                     /*
                         InvocationHandler中invoke方法参数说明：
-                            proxy ： 代理对象
+                            proxy代理 ： 代理对象
                             method ： 对应于在代理对象上调用的接口方法的 Method 实例
                             args ： 代理对象调用接口方法时传递的实际参数
                      */
@@ -175,7 +175,7 @@ public class Client {
           try {
               m1 = Class.forName("java.lang.Object").getMethod("equals", Class.forName("java.lang.Object"));
               m2 = Class.forName("java.lang.Object").getMethod("toString", new Class[0]);
-              m3 = Class.forName("com.jjdx.proxy.dynamic.jdk.SellTickets").getMethod("sell", new Class[0]);
+              m3 = Class.forName("com.jjdx.proxy代理.dynamic.jdk.SellTickets").getMethod("sell", new Class[0]);
               m0 = Class.forName("java.lang.Object").getMethod("hashCode", new Class[0]);
               return;
           }
@@ -257,7 +257,7 @@ public class Client {
       }
   
       static {
-          m3 = Class.forName("com.jjdx.proxy.dynamic.jdk.SellTickets").getMethod("sell", new Class[0]);
+          m3 = Class.forName("com.jjdx.proxy代理.dynamic.jdk.SellTickets").getMethod("sell", new Class[0]);
       }
   
       public final void sell() {
@@ -527,12 +527,12 @@ public class TFCardImpl implements TFCard {
 public class SDAdapterTF extends TFCardImpl implements SDCard {
 
     public String readSD() {
-        System.out.println("adapter read tf card ");
+        System.out.println("adapter适配器 read tf card ");
         return readTF();
     }
 
     public void writeSD(String msg) {
-        System.out.println("adapter write tf card");
+        System.out.println("adapter适配器 write tf card");
         writeTF(msg);
     }
 }
@@ -581,12 +581,12 @@ public class SDAdapterTF  implements SDCard {
     }
 
     public String readSD() {
-        System.out.println("adapter read tf card ");
+        System.out.println("adapter适配器 read tf card ");
         return tfCard.readTF();
     }
 
     public void writeSD(String msg) {
-        System.out.println("adapter write tf card");
+        System.out.println("adapter适配器 write tf card");
         tfCard.writeTF(msg);
     }
 }

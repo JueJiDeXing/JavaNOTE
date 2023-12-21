@@ -684,7 +684,7 @@ public class Bike {
     }
 }
 
-// 抽象 builder 类
+// 抽象 builder建造者 类
 public abstract class Builder {
 
     protected Bike mBike = new Bike();
@@ -767,7 +767,7 @@ public class Client {
 上面示例是 Builder模式的常规用法，指挥者类 Director 在建造者模式中具有很重要的作用，它用于指导具体构建者如何构建产品，控制调用先后次序，并向调用者返回完整的产品类，但是有些情况下需要简化系统结构，可以把指挥者类和抽象建造者进行结合
 
 ```java
-// 抽象 builder 类
+// 抽象 builder建造者 类
 public abstract class Builder {
 
     protected Bike mBike = new Bike();

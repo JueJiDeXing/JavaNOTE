@@ -22,7 +22,7 @@ public class 客户端 {
         int port = 11451;//服务器端口
         //客户端--------------------------------
         //创建客户端的Socket对象,与指定服务端连接
-        //Socket Socket(Proxy proxy)
+        //Socket Socket(Proxy proxy代理)
         //Socket Socket(String host/InetAddress add,int port)
         Socket socket = new Socket(address, port);//如果连不上则报错,需要先运行服务端
         System.out.println("客户端已连接服务器");

@@ -7,7 +7,7 @@ package 设计模式.代码.design_patterns.src.main.java.com.jjdx.原则.接口
 public class Client {
     public static void main(String[] args) {
         //创建黑马安全门对象
-        MySafetyDoor1 door1 = new MySafetyDoor1();
+        MySafetyDoor1 door1 = new MySafetyDoor1();//全防
         //调用功能
         door1.antiTheft();
         door1.fireproof();
@@ -15,7 +15,7 @@ public class Client {
 
         System.out.println("============");
         //创建传智安全门对象
-        MySafetyDoor2 door2 = new MySafetyDoor2();
+        MySafetyDoor2 door2 = new MySafetyDoor2();//不防水
         //调用功能
         door2.antiTheft();
         door2.fireproof();

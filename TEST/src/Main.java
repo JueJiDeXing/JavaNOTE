@@ -84,12 +84,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        ConcurrentSkipListMap<Integer,Integer>map=new ConcurrentSkipListMap<>();
+        ConcurrentSkipListMap<Integer, Integer> map = new ConcurrentSkipListMap<>();
 
     }
 
 
+
 }
+
 
 
 
