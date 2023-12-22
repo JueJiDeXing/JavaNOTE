@@ -1,8 +1,6 @@
 package 设计模式.代码.design_patterns.src.main.java.com.jjdx.模式.结构型.proxy代理.cglib_proxy;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
+import net.sf.cglib.proxy.*;
 
 import java.lang.reflect.Method;
 
@@ -10,7 +8,7 @@ import java.lang.reflect.Method;
 public class ProxyFactory implements MethodInterceptor {
 
     //声明火车站对象
-    private TrainStation station = new TrainStation();
+    private final TrainStation station = new TrainStation();
 
     public TrainStation getProxyObject() {
         //创建Enhancer对象，类似于JDK代理中的Proxy类
