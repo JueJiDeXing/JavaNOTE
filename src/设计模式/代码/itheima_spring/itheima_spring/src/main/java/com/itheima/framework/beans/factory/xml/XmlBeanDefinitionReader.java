@@ -13,12 +13,7 @@ import org.dom4j.io.SAXReader;
 import java.io.InputStream;
 import java.util.List;
 
-/**
- * @version v1.0
- * @ClassName: XmlBeanDefinitionReader
- * @Description: 针对xml配置文件进行解析的类
- * @Author: 黑马程序员
- */
+
 public class XmlBeanDefinitionReader implements BeanDefinitionReader {
 
     //声明注册表对象

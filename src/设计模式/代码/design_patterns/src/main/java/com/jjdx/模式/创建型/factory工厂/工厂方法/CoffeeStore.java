@@ -2,12 +2,7 @@ package 设计模式.代码.design_patterns.src.main.java.com.jjdx.模式.创建
 
 
 
-/**
- * @version v1.0
- * @ClassName: CoffeeStore
- * @Description: TODO(一句话描述该类的功能)
- * @Author: 黑马程序员
- */
+
 public class CoffeeStore {
 
     private CoffeeFactory factory;

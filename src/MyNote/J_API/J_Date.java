@@ -129,6 +129,20 @@ class 一年的第几天 {
         LocalDate date = LocalDate.parse(str);
         System.out.println(date.getDayOfYear());
     }
+
+    public int dayOfYear(String date) {
+        String[] str = date.split("-");
+        int year = Integer.parseInt(str[0]);
+        int[] month_day = {-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+            month_day[2]++;
+        }
+        int month = Integer.parseInt(str[1]), day = Integer.parseInt(str[2]);
+        for (int i = 1; i < month; i++) {
+            day += month_day[i];
+        }
+        return day;
+    }
 }
 
 class 几月几号 {
@@ -201,4 +215,26 @@ class 星期几 {
             default -> throw new RuntimeException("错误日期");
         }
     }
+}
+
+class 倍数日期 {
+    //yy mm dd 年份是月份和日期的倍数
+    //添加2000年1月1日 到 2000000年1月1日
+    public static void main(String[] args) {
+        LocalDate startDate = LocalDate.of(2000, 1, 1);
+        LocalDate endDate = LocalDate.of(2000000, 1, 1);
+        int count = 1;
+        while (startDate.isBefore(endDate)) {
+            int yy = startDate.getYear();
+            int mm = startDate.getMonthValue();
+            int dd = startDate.getDayOfMonth();
+            if (yy % mm == 0 && yy % dd == 0) {
+                count++;
+            }
+            startDate = startDate.plusDays(1);
+        }
+        System.out.println(count);
+    }
+
+
 }

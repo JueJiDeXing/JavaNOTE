@@ -188,7 +188,7 @@ class TestSort {
     void test_bucketSort2() {
         for (int i = 0; i < maxTestCount; i++) {
             shuffle(arr);
-            new I桶排().bucketSort2(arr, 2);
+            new I桶排().bucketSort2(arr, 3);
             Assertions.assertEquals(Arrays.toString(arrRight), Arrays.toString(arr));
         }
     }

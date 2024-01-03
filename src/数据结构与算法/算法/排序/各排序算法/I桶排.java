@@ -17,7 +17,7 @@ public class I桶排 {
             buckets[i] = new DynamicArray();
         }
 
-        //放入年龄数据
+        //放入数据
         for (int n : num) {
             buckets[n / 10].add(n);
         }

@@ -16,23 +16,18 @@ public class 计算后缀表达式 {
         for (String token : tokens) {
             switch (token) {
                 case "+" -> {
-                    Integer b = stack.pop();//弹出两个(注意顺序)
-                    Integer a = stack.pop();
-                    stack.push(a + b);//计算后再入栈
+                    stack.push(stack.pop() + stack.pop());//计算后再入栈
                 }
                 case "-" -> {
-                    Integer b = stack.pop();
-                    Integer a = stack.pop();
+                    //弹出两个(注意顺序)
+                    Integer b = stack.pop(), a = stack.pop();
                     stack.push(a - b);
                 }
                 case "*" -> {
-                    Integer b = stack.pop();
-                    Integer a = stack.pop();
-                    stack.push(a * b);
+                    stack.push(stack.pop() * stack.pop());
                 }
                 case "/" -> {
-                    Integer b = stack.pop();
-                    Integer a = stack.pop();
+                    Integer b = stack.pop(), a = stack.pop();
                     stack.push(a / b);
                 }
                 default -> stack.push(Integer.parseInt(token));
@@ -56,27 +51,23 @@ public class 计算后缀表达式 {
 
     private int getNext(String[] tokens) {
         int tmp;
-        switch (tokens[index]) {
+        switch (tokens[index--]) {//+-*/和数字 index都减1
             case "+" -> {
-                index--;
                 return getNext(tokens) + getNext(tokens);
             }
             case "-" -> {
-                index--;
                 tmp = getNext(tokens);
                 return getNext(tokens) - tmp;
             }
             case "*" -> {
-                index--;
                 return getNext(tokens) * getNext(tokens);
             }
             case "/" -> {
-                index--;
                 tmp = getNext(tokens);
                 return getNext(tokens) / tmp;
             }
-            default -> {
-                return Integer.parseInt(tokens[index--]);
+            default -> {//是数字
+                return Integer.parseInt(tokens[index + 1]);
             }
         }
     }

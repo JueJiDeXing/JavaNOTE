@@ -1,5 +1,4 @@
 import java.util.*;
-import java.util.concurrent.ConcurrentSkipListMap;
 
 class ListNode {
     int val;
@@ -84,50 +83,14 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        ConcurrentSkipListMap<Integer, Integer> map = new ConcurrentSkipListMap<>();
+        Main test = new Main();
+        Queue<Integer> queue = new PriorityQueue<>((o1, o2) -> o2 - o1);
 
     }
-
 
 
 }
 
 
-class Solution {
-    public static void main(String[] args) {
-        Solution solution=new Solution();
-        System.out.println(solution.minimumMountainRemovals(new int[]{100, 92, 89, 77, 74, 66, 64, 66, 64}));
-    }
-    public int minimumMountainRemovals(int[] nums) {
-        int n = nums.length;
 
-        int[] prev = new int[n];//以i结尾的最长递增子序列长度
-        Arrays.fill(prev, 1);
-        for (int i = 1; i < n; i++) {//第一个数字不需要再处理
-            for (int j = 0; j < i; j++) {//第i个数字与0~i进行组合
-                if (nums[i] > nums[j]) {//满足升序
-                    prev[i] = Math.max(prev[j] + 1, prev[i]);
-                }
-            }
-        }
-        int[] suff = new int[n];//以i开头的最长递减子序列长度
-        Arrays.fill(suff, 1);
-        for (int i = n - 2; i >= 0; i--) {//第一个数字不需要再处理
-            for (int j = n - 1; j > i; j--) {//第i个数字与i~n-1进行组合
-                if (nums[i] > nums[j]) {//满足降序
-                    suff[i] = Math.max(suff[j] + 1, suff[i]);
-                }
-            }
-        }
-        System.out.println(Arrays.toString(prev));
-        System.out.println(Arrays.toString(suff));
-        int ans = 0;
-        for (int i = 1; i < n - 1; i++) {
-            if (prev[i] == 1 || suff[i] == 1) continue;
-            ans = Math.max(ans, prev[i] + suff[i] - 1);
-        }
-
-        return n-ans;
-    }
-}
 
