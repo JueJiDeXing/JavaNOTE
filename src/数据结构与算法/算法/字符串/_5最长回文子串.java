@@ -5,8 +5,7 @@ public class _5最长回文子串 {
     给你一个字符串 s，找到 s 中最长的回文子串。
     如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
      */
-    int left;
-    int right;
+    int left,right;
 
     public String longestPalindrome(String s) {
         left = 0;
@@ -18,7 +17,6 @@ public class _5最长回文子串 {
         }
         return s.substring(left, right+1);
     }
-
 
     public void extend(char[] chars, int i, int j) {
         //中心开花,选择一个中间点,向两边查找
@@ -33,6 +31,5 @@ public class _5最长回文子串 {
             left = i;
             right = j;
         }
-
     }
 }

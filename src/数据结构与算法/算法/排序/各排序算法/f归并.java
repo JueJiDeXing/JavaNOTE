@@ -16,6 +16,22 @@ public class f归并 {
         split(a1, 0, a1.length - 1, a2);
     }
 
+
+
+    private void split(int[] a1, int left, int right, int[] a2) {
+        // 2.治
+        if (left == right) {
+            return;
+        }
+        // 1.分
+        int m = (left + right) >>> 1;//从中间分隔
+        split(a1, left, m, a2);
+        split(a1, m + 1, right, a2);
+
+        // 3.合
+        merge(a1, left, m, m + 1, right, a2);//合并两个有序区域到a2
+        System.arraycopy(a2, 0, a1, left, right - left + 1);//将合并后的再存入a1
+    }
     /**
      合并两个有序数组
 
@@ -26,7 +42,6 @@ public class f归并 {
      @param jEnd 第二个数组的结束索引
      @param a2   临时数组
      */
-
     public void merge(int[] a1, int i, int iEnd, int j, int jEnd, int[] a2) {
         int k = 0;
         while (i <= iEnd && j <= jEnd) {
@@ -48,22 +63,6 @@ public class f归并 {
         }
 
     }
-
-    private void split(int[] a1, int left, int right, int[] a2) {
-        // 2.治
-        if (left == right) {
-            return;
-        }
-        // 1.分
-        int m = (left + right) >>> 1;//从中间分隔
-        split(a1, left, m, a2);
-        split(a1, m + 1, right, a2);
-
-        // 3.合
-        merge(a1, left, m, m + 1, right, a2);//合并两个有序区域到a2
-        System.arraycopy(a2, 0, a1, left, right - left + 1);//将合并后的再存入a1
-    }
-
     //非递归实现--------------------------------------------------------------
     public void mergeSort2(int[] a1) {
         int n = a1.length;

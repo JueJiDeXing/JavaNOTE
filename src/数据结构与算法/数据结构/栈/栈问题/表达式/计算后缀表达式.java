@@ -15,21 +15,18 @@ public class 计算后缀表达式 {
         Stack<Integer> stack = new Stack<>();
         for (String token : tokens) {
             switch (token) {
-                case "+" -> {
-                    stack.push(stack.pop() + stack.pop());//计算后再入栈
-                }
-                case "-" -> {
-                    //弹出两个(注意顺序)
+                //操作符,弹出两个数字进行计算后将结果入栈
+                case "+" -> stack.push(stack.pop() + stack.pop());//计算后再入栈
+                case "-" -> {//弹出两个(注意顺序)
                     Integer b = stack.pop(), a = stack.pop();
                     stack.push(a - b);
                 }
-                case "*" -> {
-                    stack.push(stack.pop() * stack.pop());
-                }
-                case "/" -> {
+                case "*" -> stack.push(stack.pop() * stack.pop());
+                case "/" -> {//弹出两个(注意顺序)
                     Integer b = stack.pop(), a = stack.pop();
                     stack.push(a / b);
                 }
+                //数字入栈
                 default -> stack.push(Integer.parseInt(token));
             }
         }
@@ -45,7 +42,7 @@ public class 计算后缀表达式 {
     int index;
 
     public int evalRPN2(String[] tokens) {
-        index = tokens.length - 1;
+        index = tokens.length - 1;//从底开始(后缀表达式
         return getNext(tokens);
     }
 
@@ -71,5 +68,4 @@ public class 计算后缀表达式 {
             }
         }
     }
-
 }

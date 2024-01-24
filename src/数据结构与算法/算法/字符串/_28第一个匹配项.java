@@ -13,13 +13,9 @@ public class _28第一个匹配项 {
         int i = 0, j;
         while (i <= origin.length - pattern.length) {
             for (j = 0; j < pattern.length; j++) {
-                if (pattern[j] != origin[i + j]) {
-                    break;
-                }
+                if (pattern[j] != origin[i + j]) break;
             }
-            if (j == pattern.length) {//如果是正常退出for循环
-                return i;
-            }
+            if (j == pattern.length) return i;//如果是正常退出for循环
             i++;
         }
         return -1;

@@ -78,29 +78,31 @@ public class _2866美丽塔II {
     }
 
     public long maximumSumOfHeights2(List<Integer> maxHeights) {
-        long ans = 0;
         int n = maxHeights.size();
-        int[] stack = new int[n];//单调栈
+        int[] stack = new int[n];//单调递增栈
         int stackSize = 0;
         long[] prev = new long[n];//prev[i]表示以i为峰,i左侧的累加高度
         long[] suff = new long[n];//suff[i]表示以i为峰,i右侧的累加高度
         for (int i = 0; i < n; i++) {
             int mH = maxHeights.get(i);
-            while (stackSize != 0 && mH < maxHeights.get(stack[stackSize - 1])) {
-                stackSize--;//遇到单减抛出前面
+            while (stackSize > 0 && mH < maxHeights.get(stack[stackSize - 1])) {
+                stackSize--;//单调递增栈遇到小的抛出前面
             }
-            if (stackSize == 0) {//该点位前面都是比它大的,它的累加和就是它自身乘以数量
+            if (stackSize == 0) {//该点位前面都是比它大的
+                //以它为峰前面都修mH的高度,它的累加和就是它自身乘以数量
                 prev[i] = (long) (i + 1) * mH;
-            } else {//前面第一个比它小的元素k的累加和 + 该点位到k(中间比它大的都变成它)的累加和
+            } else {//前面有比他矮的
+                //前面第一个比它小的元素k的累加和 + 该点位到k(中间比它大的都变成它)的累加和
                 int k = stack[stackSize - 1];
                 prev[i] = prev[k] + (long) (i - k) * mH;
             }
-            stack[stackSize++] = i;
+            stack[stackSize++] = i;//当前点位入栈
         }
         stackSize = 0;
+        long ans = 0;
         for (int i = n - 1; i >= 0; i--) {//与prev同理
             int mH = maxHeights.get(i);
-            while (stackSize != 0 && mH < maxHeights.get(stack[stackSize - 1])) {
+            while (stackSize > 0 && mH < maxHeights.get(stack[stackSize - 1])) {
                 stackSize--;
             }
             if (stackSize == 0) {
@@ -112,7 +114,6 @@ public class _2866美丽塔II {
             stack[stackSize++] = i;
             ans = Math.max(ans, prev[i] + suff[i] - mH);//在此过程中计算当前点位的高度最大值
         }
-
         return ans;
     }
 }

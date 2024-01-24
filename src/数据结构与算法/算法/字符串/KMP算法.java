@@ -30,9 +30,7 @@ public class KMP算法 {
             if (pattern[j] == origin[i]) {//匹配成功,匹配下一位
                 i++;
                 j++;
-                if (j == pattern.length) {//全部匹配
-                    return i - j;
-                }
+                if (j == pattern.length) return i - j;//全部匹配
             } else if (j == 0) {//第0位不匹配
                 i++;
             } else {//在某处不匹配跳过最长前后缀
@@ -45,6 +43,9 @@ public class KMP算法 {
     /*
     i:初始为1, 表示后缀, 前缀需要以pattern[i]结尾
     j:初始为0, 表示前缀, 后缀需要以pattern[j]开头
+    0 ~ j  与  i-j ~ i 是相同的
+
+    ...
 
    next[0, 1, 2,                   ]
                  j   //相同则填入 长度为j+1
@@ -113,7 +114,6 @@ public class KMP算法 {
             } else {
                 j = next[j - 1];
             }
-
         }
         return next;
     }

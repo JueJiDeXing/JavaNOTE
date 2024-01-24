@@ -172,9 +172,9 @@ public class MyHashTable {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             hash = (hash << 5) - hash + c;//字符串的每位字符转ASCII码后拼接,乘以一个大质数31使冲突的几率更小
-            //优化 hash*31 -> hash*32-hash > (hash<<5)-hash
+            //优化 hash*31 --> hash*32 - hash --> (hash << 5 ) - hash
         }
-        return hash ^ (hash >>> 16);
+        return hash ^ (hash >>> 16);//高16位与低16位进行异或,异或结果放在低16位上
     }
 
     public boolean containsKey(Object key) {

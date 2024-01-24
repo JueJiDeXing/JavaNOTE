@@ -14,7 +14,7 @@ public class Prim {
                    2                              2
               v1------ v3                     v1 ---- v3
             1/  6\  4/  2\                  1/          2\
-           v0     v2     v4                v0     v2     v4
+           v0     v2     v4      -->       v0     v2     v4
             5\    4\   /2                          4\   /2
                ----- v5                               v5
 
@@ -97,18 +97,13 @@ public class Prim {
      */
     public List<int[]> prim2(int[][] graph) {
         int n = graph.length;
-
         boolean[] isVisited = new boolean[n];
         int numOfVisit = 0;
-
         List<int[]> path = new ArrayList<>();//记录路径,[a,b]表示选中边a-b
-
         int[] distance = new int[n];
         Arrays.fill(distance, Integer.MAX_VALUE);
         distance[0] = 0;//起点临时距离设为0
-
-        int prev = 0;//上次选择的节点
-
+        int prev = -1;//上次选择的节点
         while (numOfVisit < n) {
             int current = chooseMinDistanceVertex(distance, isVisited);//选择最小的临时距离的未访问点
             updateNeighboursDistance(graph, distance, isVisited, current);//更新它的邻居的距离
@@ -119,7 +114,6 @@ public class Prim {
             isVisited[current] = true;//设为已访问
             numOfVisit++;
         }
-
         return path;
     }
 

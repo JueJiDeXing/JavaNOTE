@@ -7,11 +7,9 @@ import 数据结构与算法.数据结构.链表.链表实现.ListNode;
  */
 public class 链表反转 {
 
-
-
     /**
      <div color=rgb(155,200,80)>
-     <h1> 方法一:头部添加</h1>
+     <h1> 方法一:头部添加(创建新节点)</h1>
      遍历链表,每次添加元素至新链表头部<br>
      </div>
      */
@@ -99,7 +97,7 @@ public class 链表反转 {
         ListNode o2 = o1.next;//旧链表的第二个节点
         ListNode head = o1;//新链表的头节点
         while (o2 != null) {
-            o1.next = o2.next;//断开o2:即使o1指向旧链表的第三个节点
+            o1.next = o2.next;//断开o2,使o1指向旧链表的第三个节点
             o2.next = head;//o2插入到头部
 
             head = o2;//新链表的头节点
@@ -125,15 +123,14 @@ public class 链表反转 {
      </div>
      */
     public ListNode reverseList5(ListNode o1) {
-        ListNode head=null;//新链表的头节点
-
-        while (o1!=null){
-            ListNode o2=o1.next;//o2为旧链表的次节点
+        ListNode head = null;//新链表的头节点
+        while (o1 != null) {
+            ListNode o2 = o1.next;//o2为旧链表的次节点
             //搬移
-            o1.next=head;
+            o1.next = head;
             //head,o1指针复位
-            head=o1;
-            o1=o2;
+            head = o1;
+            o1 = o2;
         }
         return head;
     }

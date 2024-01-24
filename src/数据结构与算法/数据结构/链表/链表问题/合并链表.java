@@ -13,7 +13,6 @@ public class 合并链表 {
      </div>
      */
     public ListNode merge1(ListNode p1, ListNode p2) {
-
         ListNode s = new ListNode(-1, null);
         ListNode n = s;
         //取较小的节点添加到新链表尾部
@@ -58,8 +57,6 @@ public class 合并链表 {
             p2.next = merge2(p1, p2.next);
             return p2;
         }
-
-
     }
 
     /**

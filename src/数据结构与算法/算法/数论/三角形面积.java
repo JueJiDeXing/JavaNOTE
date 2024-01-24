@@ -21,8 +21,8 @@ public class 三角形面积 {
      构造向量:<br>
      AB = (x2 - x1, y2 - y1) ; AC = (x3 - x1, y3 - y1)<br>
      则S= |AB||AC|sinα /2 = AB×AC /2<br>
-     AB×AC= (x2 - x1)(y3 - y1) - (x3 - x1)(y2 - y1)<br><br>
-     向量积（矢积）与数量积（标积）的区别
+     其中 AB×AC= (x2 - x1)(y3 - y1) - (x3 - x1)(y2 - y1)<br><br>
+     附: 向量积（矢积）与数量积（标积）的区别
      <table>
      <tr><th>名称</th><th>标积/内积/数量积/点积</th><th>矢积/外积/向量积/叉积</th></tr>
      <tr><th> 运算式</th><td>a·b=|a||b|·cosθ</td><td> a×b=c，其中|c|=|a||b|·sinθ，c的方向遵守右手定则</td></tr>

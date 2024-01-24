@@ -3,6 +3,11 @@ package 数据结构与算法.算法.字符串;
 import java.util.*;
 
 public class _466统计重复个数 {
+    public static void main(String[] args) {
+        _466统计重复个数 test = new _466统计重复个数();
+        System.out.println(test.getMaxRepetitions("acb", 8, "ab", 2));
+    }
+
     // recall 是我们用来找循环节的变量，它是一个哈希映射
     // 我们如何找循环节？假设我们遍历了 s1cnt 个 s1，此时匹配到了第 s2cnt 个 s2 中的第 index 个字符
     // 如果我们之前遍历了 s1cnt' 个 s1 时，匹配到的是第 s2cnt' 个 s2 中同样的第 index 个字符，那么就有循环节了
@@ -15,8 +20,8 @@ public class _466统计重复个数 {
     // 注意 s2 要从第 index 个字符开始匹配
     public int getMaxRepetitions(String s1, int n1, String s2, int n2) {
         if (n1 == 0) return 0;
-        int s1cnt = 0, index = 0, s2cnt = 0;
         Map<Integer, int[]> recall = new HashMap<>();
+        int s1cnt = 0, index = 0, s2cnt = 0;
         int[] preLoop, inLoop;
         while (true) {
             s1cnt++;// 我们多遍历一个 s1，看看能不能找到循环节

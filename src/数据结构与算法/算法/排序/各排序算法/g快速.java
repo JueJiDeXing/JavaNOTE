@@ -129,13 +129,11 @@ public class g快速 {
      优化2:重复元素处理<br>
      循环内,i从left+1(left为基准点)开始,从左到右找大于等于的,j从right开始,从右到左找小于等于的<br>
      ij找到后交换,i++,j-- <br>
-     循环外,j和基准点交换,j即为分区位置
-     <br>
+     循环外,j和基准点交换,j即为分区位置<br>
      */
     private int partition4(int[] a, int left, int right) {
         int pv = a[left];
-        int i = left + 1;
-        int j = right;
+        int i = left + 1, j = right;
         while (i <= j) {
             while (i <= j && a[i] < pv) {
                 i++; //寻找大的
