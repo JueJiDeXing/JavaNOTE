@@ -9,7 +9,7 @@ public class 二叉树展开为链表 {
 
     public void flatten(TreeNode root) {
         if (root == null) return;
-        //右左中的后序遍历
+        //先右后左 的 后序遍历
         flatten(root.right);
         flatten(root.left);
         root.left = null;

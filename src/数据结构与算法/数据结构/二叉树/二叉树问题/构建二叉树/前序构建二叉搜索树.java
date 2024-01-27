@@ -1,8 +1,8 @@
-package 数据结构与算法.数据结构.二叉树.二叉树问题;
+package 数据结构与算法.数据结构.二叉树.二叉树问题.构建二叉树;
 
 import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 
-public class 前序构建 {
+public class 前序构建二叉搜索树 {
     //根据前序遍历构建二叉搜索树
 
     //遍历插入

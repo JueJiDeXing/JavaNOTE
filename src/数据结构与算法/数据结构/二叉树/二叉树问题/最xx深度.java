@@ -8,16 +8,14 @@ import java.util.Queue;
 
 public class 最xx深度 {
     //最大深度----------------------------------------------------------------------
+
     // max(左子树深度,右子树深度)+1
     // 因为要得到左右子树的深度,显然是后序遍历的典型应用
-
+    // 递归实现
     public int maxDepth(TreeNode node) {
-        if (node == null) {
-            return 0;
-        }
-        if (node.left == null && node.right == null) {
-            return 1;
-        }
+        if (node == null) return 0;
+        if (node.left == null && node.right == null) return 1;
+
         int d1 = maxDepth(node.left);
         int d2 = maxDepth(node.right);
         return Integer.max(d1, d2) + 1;
@@ -51,9 +49,8 @@ public class 最xx深度 {
 
     //层序遍历法
     public static int maxDepth2(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
+        if (root == null) return 0;
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         //int c1 = 1;//当前层元素个数
@@ -83,29 +80,24 @@ public class 最xx深度 {
     //最小深度----------------------------------------------------------------------
     // min(左,右)+1
     public int minDepth(TreeNode node) {
-        if (node == null) {
-            return 0;
-        }
-        if (node.left == null && node.right == null) {
-            return 1;
-        }
+        if (node == null) return 0;
+
+        if (node.left == null && node.right == null) return 1;
+
 
         int d1 = minDepth(node.left);
         int d2 = minDepth(node.right);
-        if (d1 == 0) {//深度为0不可计算
-            return d2 + 1;
-        }
-        if (d2 == 0) {
-            return d1 + 1;
-        }
+        //深度为0不可计算
+        if (d1 == 0) return d2 + 1;
+        if (d2 == 0) return d1 + 1;
+
         return Integer.min(d1, d2) + 1;
     }
 
     //层序遍历,遇到的第一个叶子节点即为最小深度
     public static int minDepth2(TreeNode root) {
-        if (root == null) {
-            return 0;
-        }
+        if (root == null) return 0;
+
         Queue<TreeNode> queue = new LinkedList<>();
         queue.offer(root);
         //int c1 = 1;//当前层元素个数

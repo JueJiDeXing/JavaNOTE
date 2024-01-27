@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 public class 后缀表达式树 {
     /*
+    输入后缀表达式,构建后缀表达式树
     示例:
     中缀:(2-1)*3   后缀:21-3*
     后缀转树:
@@ -31,9 +32,7 @@ public class 后缀表达式树 {
                     parent.right = right;
                     stack.push(parent);
                 }
-                default -> {
-                    stack.push(new MyTreeNode<>(t));//数字
-                }
+                default -> stack.push(new MyTreeNode<>(t));//数字
             }
         }
         return stack.peek();

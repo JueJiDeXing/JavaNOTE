@@ -1,11 +1,11 @@
-package 数据结构与算法.数据结构.二叉树.二叉树问题;
+package 数据结构与算法.数据结构.二叉树.二叉树问题.校验二叉树;
 
 import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
 
 import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class 搜索树校验 {
+public class 二叉搜索树校验 {
     //判断一颗树是否为二叉搜索树
     // 中序遍历-非递归
     public static boolean isValidBST1(TreeNode node) {
