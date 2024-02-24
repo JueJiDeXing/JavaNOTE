@@ -1,6 +1,6 @@
 package 数据结构与算法.算法.动态规划_贪心.动态规划.打家劫舍;
 
-import 数据结构与算法.数据结构.二叉树.Node.TreeNode;
+import 数据结构与算法.数据结构.树.树实现.Node.TreeNode;
 
 public class _337打家劫舍III {
     /*

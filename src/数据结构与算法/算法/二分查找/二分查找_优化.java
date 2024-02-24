@@ -135,8 +135,7 @@ public class 二分查找_优化 {
      @return 返回≥target的,并且是最左侧的索引(leftMost)
      */
     public int binarySearch_leftMost(int[] arr, int target) {
-        int left = 0;
-        int right = arr.length - 1;
+        int left = 0, right = arr.length - 1;
         while (left <= right) {
             int middle = (left + right) >>> 1;
             if (target <= arr[middle]) {

@@ -1,5 +1,8 @@
 package 数据结构与算法.算法.二分查找;
 
+/**
+ 难度:中等
+ */
 public class _33搜索旋转排序数组 {
     /*
     整数数组 nums 按升序排列，数组中的值 互不相同 。
@@ -17,25 +20,25 @@ public class _33搜索旋转排序数组 {
         while (left <= right) {
             int mid = (left + right) >>> 1;
             int midNum = nums[mid], leftNum = nums[left], rightNum = nums[right];
-            if (midNum == target) return mid;
+            if (midNum == target) return mid;//找到直接返回
             if (leftNum == target) return left;
             if (rightNum == target) return right;
 
             if (leftNum > rightNum) {//指针落在两段
-                if (midNum < rightNum) {
-                    if (midNum < target && target < leftNum) {
+                if (midNum < rightNum) {//中间指针在右侧
+                    if (midNum < target && target < leftNum) {//target在[mid,right]
                         left = mid + 1;
-                    } else {
+                    } else {//target在[left,mid]
                         right = mid - 1;
                     }
-                } else {
-                    if (leftNum < target && target < midNum) {
+                } else {//中间指针在左侧
+                    if (leftNum < target && target < midNum) {//target在[left,mid]
                         right = mid - 1;
-                    } else {
+                    } else {//target在[mid,right]
                         left = mid + 1;
                     }
                 }
-            } else {//正常一段升序
+            } else {//指针都落在其中的一段,正常二分判断即可
                 if (target < midNum) {
                     right = mid - 1;
                 } else {

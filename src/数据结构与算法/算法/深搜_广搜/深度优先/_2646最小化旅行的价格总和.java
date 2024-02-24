@@ -39,7 +39,7 @@ public class _2646最小化旅行的价格总和 {
      </li>
      </ul>
      <p>
-     {@link 数据结构与算法.数据结构.图.图的深搜和广搜._2646最小化旅行的价格总和}
+     {@link 数据结构与算法.数据结构.图.图问题.图的深搜和广搜._2646最小化旅行的价格总和}
      */
     public int minimumTotalPrice(int n, int[][] edges, int[] price, int[][] trips) {
         return 0;

@@ -1,4 +1,4 @@
-# Java笔记
+# JavaNote
 
 ## 目录-MySQL
 

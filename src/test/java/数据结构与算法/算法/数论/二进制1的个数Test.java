@@ -1,6 +1,7 @@
 package 数据结构与算法.算法.数论;
 
 import org.junit.jupiter.api.Test;
+import 数据结构与算法.算法.数论.进制.二进制1的个数;
 
 import static org.junit.jupiter.api.Assertions.*;
 

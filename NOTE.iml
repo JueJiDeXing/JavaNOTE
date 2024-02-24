@@ -5,6 +5,10 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/设计模式" />
       <excludeFolder url="file://$MODULE_DIR$/src/设计模式/代码/itheima_spring/itheima_spring" />
+      <excludeFolder url="file://$MODULE_DIR$/src/Git" />
+      <excludeFolder url="file://$MODULE_DIR$/src/MyBatis" />
+      <excludeFolder url="file://$MODULE_DIR$/src/MySQL" />
+      <excludeFolder url="file://$MODULE_DIR$/src/SpringBoot" />
     </content>
   </component>
 </module>

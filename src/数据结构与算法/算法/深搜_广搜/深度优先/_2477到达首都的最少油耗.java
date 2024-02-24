@@ -27,7 +27,7 @@ public class _2477到达首都的最少油耗 {
      那么, 计算一条边贡献的油耗时, 则有 k = ceil(n/seats)辆车<br>
      所以这条边油耗贡献值为ceil(n/seats)<br>
      <p>
-     {@link 数据结构与算法.数据结构.图.图的深搜和广搜._2477到达首都的最少油耗}
+     {@link 数据结构与算法.数据结构.图.图问题.图的深搜和广搜._2477到达首都的最少油耗}
      */
     public long minimumFuelCost(int[][] roads, int seats) {
         return 0;

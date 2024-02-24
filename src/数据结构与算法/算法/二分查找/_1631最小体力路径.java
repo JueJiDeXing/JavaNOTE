@@ -4,39 +4,18 @@ import 数据结构与算法.数据结构.并查集.并查集实现.DisjointSet;
 
 import java.util.*;
 
+/**
+ 难度:中等
+ */
 public class _1631最小体力路径 {
 
-    public static int[][] change(String str) {
-        String[] split = str.split("],\\[");
-        int row = split.length;
-        int col = 1;
-        for (char ch : split[0].toCharArray()) {
-            if (ch == ',') col++;
-        }
-        int[][] arr = new int[row][col];
-        int currCol = 0, currRow = 0;
-        for (char ch : str.toCharArray()) {
-            if (ch == '[' || ch == ',' || ch == ']') continue;
-            arr[currRow][currCol] = ch - '0';
-            if (++currCol == col) {
-                currCol = 0;
-                currRow++;
-            }
-
-        }
-        return arr;
-    }
-
-    public static void main(String[] args) {
-        _1631最小体力路径 test = new _1631最小体力路径();
-        int[][] heights = change("[[1,2,3],[3,8,4],[5,3,5]]");
-        System.out.println(test.minimumEffortPath2(heights));
-    }
     /*
     你准备参加一场远足活动。给你一个二维 rows x columns 的地图 heights ，
     其中 heights[row][col] 表示格子 (row, col) 的高度。
+
     一开始你在最左上角的格子 (0, 0) ，且你希望去最右下角的格子 (rows-1, columns-1) （注意下标从 0 开始编号）。
     你每次可以往 上，下，左，右 四个方向之一移动，你想要找到耗费 体力 最小的一条路径。
+
     一条路径耗费的 体力值 是路径上相邻格子之间 高度差绝对值 的 最大值 决定的。
     请你返回从左上角走到右下角的最小 体力消耗值 。
      */
@@ -44,7 +23,10 @@ public class _1631最小体力路径 {
     /**
      <h1>二分查找+广度搜索</h1>
      1 <= heights[i][j] <= 10^6<br>
-     枚举体力x,判定在x体力下,能否从左上角走到右下角
+     二分枚举体力x,判定在x体力下,能否从左上角走到右下角<br>
+     判断体力x能否走到右下角使用bfs,
+     从(0,0)开始,如果下一位置的高度差小于x,则能走,并标记visit,
+     最后无路可走后检查右下角是否visit即可
      */
     public int minimumEffortPath(int[][] heights) {
         int left = 0, right = 1000000;//heights[i][j] <= 10^6
@@ -52,7 +34,7 @@ public class _1631最小体力路径 {
         int ans = 0;
         while (left <= right) {
             int mid = (left + right) >>> 1;
-            if (can(heights, mid, m, n)) { //TODO 当前为bfs,尝试dfs
+            if (can(heights, mid, m, n)) {
                 ans = mid;//leftMost,ans记录候选位置
                 right = mid - 1;//继续向左查找
             } else {
@@ -66,8 +48,6 @@ public class _1631最小体力路径 {
 
     /**
      判断在体力h下能否从左上角走到右下角
-
-     @param h 最大消耗体力
      */
     private boolean can(int[][] heights, int h, int m, int n) {
         Queue<int[]> queue = new LinkedList<>();
@@ -85,38 +65,19 @@ public class _1631最小体力路径 {
                 }
                 if (Math.abs(heights[x][y] - heights[nx][ny]) <= h) {
                     //体力消耗值不超过h
-                    queue.offer(new int[]{nx, ny});
+                    if (nx == m - 1 && ny == n - 1) return true;//是否为走到右下角
                     isVisited[nx][ny] = true;
+                    queue.offer(new int[]{nx, ny});
                 }
             }
         }
-        return isVisited[m - 1][n - 1];
+        return false;//右下角没走到
     }
 
     private static boolean isValidIndex(int[][] heights, int nextX, int nextY) {
         return nextX >= 0 && nextX < heights.length && nextY >= 0 && nextY < heights[0].length;
     }
 
-
-    //public boolean dfs(int[][] heights, int x, int y, boolean[][] isVisited, int h) {
-    //    if (isEnd(heights, x, y)) {
-    //        return true;
-    //    }
-    //    for (int[] direction : directions) {
-    //        int nextX = x + direction[0], nextY = y + direction[1];
-    //        if (isNotValidIndex(nextX, nextY, heights) || isVisited[nextX][nextY]) {
-    //            continue;
-    //        }
-    //        if (Math.abs(heights[x][y] - heights[nextX][nextY]) >= h) continue;
-    //
-    //        isVisited[nextX][nextY] = true;
-    //        if (dfs(heights, nextX, nextY, isVisited, h)) {
-    //            return true;
-    //        }
-    //        isVisited[nextX][nextY] = false;
-    //    }
-    //    return false;
-    //}
 
     /**
      <h1>Kruskal最小生成树</h1>
@@ -156,41 +117,42 @@ public class _1631最小体力路径 {
 
     /**
      <h1>Dijkstra最短路径</h1>
+     1.将所有顶点标记为未访问<br>
+     2.设置临时距离:起点设为0,其余设为无穷大<br>
+     3.每次选择最小临时距离的未访问点作为当前顶点<br>
+     4.遍历当前顶点邻居,更新邻居的距离值 min(邻居距离,当前顶点距离+边权)
+     // 体力消耗:修改为 邻居距离=min(邻居距离,max(当前顶点距离,高度差))<br>
+     5.当前顶点处理完所有邻居后当前顶点设为已访问<br>
      */
     public int minimumEffortPath3(int[][] heights) {
-        int m = heights.length;
-        int n = heights[0].length;
-        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o[2]));
+        int m = heights.length, n = heights[0].length;
+        Queue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o[2]));//[x,y,distance]
         pq.offer(new int[]{0, 0, 0});
         //设置临时距离
-        int[] distance = new int[m * n];
+        int[] distance = new int[m * n];//从(0,0)到(i,j)的最小体力  二维 <--> 一维
         Arrays.fill(distance, Integer.MAX_VALUE);
         distance[0] = 0;//起点设为0
         boolean[] isVisited = new boolean[m * n];
-
+        //
         while (!pq.isEmpty()) {
-            int[] edge = pq.poll();
+            int[] edge = pq.poll();//选择临时距离最小的未访问点
             int x = edge[0], y = edge[1], d = edge[2];
             int id = x * n + y;
-            if (isVisited[id]) {
-                continue;
-            }
-            if (x == m - 1 && y == n - 1) {
-                break;
-            }
+            if (isVisited[id]) continue;
+            if (x == m - 1 && y == n - 1) return distance[m * n - 1];//选择了右下角,此后右下角的距离值不会再修改,返回最小体力
             isVisited[id] = true;
+            //搜索四个方向
             for (int i = 0; i < 4; ++i) {
-                int nx = x + directions[i][0];
-                int ny = y + directions[i][1];
+                int nx = x + directions[i][0], ny = y + directions[i][1];
                 if (!isValidIndex(heights, nx, ny)) continue;
-
-                int h = Math.max(d, Math.abs(heights[x][y] - heights[nx][ny]));
-                if (h < distance[nx * n + ny]) {
+                //更新邻居的距离值
+                int h = Math.max(d, Math.abs(heights[x][y] - heights[nx][ny]));//h:(x,y)的初始体力为d,从(x,y)走到相邻格(nx,ny)的最小体力
+                if (h < distance[nx * n + ny]) {//花费体力更小,更新邻居距离
                     distance[nx * n + ny] = h;
                     pq.offer(new int[]{nx, ny, distance[nx * n + ny]});
                 }
             }
         }
-        return distance[m * n - 1];
+        return -1;//never
     }
 }

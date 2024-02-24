@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.数论;
 
+import 数据结构与算法.数据结构.树.树实现.线段树.线段树实现.SegmentTree1;
+
 import java.util.Scanner;
 
 public class 微分思想_地图大小 {
@@ -13,7 +15,7 @@ public class 微分思想_地图大小 {
 
     /**
       TODO 地图在中间有缺块, y是分离的, 如何处理,
-       要得到精确结果应当使用线段树{@link 数据结构与算法.数据结构.二叉树.线段树.SegmentTree}
+       要得到精确结果应当使用线段树{@link SegmentTree1}
      */
     public static void main(String[] args) {
         /*

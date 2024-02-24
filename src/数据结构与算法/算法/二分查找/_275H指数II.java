@@ -1,5 +1,9 @@
 package 数据结构与算法.算法.二分查找;
 
+/**
+ 难度:中等
+ 附274H指数I
+ */
 public class _275H指数II {
     /*
     给你一个整数数组 citations ，其中 citations[i] 表示研究者的第 i 篇论文被引用的次数，
@@ -34,5 +38,25 @@ public class _275H指数II {
             }
         }
         return citations.length - left;
+    }
+
+    /**
+     <h1>H指数I--计数思想</h1>
+     与II的不同点:传入的数组未排序
+     令cnt[a]=b表示引用次数为a次的论文有b篇
+     让h从n往前找,第一个满足的h即为答案
+     //h 指数:有 h 篇论文被引用了至少 h 次
+     根据定义h要满足: 引用次数>=h次 的论文数 >= h
+     即SUM( cnt[>=h] ) >= h
+     */
+    public int hIndexI(int[] cs) {
+        int n = cs.length;
+        int[] cnt = new int[n + 1];//计数
+        for (int c : cs) cnt[Math.min(c, n)]++;//大于n的全部映射到n
+        for (int h = n, total = 0; h >= 0; h--) {
+            total += cnt[h];
+            if (total >= h) return h;
+        }
+        return -1; // never
     }
 }

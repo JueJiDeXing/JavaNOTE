@@ -1,5 +1,8 @@
 package 数据结构与算法.算法.动态规划_贪心.动态规划.其他;
 
+/**
+ 难度:困难
+ */
 public class _10正则表达式匹配 {
     /*
     给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
@@ -15,6 +18,7 @@ public class _10正则表达式匹配 {
         aaab    a*      F       a*匹配aaa,b不匹配
         aab     c*a*b   T       c*匹配null a*匹配aa b匹配b
 
+       此题与44通配符匹配非常相似
      */
 
     /**
@@ -45,10 +49,8 @@ public class _10正则表达式匹配 {
      </ul>
      */
     public boolean isMatch(String s, String p) {
-        char[] ss = s.toCharArray();
-        char[] pp = p.toCharArray();
-        int len1 = ss.length;
-        int len2 = pp.length;
+        char[] ss = s.toCharArray(),pp = p.toCharArray();
+        int len1 = ss.length,len2 = pp.length;
         boolean[][] dp = new boolean[len1 + 1][len2 + 1];//留出一位
         dp[0][0] = true;//null匹配null
         for (int i = 0; i <= len1; i++) {//i从0开始,*号字符可以匹配null

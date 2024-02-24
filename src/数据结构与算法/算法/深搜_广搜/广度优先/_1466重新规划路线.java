@@ -14,7 +14,7 @@ public class _1466重新规划路线 {
 
     /**
      <h1>深度优先</h1>
-     {@link 数据结构与算法.数据结构.图.图的深搜和广搜._1466重新规划路线}
+     {@link 数据结构与算法.数据结构.图.图问题.图的深搜和广搜._1466重新规划路线}
      */
     public int minReorder(int n, int[][] connections) {
         return 0;
@@ -23,7 +23,7 @@ public class _1466重新规划路线 {
 
     /**
      <h1>广度优先</h1>
-     {@link 数据结构与算法.数据结构.图.图的深搜和广搜._1466重新规划路线}
+     {@link 数据结构与算法.数据结构.图.图问题.图的深搜和广搜._1466重新规划路线}
      */
     public int minReorder2(int n, int[][] connections) {
         return 0;

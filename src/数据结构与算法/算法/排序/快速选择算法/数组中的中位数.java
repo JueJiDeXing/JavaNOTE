@@ -2,6 +2,9 @@ package 数据结构与算法.算法.排序.快速选择算法;
 
 import 数据结构与算法.数据结构.堆.堆实现.Heap;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 import static 数据结构与算法.算法.排序.快速选择算法.快速选择.quick;
 
 public class 数组中的中位数 {
@@ -29,16 +32,17 @@ public class 数组中的中位数 {
      如果两边个数一样则添加到左边,否则添加到右边<br>
      左边添加时,先加到右边,并把右边最小的加到左边; 右边添加时,先加到左边,并把左边最大的加到右边
      */
-    public double findMedian2() {
+    public double findMedian2() { Queue<Integer>queue=new PriorityQueue<>();
         if (left.getSize() == right.getSize()) {
             return (left.peek() + right.peek()) / 2.0;
         } else {
             return left.peek();
         }
+
     }
 
-    private Heap left = new Heap(10, true);
-    private Heap right = new Heap(10, false);
+    private final Heap left = new Heap(10, true);
+    private final Heap right = new Heap(10, false);
 
     public void addNum(int num) {
         if (left.getSize() == right.getSize()) {

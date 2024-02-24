@@ -110,7 +110,7 @@ class Solution {
             for (int i = 0; i < 9; ++i) {
                 for (int j = 0; j < 9; ++j) {
                     if (board[i][j] == '.') {
-                        int mask = getMask(i, j);//获取能填的数(二进制,1为能填,0为不能填)
+                        int mask = getMask(i, j);//获取能填的数(进制,1为能填,0为不能填)
                         if ((mask & (mask - 1)) == 0) {//mask是2的幂,说明该空位只有一个数字能填
                             int x = Integer.bitCount(mask - 1); // 2^x = mask 找对应的1是第几位
                             updateMap(i, j, x);//填入这个数

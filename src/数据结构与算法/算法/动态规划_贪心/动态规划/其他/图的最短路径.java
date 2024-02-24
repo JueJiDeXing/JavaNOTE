@@ -1,6 +1,6 @@
 package 数据结构与算法.算法.动态规划_贪心.动态规划.其他;
 
-import 数据结构与算法.数据结构.图.Edge;
+import 数据结构与算法.数据结构.图.模版.Edge;
 
 import java.util.Arrays;
 import java.util.List;
