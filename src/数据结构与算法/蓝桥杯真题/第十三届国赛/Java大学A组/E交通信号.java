@@ -3,6 +3,9 @@ package 数据结构与算法.蓝桥杯真题.第十三届国赛.Java大学A组;
 import java.util.Scanner;
 import java.util.*;
 
+/**
+ 测试通过:8/10
+ */
 public class E交通信号 {
     /*
     n个节点,m条边
@@ -20,11 +23,10 @@ public class E交通信号 {
     }
 
     static class Edge {
-        int from, to, g, r, d;
+        int to, g, r, d;
         boolean flag;
 
-        public Edge(int from, int to, int g, int r, int d, boolean flag) {
-            this.from = from;
+        public Edge(int to, int g, int r, int d, boolean flag) {
             this.to = to;
             this.g = g;
             this.r = r;
@@ -35,21 +37,14 @@ public class E交通信号 {
 
     static class Vertex {
         int id;
-        boolean isVisit;
-        int dist = Integer.MAX_VALUE;
+        boolean isVisit = false;
+        long dist = Long.MAX_VALUE;
         List<Edge> edgeList = new ArrayList<>();
 
         public Vertex(int id) {
             this.id = id;
         }
 
-        @Override
-        public String toString() {
-            return "Vertex{" +
-                    "id=" + id +
-                    ", dist=" + dist +
-                    '}';
-        }
     }
 
     private static void main_enter() {
@@ -63,61 +58,61 @@ public class E交通信号 {
         for (int i = 0; i < m; i++) {//m条边
             int u = sc.nextInt(), v = sc.nextInt(),
                     g = sc.nextInt(), r = sc.nextInt(), d = sc.nextInt();
-            graph.get(u).edgeList.add(new Edge(u, v, g, r, d, true));
-            graph.get(v).edgeList.add(new Edge(v, u, g, r, d, false));
+            graph.get(u).edgeList.add(new Edge(v, g, r, d, true));
+            graph.get(v).edgeList.add(new Edge(u, g, r, d, false));
         }
-
+        //初始化
         Vertex sVertex = graph.get(s), tVertex = graph.get(t);
         sVertex.dist = 0;//起点距离
         //dijkstra
-        PriorityQueue<Vertex> q = new PriorityQueue<>(Comparator.comparingInt(a -> a.dist));//存储[节点,时间]
+        PriorityQueue<Vertex> q = new PriorityQueue<>((o1, o2) -> Long.compare(o1.dist, o2.dist));//存储[节点,时间]
         for (Vertex vertex : graph) q.offer(vertex);
         while (!q.isEmpty()) {//队列不为空
             Vertex now = q.poll();//取出队首节点
+            if (now == tVertex) break;
             now.isVisit = true;//设为已访问
             update(now, graph, q);//更新邻居距离
         }
-        System.out.println("graph:" + graph);
         System.out.println(tVertex.dist);
     }
 
     private static void update(Vertex now, List<Vertex> graph, PriorityQueue<Vertex> q) {
-        int time = now.dist;//当前时间
+        long time = now.dist;//当前时间
         for (Edge edge : now.edgeList) {//更新邻居距离
             Vertex to = graph.get(edge.to);
             if (to.isVisit) continue;//已访问跳过
-            int tt = time % (edge.g + edge.r + edge.d * 2);
+            long tt = time % (edge.g + edge.r + edge.d * 2L);
+            long waitCurrLED;
+            long newDist = time + edge.d;
             if (tt < edge.g) {//绿灯
-                int waitCurrLED = edge.g - tt;
-                if (edge.flag) {//直接走
-                    to.dist = Math.min(to.dist, time + edge.d);//走的时间等于黄灯时间
-                } else {//等红灯
-                    to.dist = Math.min(to.dist, time + waitCurrLED + edge.d);
+                waitCurrLED = edge.g - tt;
+                if (!edge.flag) {//等红灯
+                    newDist += waitCurrLED;
                 }
             } else if (tt < edge.g + edge.d) {//黄
-                int waitCurrLED = edge.g + edge.d - tt;
+                waitCurrLED = edge.g + edge.d - tt;
                 if (edge.flag) {//等绿灯
-                    to.dist = Math.min(to.dist, time + waitCurrLED + edge.r + edge.d + edge.d);
+                    newDist += waitCurrLED + edge.r + edge.d;
                 } else {//等红灯
-                    to.dist = Math.min(to.dist, time + waitCurrLED + edge.d);
+                    newDist += waitCurrLED;
                 }
             } else if (tt < edge.g + edge.d + edge.r) {//红
-                int waitCurrLED = edge.g + edge.d + edge.r - tt;
+                waitCurrLED = edge.g + edge.d + edge.r - tt;
                 if (edge.flag) {//等绿灯
-                    to.dist = Math.min(to.dist, time + waitCurrLED + edge.d + edge.d);
-                } else {//直接走
-                    to.dist = Math.min(to.dist, time + edge.d);
+                    newDist += waitCurrLED + edge.d;
                 }
             } else {//黄
-                int waitCurrLED = edge.g + 2 * edge.d + edge.r - tt;
+                waitCurrLED = edge.g + 2L * edge.d + edge.r - tt;
                 if (edge.flag) {//等绿灯
-                    to.dist = Math.min(to.dist, time + waitCurrLED + edge.d);
+                    newDist += waitCurrLED;
                 } else {//等红灯
-                    to.dist = Math.min(to.dist, time + waitCurrLED + edge.g + edge.d + edge.d);
+                    newDist += waitCurrLED + edge.g + edge.d;
                 }
             }
+            to.dist = Math.min(to.dist, newDist);
             q.remove(to);
             q.offer(to);
         }
     }
+
 }

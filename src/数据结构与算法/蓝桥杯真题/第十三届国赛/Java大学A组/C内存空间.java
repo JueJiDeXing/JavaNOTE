@@ -2,6 +2,9 @@ package 数据结构与算法.蓝桥杯真题.第十三届国赛.Java大学A组;
 
 import java.util.Scanner;
 
+/**
+ AC
+ */
 public class C内存空间 {
     /*
     输入变量声明赋值语句,输出内存大小单位GB,MB,KB,B,优先用大单位表示

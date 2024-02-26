@@ -2,6 +2,9 @@ package 数据结构与算法.蓝桥杯真题.第十三届国赛.Java大学A组;
 
 import java.util.Scanner;
 
+/**
+ AC
+ */
 public class D斐波那契数组 {
     /*
     如果A=(a0,a1,..an-1)满足:
@@ -29,13 +32,9 @@ public class D斐波那契数组 {
 
     private static int minChange(int[] arr) {
         int ans = arr.length;
-        //case1:a1->a0
-        ans = Math.min(ans, check(arr, arr[0]) + (arr[0] == arr[1] ? 0 : 1));
-        //case2:a0->a1
-        ans = Math.min(ans, check(arr, arr[1]) + (arr[0] == arr[1] ? 0 : 1));
-        //case3:a0->b a1->b
-        for (int b = 0; b < 100000; b++) {
-            ans = Math.min(ans, check(arr, b) + (arr[0] == b ? 0 : 1) + (arr[1] == b ? 0 : 1));
+        //a0->b  a1->b
+        for (int b = 0; b <= 1000000; b++) {
+            ans = Math.min(ans, check(arr, b));
         }
         return ans;
     }
@@ -44,14 +43,18 @@ public class D斐波那契数组 {
      在前两项为first的情况下要修改多少次后面的数
      */
     private static int check(int[] arr, int first) {
-        int prev = 1, curr = 2;//倍数
-        int count = 0;
+        int success = 0;
+        if (arr[0] == first) success++;
+        if (arr[1] == first) success++;
+        int p1 = first, p2 = first;
+        int p3;
         for (int i = 2; i < arr.length; i++) {
-            if (arr[i] != curr * first) count++;
-            int t = curr;
-            curr += prev;
-            prev = t;
+            p3 = p1 + p2;
+            if (p3 > 1000000) break;
+            if (arr[i] == p3) success++;
+            p1 = p2;
+            p2 = p3;
         }
-        return count;
+        return arr.length - success;
     }
 }
