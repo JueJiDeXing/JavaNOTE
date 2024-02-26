@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ 难度:中等
+ */
 public class _39组数总和 {
     /*
     给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，
