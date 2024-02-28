@@ -1,7 +1,7 @@
-package 数据结构与算法.蓝桥杯真题.第十三届国赛.Java大学A组;
+package 数据结构与算法.蓝桥杯.第十三届国赛.Java大学A组;
 
 /**
- AC
+ 已AC
  */
 public class B小蓝与钥匙 {
     /*
@@ -13,7 +13,8 @@ public class B小蓝与钥匙 {
     另外14个人的钥匙都不是自己的钥匙:D(14) 其中D表示错排
      */
     public static void main(String[] args) {
-        System.out.println(C(28, 14) * D(14));//1286583532342313400
+        int n = 28, m = 14;
+        System.out.println(C(n, m) * D(m));//1286583532342313400
     }
 
     /**
@@ -35,6 +36,7 @@ public class B小蓝与钥匙 {
         }
         return dp[n][m];
     }
+
     /**
      错排公式D(n)=(n-1)*(D(n-1)+D(n-2))<br>
      公式推导:{@link 数据结构与算法.算法.数论.组合数学.错排问题}

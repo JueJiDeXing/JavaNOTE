@@ -103,22 +103,22 @@ public class 素数筛 {
         int q = sc.nextInt();
         int N = 40000;//3万过不了
         //素数筛
-        boolean[] isHeShu = new boolean[N];
-        isHeShu[0] = isHeShu[1] = true;
-        int[] ShuShu = new int[N];
-        int ShuShuNum = 0;
+        boolean[] isComposite = new boolean[N];
+        isComposite[0] = isComposite[1] = true;
+        int[] prime = new int[N];
+        int pNum = 0;
         int[] count = new int[N];
         //求素因子统计
         for (int i = 2; i < N; i++) {
-            if (!isHeShu[i]) {
-                ShuShu[ShuShuNum++] = i;
+            if (!isComposite[i]) {
+                prime[pNum++] = i;
                 for (int j = 1; i * j < N; j++) {
                     count[i * j]++;
                 }
             }
-            for (int j = 0; j < ShuShuNum; j++) {
-                if (j > i || i * ShuShu[j] >= N) break;
-                isHeShu[i * ShuShu[j]] = true;
+            for (int j = 0; j < pNum; j++) {
+                if (j > i || i * prime[j] >= N) break;
+                isComposite[i * prime[j]] = true;
             }
         }
         //q个询问

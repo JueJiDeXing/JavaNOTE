@@ -1,4 +1,4 @@
-package 数据结构与算法.蓝桥杯真题.第十三届国赛.Java大学A组;
+package 数据结构与算法.蓝桥杯.第十三届国赛.Java大学A组;
 
 import java.util.Scanner;
 
@@ -23,6 +23,7 @@ public class I图书借阅 {
     }
 
     private static void main_enter() {
+        //接收数据
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt(), m = sc.nextInt(), x = sc.nextInt();
         sc.nextLine();
@@ -31,17 +32,28 @@ public class I图书借阅 {
         for (int i = 0; i < n; i++) {
             a[i] = Integer.parseInt(arr[i]);
         }
-        int[][] reservation = new int[m][3];
+        int[][] r = new int[m][3];
         for (int i = 0; i < m; i++) {
-            String[] r = sc.nextLine().split(" ");
+            String[] split = sc.nextLine().split(" ");
             for (int j = 0; j < 3; j++) {
-                reservation[i][j] = Integer.parseInt(r[j]);
+                r[i][j] = Integer.parseInt(split[j]);
             }
         }
-        System.out.println(solution(n, m, x, a, reservation));
+        //主逻辑
+        System.out.println(solution(n, m, x, a, r));
     }
 
-    private static int solution(int n, int m, int x, int[] a, int[][] reservation) {
+    /**
+     求最多满足的预约请求数
+
+     @param n 书种类
+     @param m 预约请求数
+     @param x 最多额外添加书数
+     @param a a[i]=k表示第i种书现有k本
+     @param r r[i]=[b,l,r]表示借第b种书,借书时间范围是[l,r]
+     @return 最多满足的预约请求数
+     */
+    private static int solution(int n, int m, int x, int[] a, int[][] r) {
         return 0;
     }
 }

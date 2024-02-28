@@ -5,7 +5,6 @@ import java.util.*;
 
 class Edge1 implements Comparable<Edge1> {
     public Vertex1 linked;//终点
-    public int from;//起点距离
     public int to;//终点距离
 
 
@@ -73,6 +72,7 @@ public class Dijkstra单源最短路径 {
 
     /**
      <h1>Dijkstra 单源最短路径算法</h1>
+     // 使用自定义结构(Vertex,Edge)表示
      1.将所有顶点标记为未访问<br>
      2.设置临时距离:起点设为0,其余设为无穷大<br>
      3.每次选择最小临时距离的未访问点作为当前顶点<br>
@@ -83,12 +83,12 @@ public class Dijkstra单源最短路径 {
      @param graph  图,邻接表
      @param source 起点
      */
-    public void dijkstra(List<Vertex1> graph, Vertex1 source) {
+    public void dijkstra1(List<Vertex1> graph, Vertex1 source) {
         ArrayList<Vertex1> list = new ArrayList<>(graph);//未访问顶点
         source.distance = 0;//起点距离设为0
         while (!list.isEmpty()) {
-            Vertex1 current = chooseMinDistanceVertex(list);//每次选择最小临时距离的未访问点作为当前顶点
-            updateNeighboursDistance(current);//遍历当前顶点邻居,更新邻居的距离值 min(邻居距离,当前顶点距离+边权)
+            Vertex1 current = chooseMinDistanceVertex1(list);//每次选择最小临时距离的未访问点作为当前顶点
+            updateNeighboursDistance1(current);//遍历当前顶点邻居,更新邻居的距离值 min(邻居距离,当前顶点距离+边权)
             list.remove(current);//当前顶点处理完所有邻居后当前顶点设为已访问
             current.visited = true;
         }
@@ -102,7 +102,7 @@ public class Dijkstra单源最短路径 {
 
      @param current 当前节点
      */
-    private void updateNeighboursDistance(Vertex1 current) {
+    private void updateNeighboursDistance1(Vertex1 current) {
         for (Edge1 edge1 : current.edge1s) {
             Vertex1 n = edge1.linked;
             if (!n.visited) { // list.contains(n)
@@ -121,7 +121,7 @@ public class Dijkstra单源最短路径 {
      @param list 未访问节点
      @return 未访问节点中最小distance的节点
      */
-    private Vertex1 chooseMinDistanceVertex(ArrayList<Vertex1> list) {
+    private Vertex1 chooseMinDistanceVertex1(ArrayList<Vertex1> list) {
         Vertex1 min = list.get(0);
         for (int i = 1; i < list.size(); i++) {
             if (list.get(i).distance < min.distance) {
@@ -132,7 +132,7 @@ public class Dijkstra单源最短路径 {
     }
 
     /**
-     <h1>Dijkstra 最短路径算法-优化</h1>
+     <h1>优化:优先级队列</h1>
      使用了优先级队列进行优化,当"每次选择最小临时距离的未访问点作为当前顶点"时,可以从优先级队列中直接抛出
 
      @param graph  图
@@ -199,34 +199,29 @@ public class Dijkstra单源最短路径 {
         Arrays.fill(prev, -1);
 
         while (numOfVisit < n) {
-            int current = chooseMinDistanceVertex(distance, isVisited);//每次选择最小临时距离的未访问点作为当前顶点
-            updateNeighboursDistance(graph, distance, isVisited, prev, current);//遍历当前顶点邻居,更新邻居的距离值 min(邻居距离,当前顶点距离+边权)
-            //当前顶点处理完所有邻居后当前顶点设为已访问
-            isVisited[current] = true;
+            int current = chooseMinDistanceVertex3(distance, isVisited);//每次选择最小临时距离的未访问点作为当前顶点
+            updateNeighboursDistance3(graph, distance, isVisited, prev, current);//遍历当前顶点邻居,更新邻居的距离值 min(邻居距离,当前顶点距离+边权)
+            isVisited[current] = true;//当前顶点处理完所有邻居后当前顶点设为已访问
             numOfVisit++;
         }
         return new int[][]{distance, prev};
     }
 
-    private int chooseMinDistanceVertex(int[] distance, boolean[] isVisited) {
-        int n = distance.length;
-        int min = Integer.MAX_VALUE;
+    private int chooseMinDistanceVertex3(int[] distance, boolean[] isVisited) {
         int minIndex = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < distance.length; i++) {
             if (isVisited[i]) continue;
-            if (distance[i] < min) {
-                min = distance[i];
+            if (distance[i] < distance[minIndex]) {
                 minIndex = i;
             }
         }
         return minIndex;
     }
 
-    private void updateNeighboursDistance(int[][] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
-        int n = graph.length;
+    private void updateNeighboursDistance3(int[][] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
         int[] edges = graph[v];
-        for (int i = 0; i < n; i++) {//遍历顶点v的所有邻居
-            if (edges[i] == 0 || isVisited[i]) continue; // list.contains(n)
+        for (int i = 0; i < graph.length; i++) {//遍历顶点v的所有邻居
+            if (edges[i] == 0 || isVisited[i]) continue; // edges[i]==0表示i不是v的邻居
             //更新最短路径
             int newDistance = distance[v] + edges[i];
             if (newDistance < distance[i]) {
@@ -235,6 +230,7 @@ public class Dijkstra单源最短路径 {
             }
         }
     }
+
     /**
      <h1>Dijkstra 单源最短路径算法</h1>
      1.将所有顶点标记为未访问<br>
@@ -247,7 +243,7 @@ public class Dijkstra单源最短路径 {
      @param graph  图,邻接表
      @param source 起点
      */
-    public int[][] dijkstra4(List[] graph, int source) {
+    public int[][] dijkstra4(List<Integer>[] graph, int source) {
         int n = graph.length;//n个顶点
         boolean[] isVisited = new boolean[n];//顶点是否访问
         int numOfVisit = 0;
@@ -269,20 +265,18 @@ public class Dijkstra单源最短路径 {
     }
 
     private int chooseMinDistanceVertex4(int[] distance, boolean[] isVisited) {
-        int n = distance.length;
-        int min = Integer.MAX_VALUE;
         int minIndex = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < distance.length; i++) {
             if (isVisited[i]) continue;
-            if (distance[i] < min) {
-                min = distance[i];
+            if (distance[i] < distance[minIndex]) {
                 minIndex = i;
             }
         }
         return minIndex;
     }
 
-    private void updateNeighboursDistance4(List[] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
+
+    private void updateNeighboursDistance4(List<Integer>[] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
         int n = graph.length;
         List<Integer> edges = graph[v];
         for (int i = 0; i < n; i++) {//遍历顶点v的所有邻居

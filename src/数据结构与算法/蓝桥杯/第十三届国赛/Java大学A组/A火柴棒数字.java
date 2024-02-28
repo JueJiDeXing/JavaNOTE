@@ -1,7 +1,7 @@
-package 数据结构与算法.蓝桥杯真题.第十三届国赛.Java大学A组;
+package 数据结构与算法.蓝桥杯.第十三届国赛.Java大学A组;
 
 /**
- AC
+ 已AC
  */
 public class A火柴棒数字 {
     /*

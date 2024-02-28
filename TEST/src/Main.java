@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -110,13 +109,40 @@ public class Main {
     }
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
+        int[] cost = {5, 3, 3};
+        System.out.println(test.minIncrements(3, cost));
 
+    }public int minIncrements(int n, int[] cost) {
+        for(int i=0;i<(n-1)/2;i++){
+            cost[2*i+1]+=cost[i];
+            cost[2*i+2]+=cost[i];
+        }
+        System.out.println(Arrays.toString(cost));
+        int[]leafSum=Arrays.copyOfRange(cost,(n-1)/2,n);
+        int max=0;
+        for(int i:leafSum){
+            max=Math.max(max,i);
+        }
+        System.out.println(max);
+        return minOperate(max,leafSum,0,leafSum.length-1);
+    }
+    private int minOperate(int max,int[]leafSum,int left,int right){
+        if(left==right)return max-leafSum[left];
+        int m=0;
+        for(int i=left;i<=right;i++){
+            if(leafSum[i]>m){
+                m=leafSum[i];
+            }
+        }
+        int count=max-m;
+        for(int i=left;i<=right;i++){
+            leafSum[i]+=count;
+        }
+        int mid=(left+right)>>>1;
+        return count+minOperate(max,leafSum,left,mid)+minOperate(max,leafSum,mid+1,right);
 
     }
-
-
-
 
 }
 
