@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.数论;
+package 数据结构与算法.算法.数论.进制;
 
 import java.util.ArrayList;
 import java.util.List;
