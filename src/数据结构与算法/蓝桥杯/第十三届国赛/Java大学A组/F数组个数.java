@@ -9,7 +9,7 @@ public class F数组个数 {
     /*
     数组B=(b0,b1...bn-1)由环形数组A=(a0,a1...an-1)经过相邻最大化后得到
     b0=max(an-1,a0,a1),b1=max(a0,a1,a2)...
-    输入数组B,问数组A可以有多少个
+    输入数组B,问数组A可以有多少个,结果对1000000007取模
     元素非负,3<=n<=1000,0<=bi<=10
 
     B: 8 6 1 8 8
@@ -20,19 +20,25 @@ public class F数组个数 {
        6 1 0 1 8
        6 1 1 0 8
        6 1 1 1 8
-
+    A一共7个
      */
     public static void main(String[] args) {
         main_enter();
     }
 
     private static void main_enter() {
+        //接收数据
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         sc.nextLine();
         int[] B = new int[2 * n];
         String[] arr = sc.nextLine().split(" ");
-        int maxIdx = 0;//最大值索引
+        for (int i = 0; i < n; i++) {
+            B[i] = B[i + n] = Integer.parseInt(arr[i]);
+        }
+        System.out.println("B:" + Arrays.toString(B));
+        //找最大值索引
+        int maxIdx = 0;
         for (int i = 0; i < n; i++) {
             B[i] = B[i + n] = Integer.parseInt(arr[i]);
             if (B[i] > B[maxIdx]) maxIdx = i;
@@ -50,9 +56,12 @@ public class F数组个数 {
         } else {
             n += ++maxIdx;
         }
+        //[maxIdx,maxIdx+n)为一个循环数组B,其中B[maxIdx+n-1]为最大值,如果有多个最大值,其余最大值均分布在B[maxIdx+k],0<=k<最大值个数
+        System.out.println("maxIdx:" + maxIdx + ", n:" + n);
+        //动态规划
         int[][] dp = new int[2 * n][3];
         dp[maxIdx][2] = 1;
-        for (int i = maxIdx + 1; i < n; ++i)
+        for (int i = maxIdx + 1; i < n; ++i) {
             for (int k = 0; k <= 10; ++k) {
                 if (k < B[i - 1] && k < B[i] && k < B[i + 1]) {
                     dp[i][0] = (dp[i][0] + dp[i - 1][1]) % MOD;
@@ -62,15 +71,14 @@ public class F数组个数 {
                     if (k == B[i - 1]) dp[i][2] = (dp[i][2] + dp[i - 1][0]) % MOD;
                     if (k == B[i]) dp[i][2] = (dp[i][2] + dp[i - 1][1]) % MOD;
                 } else if (k == B[i] && k <= B[i - 1] && k <= B[i + 1]) {
-                    dp[i][1] = (dp[i][1] + dp[i - 1][1]) % MOD;
-                    dp[i][1] = (dp[i][1] + dp[i - 1][2]) % MOD;
+                    dp[i][1] = ((dp[i][1] + dp[i - 1][1]) % MOD + dp[i - 1][2]) % MOD;
                     if (k == B[i - 1]) dp[i][1] = (dp[i][1] + dp[i - 1][0]) % MOD;
                 } else if (k == B[i - 1] && k <= B[i] && k <= B[i + 1]) {
-                    dp[i][0] = (dp[i][0] + dp[i - 1][0]) % MOD;
-                    dp[i][0] = (dp[i][0] + dp[i - 1][1]) % MOD;
-                    dp[i][0] = (dp[i][0] + dp[i - 1][2]) % MOD;
+                    dp[i][0] = ((dp[i][0] + dp[i - 1][0]) % MOD + (dp[i - 1][1] + dp[i - 1][2]) % MOD) % MOD;
                 }
             }
+        }
+        System.out.println("dp:" + Arrays.deepToString(dp));
         System.out.println(dp[n - 1][0]);
     }
 

@@ -40,4 +40,45 @@ public class 组合数 {
         }
         return curr[m];
     }
+
+
+    /**
+     <h1>模组合数</h1>
+     C(n,m)%MOD
+     组合数C(n,m) = n! / ((n-m)! m!)
+     */
+    int C4(int n, int m) {
+        return factorial[n] * inverse[m] % MOD * inverse[n - m] % MOD;
+    }
+
+    int N = 1000001, MOD = 998244353;
+    int[] factorial = new int[N], inverse = new int[N];//fac[i]=i!, facinv[i]为i!在模p下的逆元
+
+    /**
+     取模性质对除法不适用,所以需要逆元,用乘法代替除法
+     预处理出阶乘数组和乘法逆元数组
+     */
+    void init(int n) {
+        for (int i = 1; i <= 2 * n; i++) {//求阶乘
+            factorial[i] = factorial[i - 1] * i % MOD;
+        }
+        inverse[2 * n] = fastPow(factorial[2 * n]);
+        for (int i = 2 * n; i > 0; i--) {//倒序递推求逆元
+            inverse[i - 1] = inverse[i] * i % MOD;
+        }
+    }
+
+    /**
+     快速幂,base^(MOD-2)
+     */
+    int fastPow(int base) {
+        int ans = 1;
+        int p = MOD - 2;
+        while (p > 0) {
+            if ((p & 1) == 1) ans = ans * base % MOD;
+            base = base * base % MOD;
+            p >>= 1;
+        }
+        return ans;
+    }
 }

@@ -71,25 +71,25 @@ public class G六六大顺 {
      第i位的5个数 = all-3个数-4个数
      测试通过:10/10
      */
-private static String Sum3(int n) {
-    StringBuilder answer = new StringBuilder();
-    int num3, num4, num5;
-    int current = 6 * n;//当前位和,初始为个位之和n个6
-    answer.append(current % 10);
-    int remainder = current / 10;
-    for (int i = 1; i < 2 * n; i++) {//从低位第二位开始计算该位和
-        int all = n - i / 2;//总共有数字的位置
-        num3 = i <= n ? 1 : 0;//bi = i-1个4 接 1个3 接i-1个5 接1个6,所以最低位为6,然后向高位是n-1个5,然后是3在第n+1位,因为i是从第二位开始的,所以i<=n时会有一项有1个
-        num4 = Math.min((i - 1) / 2, all);
-        num5 = all - num3 - num4;
-        current = 3 * num3 + 4 * num4 + 5 * num5 + remainder;
+    private static String Sum3(int n) {
+        StringBuilder answer = new StringBuilder();
+        int num3, num4, num5;
+        int current = 6 * n;//当前位和,初始为个位之和n个6
         answer.append(current % 10);
-        remainder = current / 10;
+        int remainder = current / 10;
+        for (int k = 1; k < 2 * n; k++) {//从低位第二位开始计算该位和
+            int all = n - k / 2;//总共有数字的位置
+            num3 = k <= n ? 1 : 0;//bk = k-1个4 接 1个3 接k-1个5 接1个6,所以最低位为6,然后向高位是n-1个5,然后是3在第n+1位,因为i是从第二位开始的,所以i<=n时会有一项有1个
+            num4 = Math.min((k - 1) / 2, all);
+            num5 = all - num3 - num4;
+            current = 3 * num3 + 4 * num4 + 5 * num5 + remainder;
+            answer.append(current % 10);
+            remainder = current / 10;
+        }
+        while (remainder > 0) {
+            answer.append(remainder % 10);
+            remainder /= 10;
+        }
+        return answer.reverse().toString();
     }
-    while (remainder > 0) {
-        answer.append(remainder % 10);
-        remainder /= 10;
-    }
-    return answer.reverse().toString();
-}
 }

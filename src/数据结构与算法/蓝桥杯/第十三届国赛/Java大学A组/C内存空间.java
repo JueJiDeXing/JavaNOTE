@@ -19,68 +19,66 @@ public class C内存空间 {
         main_enter();
     }
 
-private static void main_enter() {
-    Scanner sc = new Scanner(System.in);
-    int T = sc.nextInt();
-    sc.nextLine();
-    long totalByte = 0;
-    for (int i = 0; i < T; i++) {
-        totalByte += handle(sc.nextLine());
-    }
-    System.out.println(change(totalByte));
-}
-
-private static long handle(String statement) {
-    if (statement.isEmpty()) return 0;
-    int type = getType(statement);//方便判断类型
-    if (type == 1 || type == 2) {//数组
-        int cnt = 0;//数组长度之和
-        String[] res = statement.split("[=,]");//按照"="和","切割,这样奇数项就是"new type[len]"的形式
-        for (int j = 1; j < res.length; j += 2) {
-            //截取每个数组长度c
-            int idx1 = res[j].lastIndexOf("["), idx2 = res[j].lastIndexOf("]");
-            int c = Integer.parseInt(res[j].substring(idx1 + 1, idx2));
-            cnt += c;
+    private static void main_enter() {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+        sc.nextLine();
+        long totalByte = 0;
+        for (int i = 0; i < T; i++) {
+            totalByte += handle(sc.nextLine());
         }
-        return type == 1 ? cnt * 4L : cnt * 8L;
+        System.out.println(change(totalByte));
     }
-    if (type == 5) {
-        String[] res = statement.split("\"");
-        long len = 0;//统计长度
-        for (int j = 1; j < res.length; j += 2) {
-            len += res[j].length();
+
+    private static long handle(String statement) {
+        if (statement.isEmpty()) return 0;
+        int type = getType(statement);//方便判断类型
+        if (type == 1 || type == 2) {//数组
+            int cnt = 0;//数组长度之和
+            String[] res = statement.split("[=,]");//按照"="和","切割,这样奇数项就是"new type[len]"的形式
+            for (int j = 1; j < res.length; j += 2) {
+                //截取每个数组长度c
+                int idx1 = res[j].lastIndexOf("["), idx2 = res[j].lastIndexOf("]");
+                int c = Integer.parseInt(res[j].substring(idx1 + 1, idx2));
+                cnt += c;
+            }
+            return type == 1 ? cnt * 4L : cnt * 8L;
         }
-        return len;
+        if (type == 5) {
+            String[] res = statement.split("\"");
+            long len = 0;//统计长度
+            for (int j = 1; j < res.length; j += 2) {
+                len += res[j].length();
+            }
+            return len;
+        }
+        int count = 0;//赋值语句个数
+        for (char ch : statement.toCharArray()) {
+            if (ch == '=') count++;
+        }
+        return type == 3 ? count * 4L : count * 8L;
     }
-    int count = 0;//赋值语句个数
-    for (char ch : statement.toCharArray()) {
-        if (ch == '=') count++;
-    }
-    return type == 3 ? count * 4L : count * 8L;
-}
 
-private static int getType(String statement) {
-    if (statement.startsWith("int[]")) return 1;
-    if (statement.startsWith("long[]")) return 2;
-    if (statement.startsWith("int")) return 3;//注意需要先处理数组
-    if (statement.startsWith("long")) return 4;
-    return 5;//String
-}
-
-/**
- 将字节转换为aGBbMBcKBd形式的字符串
- */
-private static String change(long totalByte) {
-    StringBuilder res = new StringBuilder();
-    int curr = 0;
-    String[] units = new String[]{"B", "KB", "MB", "GB"};
-    //1024进制
-    while (curr < 4 && totalByte > 0) {
-        int t = (int) (totalByte % 1024);
-        if (t != 0) res.insert(0, t + units[curr]);//如果该位为0则不输出数字和单位
-        totalByte /= 1024;
-        curr++;
+    private static int getType(String statement) {
+        if (statement.startsWith("int[]")) return 1;
+        if (statement.startsWith("long[]")) return 2;
+        if (statement.startsWith("int")) return 3;//注意需要先处理数组
+        if (statement.startsWith("long")) return 4;
+        return 5;//String
     }
-    return res.toString();
-}
+
+    /**
+     将字节转换为aGBbMBcKBd形式的字符串
+     */
+    private static String change(long totalByte) {
+        StringBuilder res = new StringBuilder();
+        String[] units = new String[]{"B", "KB", "MB", "GB"};//4个单位
+        //1024进制
+        for (int i = 0; i < 4 && totalByte > 0; i++) {//单位只有4个,循环4次
+            int t = (int) (totalByte % 1024);
+            if (t != 0) res.insert(0, t + units[i]);//如果该位为0则不输出数字和单位
+            totalByte /= 1024;
+        }
+        return res.toString();
+    }
 }
