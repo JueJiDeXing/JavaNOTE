@@ -1,4 +1,4 @@
-package 数据结构与算法.数据结构.栈.栈问题;
+package 数据结构与算法.数据结构.队列.队列实现;
 
 import java.util.*;
 

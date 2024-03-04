@@ -1,4 +1,4 @@
-package 数据结构与算法.数据结构.栈.栈问题;import java.util.*;
+package 数据结构与算法.数据结构.栈.栈实现;import java.util.*;
 
 class 队列模拟栈{
     /*

@@ -51,73 +51,71 @@ active 3
             String[] operate = sc.nextLine().split(" ");
             doOperate(operate, mapToNode, list);
         }
-        //目前list顺序存储了从顶层到底层的窗口
-        //System.out.println(list);
-        print(list);//处理list并打印
+        //目前list顺序存储了从顶层到底层的窗口对象
+        char[][] ans = Image(list);//通过list生成窗口图像
+        for (char[] a : ans) {//打印
+            System.out.println(new String(a));
+        }
     }
 
+    /**
+     处理一个操作operate
+     */
     private static void doOperate(String[] operate, HashMap<Integer, Node> mapToNode, LinkedList list) {
         String method = operate[0];
         int pid = Integer.parseInt(operate[1]);
-        if (method.equals("new")) {
-            Node node = new Node();
-            node.window = new Window(Integer.parseInt(operate[1]), Integer.parseInt(operate[2]),
-                    Integer.parseInt(operate[3]), Integer.parseInt(operate[4]), Integer.parseInt(operate[5]));
-            mapToNode.put(Integer.parseInt(operate[1]), node);
+        if (method.equals("new")) {//新增
+            Node node = new Node(new Window(operate));
+            mapToNode.put(pid, node);
             list.addFirst(node);
-        } else {
-            Node node = mapToNode.get(pid);
-            if (method.equals("move")) {
-                node.window.top += Integer.parseInt(operate[2]);
-                node.window.left += Integer.parseInt(operate[3]);
-                list.remove(node);
-                list.addFirst(node);
-            } else if (method.equals("resize")) {
-                node.window.height = Integer.parseInt(operate[2]);
-                node.window.width = Integer.parseInt(operate[3]);
-                list.remove(node);
-                list.addFirst(node);
-            } else if (method.equals("close")) {
-                list.remove(node);
-                mapToNode.remove(pid);
-            } else {
-                list.remove(node);
-                list.addFirst(node);
-            }
+            return;
+        }
+        //其他操作
+        Node node = mapToNode.get(pid);
+        list.remove(node);//移除后放到链表头即为置顶
+        if (method.equals("move")) {//移动左上角坐标
+            node.window.top += Integer.parseInt(operate[2]);
+            node.window.left += Integer.parseInt(operate[3]);
+        } else if (method.equals("resize")) {//关闭窗口宽高
+            node.window.height = Integer.parseInt(operate[2]);
+            node.window.width = Integer.parseInt(operate[3]);
+        }
+        if (!method.equals("close")) {//除了close,其余的都要置顶
+            list.addFirst(node);
         }
     }
 
 
     /**
-     自底而上处理窗口
+     打印窗口
      */
-    private static void print(LinkedList list) {
+    private static char[][] Image(LinkedList list) {
         char[][] ans = new char[N][M];
         for (char[] a : ans) {
             Arrays.fill(a, '.');//"."表示背景
         }
-        Node p = list.tail.prev;
+        Node p = list.tail.prev;//自底而上打印,保证覆盖关系正确
         while (p != list.head) {
-            checkCenter(ans, p.window);
-            checkCorner(ans, p.window);
-            checkBorder(ans, p.window);
+            //对窗口的三个区域分别处理
+            Window window = p.window;
+            checkCenter(ans, window);
+            checkCorner(ans, window);
+            checkBorder(ans, window);
             p = p.prev;
         }
-        for (char[] a : ans) {
-            System.out.println(new String(a));
-        }
+        return ans;
     }
 
     private static void checkBorder(char[][] ans, Window window) {
         int left = Math.max(0, window.left + 1), right = Math.min(M, window.left + window.width - 1);
         for (int j = left; j < right; j++) {
-            if (isInRange(window.top, 0, N - 1)) ans[window.top][j] = '-';
-            if (isInRange(window.top + window.height-1, 0, N - 1)) ans[window.top + window.height-1][j] = '-';
+            if (isInRange(window.top, N - 1)) ans[window.top][j] = '-';
+            if (isInRange(window.top + window.height - 1, N - 1)) ans[window.top + window.height - 1][j] = '-';
         }
         int top = Math.max(0, window.top + 1), bottom = Math.min(N, window.top + window.height - 1);
         for (int i = top; i < bottom; i++) {
-            if (isInRange(window.left, 0, M - 1)) ans[i][window.left] = '|';
-            if (isInRange(window.left + window.width-1, 0, M - 1)) ans[i][window.left + window.width-1] = '|';
+            if (isInRange(window.left, M - 1)) ans[i][window.left] = '|';
+            if (isInRange(window.left + window.width - 1, M - 1)) ans[i][window.left + window.width - 1] = '|';
         }
     }
 
@@ -132,44 +130,47 @@ active 3
     }
 
     private static void checkCorner(char[][] ans, Window window) {
-        if (isInRange(window.top, 0, N - 1)) {
-            if (isInRange(window.left, 0, M - 1)) {
-                ans[window.top][window.left] = '+';
-            }
-            if (isInRange(window.left + window.width-1, 0, M - 1)) {
+        if (isInRange(window.top, N - 1)) {
+            if (isInRange(window.left, M - 1)) ans[window.top][window.left] = '+';
+            if (isInRange(window.left + window.width - 1, M - 1))
                 ans[window.top][window.left + window.width - 1] = '+';
-            }
         }
-        if (isInRange(window.top + window.height-1, 0, N - 1)) {
-            if (isInRange(window.left, 0, M - 1)) {
-                ans[window.top + window.height - 1][window.left] = '+';
-            }
-            if (isInRange(window.left + window.width-1, 0, M - 1)) {
+        if (isInRange(window.top + window.height - 1, N - 1)) {
+            if (isInRange(window.left, M - 1)) ans[window.top + window.height - 1][window.left] = '+';
+            if (isInRange(window.left + window.width - 1, M - 1))
                 ans[window.top + window.height - 1][window.left + window.width - 1] = '+';
-            }
         }
     }
 
-    private static boolean isInRange(int x, int L, int R) {
-        return L <= x && x <= R;
+    /**
+     判断x是否在[0,R]内
+     */
+    private static boolean isInRange(int x, int R) {
+        return 0 <= x && x <= R;
     }
 
     static class Window {
-        int pid;
-        int top, left, height, width;
+        int pid, top, left, height, width;
 
-        public Window(int pid, int top, int left, int height, int width) {
-            this.pid = pid;
-            this.top = top;
-            this.left = left;
-            this.height = height;
-            this.width = width;
+        public Window(String[] data) {
+            this.pid = Integer.parseInt(data[1]);
+            this.top = Integer.parseInt(data[2]);
+            this.left = Integer.parseInt(data[3]);
+            this.height = Integer.parseInt(data[4]);
+            this.width = Integer.parseInt(data[5]);
         }
     }
 
     static class Node {
         Node prev, next;
         Window window;
+
+        public Node() {
+        }
+
+        public Node(Window window) {
+            this.window = window;
+        }
     }
 
     static class LinkedList {
@@ -196,19 +197,6 @@ active 3
             Node n = node.next;
             p.next = n;
             n.prev = p;
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("head->");
-            Node p = head.next;
-            while (p != tail) {
-                sb.append(p.window.pid).append("->");
-                p = p.next;
-            }
-            sb.append("tail");
-            return sb.toString();
         }
     }
 }
