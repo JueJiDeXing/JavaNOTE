@@ -14,8 +14,8 @@ public class 微分思想_地图大小 {
      */
 
     /**
-      TODO 地图在中间有缺块, y是分离的, 如何处理,
-       要得到精确结果应当使用线段树{@link SegmentTree1}
+     TODO 地图在中间有缺块, y是分离的, 如何处理?
+     要得到精确结果应当使用线段树{@link SegmentTree1}
      */
     public static void main(String[] args) {
         /*

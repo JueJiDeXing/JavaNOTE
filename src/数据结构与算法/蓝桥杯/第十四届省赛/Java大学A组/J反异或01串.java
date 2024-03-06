@@ -1,4 +1,4 @@
-package 数据结构与算法.蓝桥杯.第十四届省赛;
+package 数据结构与算法.蓝桥杯.第十四届省赛.Java大学A组;
 
 import java.util.*;
 
@@ -47,7 +47,7 @@ public class J反异或01串 {
         //直到不是回文,退出循环
         i++;
         j--;
-        if (count > count1) {//记录最长区间
+        if (count > count1) {//记录区间
             left = i;
             right = j;
             count1 = count;

@@ -2,6 +2,9 @@ package 数据结构与算法.蓝桥杯.第十三届国赛.Java大学B组;
 
 import java.util.*;
 
+/**
+ 已AC
+ */
 public class F小球称重 {
     /*
     N个球(从1开始编号),有一个次品较轻,现在称了M次
@@ -14,42 +17,38 @@ public class F小球称重 {
 
     private static void main_enter() {
         Scanner sc = new Scanner(System.in);
-        sc.nextInt();
+        int N = sc.nextInt();
         int M = sc.nextInt();
         sc.nextLine();
-        HashSet<String> set = new HashSet<>(), set2 = new HashSet<>();
+        HashSet<String> set = new HashSet<>();
         boolean first = true;
-        List<String[]> equal = new ArrayList<>();
+        Set<String> equal = new HashSet<>();
         for (int i = 0; i < M; i++) {
             sc.nextLine();
             String[] A = sc.nextLine().split(" "), B = sc.nextLine().split(" ");
             char compare = sc.nextLine().charAt(0);
             if (compare == '=') {
-                equal.add(A);
-                equal.add(B);
-            } else if (compare == '<') {
+                equal.addAll(Arrays.asList(A));
+                equal.addAll(Arrays.asList(B));
+            } else if (compare == '<') {//轻的一侧一定有小球,第一将其加入怀疑区,后面取交集
                 if (first) {
                     first = false;
-                    Collections.addAll(set, A);
+                    set.addAll(Arrays.asList(A));
                 } else {//与A取交集
-                    set2.clear();
-                    Collections.addAll(set2, A);
-                    set.retainAll(set2);
+                    set.retainAll(Arrays.asList(A));
                 }
             } else {
                 if (first) {
                     first = false;
-                    Collections.addAll(set, B);
+                    set.addAll(Arrays.asList(B));
                 } else {
-                    set2.clear();
-                    Collections.addAll(set2, B);
-                    set.retainAll(set2);
+                    set.retainAll(Arrays.asList(B));
                 }
             }
         }
-        for (String[] s : equal) {
-            Arrays.asList(s).forEach(set::remove);
-        }
-        System.out.println(set.size());
+        set.removeAll(equal);
+        System.out.println(set.isEmpty() ? N - equal.size() : set.size());
     }
+
+
 }

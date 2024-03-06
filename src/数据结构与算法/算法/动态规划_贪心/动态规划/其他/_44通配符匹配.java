@@ -12,12 +12,12 @@ public class _44通配符匹配 {
      */
 
     /**
-     dp[i][j]:s的前i个与p的前j个能否匹配
-     如果p[j]是字母,那么dp[i][j] = dp[i-1][j-1] && s[i]==p[j]
-     如果p[j]是?,那么dp[i][j] = dp[i-1][j-1]
-     如果p[j]是*:
-     1.使用*号,dp[i][j] = dp[i-1][j]
-     2.不使用*号,dp[i][j] = dp[i][j-1]
+     dp[i][j]:s的前i个与p的前j个能否匹配<br>
+     如果p[j]是字母,那么dp[i][j] = dp[i-1][j-1] && s[i]==p[j]<br>
+     如果p[j]是?,那么dp[i][j] = dp[i-1][j-1]<br>
+     如果p[j]是*:<br>
+     1.使用*号,dp[i][j] = dp[i-1][j]<br>
+     2.不使用*号,dp[i][j] = dp[i][j-1]<br>
      */
     public boolean isMatch(String s, String p) {
         char[] str = s.toCharArray(), pattern = p.toCharArray();

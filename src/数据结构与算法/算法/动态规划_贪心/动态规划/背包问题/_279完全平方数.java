@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.动态规划_贪心.动态规划.其他;
+package 数据结构与算法.算法.动态规划_贪心.动态规划.背包问题;
 
 public class _279完全平方数 {
     /*
@@ -16,7 +16,7 @@ public class _279完全平方数 {
         初始化 dp[i]=i; 只装1
         状态转移方程:dp[j]=Math.min(1+dp[j-w],dp[j]); 其中1+dp[j-w]为装入当前物品1个,加上剩余容量的最少个数
         */
-        int row = (int) Math.floor(Math.sqrt(n)) + 1;
+        int row = (int) Math.sqrt(n) + 1;
         int[] dp = new int[n + 1];
         for (int i = 1; i <= n; i++) {
             dp[i] = i;

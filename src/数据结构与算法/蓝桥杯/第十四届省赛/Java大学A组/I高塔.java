@@ -1,6 +1,5 @@
-package 数据结构与算法.蓝桥杯.第十四届省赛;
+package 数据结构与算法.蓝桥杯.第十四届省赛.Java大学A组;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class I高塔 {
@@ -28,28 +27,30 @@ public class I高塔 {
         // 第i回合可以消耗Ci点能量(Ci>0),向上爬Ai*Ci层
         // 游戏结束条件:n个回合结束 或 第k个回合结束后能量耗尽
         // 求游戏方案数
-        memo = new int[n][m + 1];
-        System.out.println(dfs(n, m, A, 0));
-       for(int []mem:memo){
-           System.out.println(Arrays.toString(mem));
-       }
-    }
-
-    static int[][] memo;
-
-    static int dfs(int n, int m, int[] A, int curr) {
-        if (curr == n || m == 0) {
-            return 1;
+        long[] dp = new long[m + 1];//dp[i][j]第i个回合开始时剩余j点能量的方案数(i,j从0开始)
+        //ans=dp[0][m]
+        for (int i = 1; i <= m; i++) {
+            dp[i] = (long) A[n - 1] * i % MOD;
         }
-        if(memo[curr][m]!=0)return  memo[curr][m];
-        int ans = 0;
-        for (int Ci = 1; Ci <= m; Ci++) {
-            //消耗Ci点能量
-            int maxUp = A[curr] * Ci;//最多走的层数
-            ans = (ans + maxUp * dfs(n, m - Ci, A, curr + 1) % MOD) % MOD;
+        //dp[i][j]=Sum( C*A[i] * dp[i+1][j-C] ) 1<=C<=j
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = m; j > 0; j--) {
+                dp[j] = (long) j * A[i] % MOD;
+                for (int k = 1; k < j; k++) {
+                    long add = (long) k * A[i] % MOD * dp[j - k] % MOD;
+                    dp[j] = (dp[j] + add) % MOD;
+                    if (dp[j] < 0 || add < 0) {
+                        System.out.println("eeee");
+                    }
+                }
+            }
+            dp[1] = A[i];
         }
-        memo[curr][m] = ans;
-        return ans;
+        System.out.println(dp[m]);
+        //for (int i = n - 1; i >= 0; i--) {
+        //    int[] arr = dp[i];
+        //    System.out.println(Arrays.toString(arr));
+        //}
     }
 }
 
