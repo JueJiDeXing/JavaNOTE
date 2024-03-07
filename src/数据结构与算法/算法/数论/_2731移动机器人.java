@@ -33,7 +33,6 @@ public class _2731移动机器人 {
 
     例如，如果一个机器人位于位置 0 并往右移动，另一个机器人位于位置 1 并往左移动，下一秒，
     第一个机器人位于位置 0 并往左行驶，而另一个机器人位于位置 1 并往右移动。
-
      */
     public int sumDistance(int[] nums, String s, int d) {
         int MOD = 1000000007;
