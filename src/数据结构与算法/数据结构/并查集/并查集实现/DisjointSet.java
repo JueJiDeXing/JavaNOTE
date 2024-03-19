@@ -3,7 +3,7 @@ package 数据结构与算法.数据结构.并查集.并查集实现;
 import java.util.Arrays;
 
 /**
- <h1>不相交集合（并查集合）</h1>
+ <h1>数组链</h1>
  */
 public class DisjointSet {
 

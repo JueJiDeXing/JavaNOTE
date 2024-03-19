@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ 第 88 场周赛 Q4
+ 难度分:2236
+ */
 public class _850矩形面积 {
     /*
     给你一个轴对齐的二维数组 rectangles 。
@@ -12,6 +16,7 @@ public class _850矩形面积 {
     计算平面中所有 rectangles 所覆盖的 总面积 。任何被两个或多个矩形覆盖的区域应只计算 一次 。
     返回 总面积 。因为答案可能太大，返回 109 + 7 的 模 。
      */
+
     int MOD = (int) 1e9 + 7;
 
     public int rectangleArea(int[][] rectangles) {
@@ -34,6 +39,7 @@ public class _850矩形面积 {
             }
             //对y值排序,优先排序底边,底边相同的块按顶边排序
             lines.sort((l1, l2) -> l1[0] != l2[0] ? l1[0] - l2[0] : l1[1] - l2[1]);
+
             long totalY = 0, low = -1, high = -1;
             for (int[] cur : lines) {
                 if (cur[0] > high) {//当前块与上一块完全分离

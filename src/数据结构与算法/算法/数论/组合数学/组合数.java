@@ -11,13 +11,13 @@ public class 组合数 {
      C(n, m) = C(n - 1, m) + C(n - 1, m - 1)
      右式含义:对于某个项考虑选出的组合是否包含它
      */
-    long C(int n, int m) {
+    public long C(int n, int m) {
         if (m > n || n < 0) return 0;
         if (n == m) return 1;
         return C(n - 1, m) + C(n - 1, m - 1);
     }
 
-    long C2(int n, int m) {
+    public long C2(int n, int m) {
         int[][] c = new int[n + 1][m + 1];
         for (int i = 1; i <= n; i++) {//C_{n}^{1}=n
             c[i][1] = i;
@@ -30,7 +30,7 @@ public class 组合数 {
         return c[n][m];
     }
 
-    long C3(int n, int m) {
+    public long C3(int n, int m) {
         int[] curr = new int[m + 1];
         curr[0] = 1;
         for (int i = 0; i <= n; i++) {
@@ -47,7 +47,7 @@ public class 组合数 {
      C(n,m)%MOD
      组合数C(n,m) = n! / ((n-m)! m!)
      */
-    int C4(int n, int m) {
+    public int C4(int n, int m) {
         return factorial[n] * inverse[m] % MOD * inverse[n - m] % MOD;
     }
 

@@ -34,9 +34,12 @@ public class _2731移动机器人 {
     例如，如果一个机器人位于位置 0 并往右移动，另一个机器人位于位置 1 并往左移动，下一秒，
     第一个机器人位于位置 0 并往左行驶，而另一个机器人位于位置 1 并往右移动。
      */
+
+
     public int sumDistance(int[] nums, String s, int d) {
         int MOD = 1000000007;
         int len = nums.length;
+        //d秒后的位置
         long[] arr = new long[len];
         for (int i = 0; i < len; i++) {
             if (s.charAt(i) == 'R') {
@@ -46,9 +49,11 @@ public class _2731移动机器人 {
             }
         }
         Arrays.sort(arr);//对位置排序
+        //求两两距离之和
         /*
+        从最外侧大线段开始,计算贡献,然后去除最外侧端点,计算 内线段贡献
         当前端点(i,len-i-1)的线段(长度为d)上 分布着中间的点有n=len - 2 * i - 1个 .
-        对于线段内某点, 其到两端点的距离和为线段长d, 所以以当前端点距离总和为d*(n+1)
+        对于线段内某点, 其到两端点的距离和为线段长d, 所以, 以当前端点距离总和为d*(n+1)
         然后去除这两个端点,计算下一条线段
         */
         long ans = 0;
@@ -59,6 +64,9 @@ public class _2731移动机器人 {
         return (int) ans;
     }
 
+    /**
+    组合计数
+     */
     public int sumDistance2(int[] nums, String s, int d) {
         long MOD = (long) 1e9 + 7;
         int len = nums.length;
@@ -72,7 +80,8 @@ public class _2731移动机器人 {
         a[i]与左侧的距离之和:
         (a[i]−a[0]) + (a[i]−a[1]) + ⋯ + (a[i]−a[i−1])
         = i⋅a[i]−(a[0]+a[1]+⋯+a[i−1])
-        = i⋅a[i]− sum[i]
+        = i⋅a[i]− sum[0,i-1]
+        ans = Sum(i*a[i]-sum[0,i-1])
          */
         for (int i = 0; i < len; i++) {
             ans = (ans + i * arr[i] - sum) % MOD;

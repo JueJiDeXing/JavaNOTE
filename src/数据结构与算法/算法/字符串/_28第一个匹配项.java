@@ -1,6 +1,9 @@
 package 数据结构与算法.算法.字符串;
 
 public class _28第一个匹配项 {
+    /*
+    求子串在字符串中的一个匹配项索引
+     */
     //使用内置函数
     public int strStr1(String haystack, String needle) {
         return haystack.indexOf(needle);

@@ -205,7 +205,7 @@ public class _65有效数字 {
     }
 
     /**
-     <h1>模拟</h1>
+     <h1>数运算模拟</h1>
      case1: 有多个e,返回false<br>
      case2: 有一个e,检查e的两边是否符合要求<br>
      case3: 没有e,检查整个数<br>

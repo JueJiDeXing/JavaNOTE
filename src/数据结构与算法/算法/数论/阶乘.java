@@ -3,11 +3,12 @@ package 数据结构与算法.算法.数论;
 public class 阶乘 {//factorial
 
     public static void main(String[] args) {
-        System.out.println(new 阶乘().fact2(20));
+
+        System.out.println( fact2(20));
     }
 
 
-    public int fact1(int n) {
+    public static int fact1(int n) {
         if (n < 0 || n > 12) {
             throw new RuntimeException();
         }
@@ -17,7 +18,7 @@ public class 阶乘 {//factorial
         return n * fact1(n - 1);
     }
 
-    public long fact2(int n) {
+    public static long fact2(int n) {
         if(n>20){
             throw new RuntimeException();
         }

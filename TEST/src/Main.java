@@ -108,33 +108,29 @@ public class Main {
         return arr;
     }
 
-    public static int findKOr(int[] nums, int k) {
-        int[] bit = new int[32];
-        for (int n : nums) {
-            int idx = 0;
-            while (n > 0) {
-                if ((n & 1) == 1) {
-                    bit[idx]++;
-                }
-                n >>= 1;
-                idx++;
-            }
-        }
-        int ans = 0;
-        for (int i = 0; i < 32; i++) {
-            if (bit[i] >= k) {
-                ans += 1 << i;
-            }
-        }
-        return ans;
-
-    }
-
-
     public static void main(String[] args) {
-        System.out.println("ac");
+        Scanner sc = new Scanner(System.in);
+        List<Point> list = new ArrayList<>();
+        while (sc.hasNextInt()) {
+            int x = sc.nextInt();
+            if (!sc.hasNextInt()) {
+                break;
+            }
+            int y = sc.nextInt();
+            Point point = new Point(x, y);
+            list.add(point);
+        }
+        System.out.println(list);
     }
+
+    static class Point {
+        int x, y;
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
 
 }
-
-

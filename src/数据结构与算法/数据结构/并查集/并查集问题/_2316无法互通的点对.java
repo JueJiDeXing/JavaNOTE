@@ -1,6 +1,6 @@
 package 数据结构与算法.数据结构.并查集.并查集问题;
 
-import 数据结构与算法.数据结构.并查集.并查集实现.DisjointSetUnionBySize;
+import 数据结构与算法.数据结构.并查集.并查集实现.SetUnionBySize;
 
 public class _2316无法互通的点对 {
     /*
@@ -10,7 +10,7 @@ public class _2316无法互通的点对 {
      */
     //不相交集合对的大小乘积
     public long countPairs(int n, int[][] edges) {
-        DisjointSetUnionBySize set=new DisjointSetUnionBySize(n);
+        SetUnionBySize set=new SetUnionBySize(n);
         for(int[] edge:edges){
             set.union(edge[0], edge[1]);
         }

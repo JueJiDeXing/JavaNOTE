@@ -8,9 +8,6 @@ public class _2_21 {//Page 62
         for (int i = 0; i < 12; i++) {
             res *= (1 + base);
         }
-        System.out.println(res);
-
+        System.out.printf("%.2f", res);
     }
-
-
 }
