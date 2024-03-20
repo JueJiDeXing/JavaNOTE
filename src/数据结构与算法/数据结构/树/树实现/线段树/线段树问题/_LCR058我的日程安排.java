@@ -104,11 +104,11 @@ class MyCalendar3 {
     }
 
     /**
-     查询idx及其子树,idx对应区间为[l,r],判断日程任务[start,end]是否有重复
-     case1: idx的区间完全不在任务区间上,无重复
-     case2: idx上有懒标记,有重复(懒标记是update方法添加任务时区间被完全覆盖时添加的)
-     case3: idx的区间被完全覆盖,判断idx是否在日程上即可
-     case4: idx的区间与任务区间有交集,需要查询左右子树+
+     查询idx及其子树,idx对应区间为[l,r],判断日程任务[start,end]是否有重复<br>
+     case1: idx的区间完全不在任务区间上,无重复<br>
+     case2: idx上有懒标记,有重复(懒标记是update方法添加任务时区间被完全覆盖时添加的)<br>
+     case3: idx的区间被完全覆盖,判断idx是否在日程上即可<br>
+     case4: idx的区间与任务区间有交集,需要查询左右子树<br>
      */
     public boolean query(int start, int end, int l, int r, int idx) {
         if (start > r || end < l) return false;//不在该区间内,无重复
@@ -127,10 +127,10 @@ class MyCalendar3 {
     }
 
     /**
-     为idx添加任务,idx对应区间为[l,r],要添加的日程任务区间为[start,end]
-     case1: idx的区间完全不在日程任务上,不添加
-     case2: idx的区间完全在日程任务上,添加idx,并为左右子树添加懒标记
-     case3: idx的区间部分在日程任务上,添加idx,并为左右子树添加任务
+     为idx添加任务,idx对应区间为[l,r],要添加的日程任务区间为[start,end]<br>
+     case1: idx的区间完全不在日程任务上,不添加<br>
+     case2: idx的区间完全在日程任务上,添加idx,并为左右子树添加懒标记<br>
+     case3: idx的区间部分在日程任务上,添加idx,并为左右子树添加任务<br>
      */
     public void update(int start, int end, int l, int r, int idx) {
         if (start > r || end < l) return;//idx节点完全不在任务区间上,不添加任务

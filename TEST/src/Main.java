@@ -109,28 +109,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        List<Point> list = new ArrayList<>();
-        while (sc.hasNextInt()) {
-            int x = sc.nextInt();
-            if (!sc.hasNextInt()) {
-                break;
-            }
-            int y = sc.nextInt();
-            Point point = new Point(x, y);
-            list.add(point);
-        }
-        System.out.println(list);
+
+
     }
-
-    static class Point {
-        int x, y;
-
-        public Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-    }
-
-
 }

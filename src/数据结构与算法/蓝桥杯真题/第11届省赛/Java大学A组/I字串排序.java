@@ -3,7 +3,7 @@ package 数据结构与算法.蓝桥杯真题.第11届省赛.Java大学A组;
 import java.util.*;
 
 /**
- AC
+ 已AC,但是有个部分没看懂
  */
 public class I字串排序 {
     /*
@@ -92,7 +92,6 @@ public class I字串排序 {
             add2 += max;
             cnt[pos]++;
         }
-
         if (now + add1 + add2 >= V) {//当前 + 放x新增 + 后面的最大生成
             now += add1;
             return true;
