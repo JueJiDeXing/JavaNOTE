@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.数论;
+package 数据结构与算法.算法.数论.阶乘;
 
 public class _172阶乘后的零 {
     /*

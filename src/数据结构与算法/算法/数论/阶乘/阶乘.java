@@ -1,9 +1,8 @@
-package 数据结构与算法.算法.数论;
+package 数据结构与算法.算法.数论.阶乘;
 
 public class 阶乘 {//factorial
 
     public static void main(String[] args) {
-
         System.out.println( fact2(20));
     }
 
@@ -20,7 +19,7 @@ public class 阶乘 {//factorial
 
     public static long fact2(int n) {
         if(n>20){
-            throw new RuntimeException();
+            throw new RuntimeException("太大了,long也会溢出的");
         }
         long dp = 1;
         for (int i = 2; i <= n; i++) {

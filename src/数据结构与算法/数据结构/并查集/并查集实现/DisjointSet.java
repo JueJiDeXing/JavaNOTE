@@ -49,13 +49,14 @@ public class DisjointSet {
         s[ry] = rx;
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(s);
-    }
 
     public boolean isConnect(int x, int y) {
         return find(x) == find(y);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(s);
     }
 }
 

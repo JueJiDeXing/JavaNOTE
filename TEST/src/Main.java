@@ -108,8 +108,20 @@ public class Main {
         return arr;
     }
 
+    static boolean isPrime(int n) {
+        int sq = (int) Math.sqrt(n);
+        for (int i = 2; i <= sq; i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+    static int gcd(int a, int b){
+        if(b==0)return a;
+        return gcd(b,a%b);
+    }
+
     public static void main(String[] args) {
-
-
+        System.out.println(isPrime(70782091));
+        System.out.println(gcd(14225530 ,70782091));
     }
 }

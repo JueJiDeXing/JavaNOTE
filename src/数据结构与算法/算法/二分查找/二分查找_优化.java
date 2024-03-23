@@ -3,6 +3,33 @@ package 数据结构与算法.算法.二分查找;
 //已测试:src.java.数据结构与算法.算法.二分查找.BinarySearchTest
 public class 二分查找_优化 {
     /**
+     <h1>!!最推荐写法</h1>
+     假设查找的区间范围是[1,n],该区间具有二段性,在[0,x]不满足要求,在[x+1,n]满足要求
+     求第一个满足要求的数
+     那么用left指向不满足要求区间,right指向满足要求的区间
+     最后二分查找后,left和right一定是相邻的(left+1==right),此时right是第一个满足要求的数,left是最后一个满足要求的数
+     此方法编码简单不易错
+     */
+    public void binarySearch() {
+        int n = 100000;
+        int left = 0, right = n;
+        while (left + 1 != right) {
+            int mid = (left + right) >>> 1;
+            if (check(mid)) {
+                left = mid;
+            } else {
+                right = mid;
+            }
+        }
+        System.out.println(right);
+    }
+
+    boolean check(int mid) {
+        //doCheck
+        return true;
+    }
+
+    /**
      <h1>二分查找:原始未优化版</h1>
      <p><strong>缺陷:</strong></p>
      <p>1.整型溢出</p>
