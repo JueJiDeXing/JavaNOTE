@@ -107,4 +107,8 @@ public class Main {
         }
         return arr;
     }
+
+    public static void main(String[] args) {
+         System.out.printf("%6b\n",(1>2));
+    }
 }

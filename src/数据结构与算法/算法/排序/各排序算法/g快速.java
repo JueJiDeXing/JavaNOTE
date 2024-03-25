@@ -1,6 +1,5 @@
 package 数据结构与算法.算法.排序.各排序算法;
 
-import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class g快速 {
@@ -12,11 +11,8 @@ public class g快速 {
 
     private void quick(int[] a, int left, int right, int partitionMethod) {
         //递归主函数
-        if (left >= right) {
-            return;
-        }
-        //快排核心方法:分区
-        // 找基准点,小的放左边,大的放右边
+        if (left >= right) return;
+        //快排核心方法:分区, 找基准点,小的放左边,大的放右边
         int p = switch (partitionMethod) {
             case 1 -> partition1(a, left, right);
             case 2 -> partition2(a, left, right);
@@ -24,8 +20,6 @@ public class g快速 {
             case 4 -> partition4(a, left, right);
             default -> throw new RuntimeException("partitionMethod:" + partitionMethod + "错误");
         };
-        System.out.println("分区:" + Arrays.toString(a));
-
         quick(a, left, p - 1, partitionMethod);//对两个区域再次分区排序
         quick(a, p + 1, right, partitionMethod);
     }
@@ -63,9 +57,8 @@ public class g快速 {
                 i++;
             }
             j++;
-            //System.out.println(Arrays.toString(a) + " i=" + i + " j=" + j);
         }
-        swap(a, i, right);//最后交换
+        swap(a, i, right);//最后把基准点元素交换到i位置
         return i;
     }
 
@@ -79,16 +72,16 @@ public class g快速 {
      <h1>双边快排</h1>
      选择最左元素作为基准点<br>
      <br>
-     j指针负责找到小的元素,一旦找到则与i交换(交换数组元素值)<br>
-     i指针负责找到大的元素,一旦找到则与j交换(交换数组元素值)<br>
+     j指针负责找到小的元素,i指针负责找到大的元素 <br>
      i从左向右,j从右向左<br>
+     找到后交换元素值<br>
      最后基准点与i交换,i即为分区位置
      */
     private int partition2(int[] a, int left, int right) {
         int pv = a[left];//基准点元素值
         int i = left, j = right;
         while (i < j) {
-            //必须先找小的再找大的(先j后i),否则最后与基准点互换时会把大的换到左边(因为此时i,j相遇,而i找的是大的)
+            //必须先找小的再找大的(先j后i),否则最后与基准点互换时会把大的换到左边(因为此时i,j相遇,而i指向的还是大的)
             while (i < j && a[j] > pv) {
                 j--;//寻找小的
             }
