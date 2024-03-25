@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.数论;
+package 数据结构与算法.算法.数论.平方;
 
 public class 平方根倒数 {
     void dir() {

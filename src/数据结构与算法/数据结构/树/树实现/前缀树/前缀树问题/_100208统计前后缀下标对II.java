@@ -39,7 +39,7 @@ public class _100208统计前后缀下标对II {
         }
 
         static class Pair {
-            Character ch1, ch2;
+            Character ch1, ch2;//前后缀同时存储
 
             public Pair(Character ch1, Character ch2) {
                 this.ch1 = ch1;

@@ -1,6 +1,8 @@
-package 数据结构与算法.蓝桥杯真题.其他._2017Java大学A组;
-
-public class A迷宫 {
+package 数据结构与算法.蓝桥杯真题.第10届省赛.Java大学A组;
+/**
+ 已AC
+ */
+public class C迷宫 {
     /*
     10*10的迷宫,每个位置都有标记字母,(D,R,L,U),表示在该格往哪个方向走
     问有多少个位置,可以走出迷宫
@@ -21,6 +23,7 @@ public class A迷宫 {
         int res = 0;
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
+                //对每个位置都搜索能不能出去
                 if (solve(map, i, j, new boolean[10][10])) {
                     res++;
                 }

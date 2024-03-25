@@ -3,10 +3,11 @@ package 数据结构与算法.算法.数论.模.乘法逆元;
 public class exgcd {
     /*
     裴蜀定理:
-    若a,b是整数, 且gcd(a,b)=d
-    那么对于任意的整数和y, ax+by都一定是d的倍数
-    特别地,一定存在整数x,y,使ax+by=d成立.
-    它的一个重要推论是: a,b互质 <=> 存在整数x,y,使ax+by=1.
+    1. 对于正整数a,b, 有 ax+by % gcd(a,b) = 0
+    2. 存在整数x,y, 使ax+by=gcd(a,b)成立.
+    3. a,b互质 <=> gcd(a,b)=1 <=> 存在整数x,y,使ax+by=1.
+
+    ax % m = b  -> ax-b=my -> ax+my=b
 
      exgcd:
      ax mod p = 1 的最小正整数解,等价与 不定方程 ax + by = c = gcd(a,b) 的x最小正整数解

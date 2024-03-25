@@ -1,4 +1,4 @@
-package 数据结构与算法.算法.数论;
+package 数据结构与算法.算法.数论.平方;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -7,7 +7,7 @@ import java.util.*;
 /**
  ???
  */
-public class 开方平方 {
+public class 题_开方平方 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);

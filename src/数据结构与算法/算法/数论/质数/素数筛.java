@@ -78,11 +78,6 @@ public class 素数筛 {
                 isComposite[prime[j] * i] = true;
                 if (i % prime[j] == 0) break;//防止重复筛
             }
-            // for (int p : prime) {
-            //     if (p * i > N) break;
-            //     isComposite[p * i] = true;
-            //     if (i % p == 0) break;//防止重复筛
-            // }
         }
         return sum;
     }

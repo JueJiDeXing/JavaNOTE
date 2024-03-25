@@ -1,4 +1,4 @@
-package 基础.面向对象;
+package 基础.基础;
 
 abstract public class 抽象 {
     public void m1() {
