@@ -37,6 +37,7 @@ public class I付账问题 {
     }
 
     /**
+     贪心
      avg = S/n
      (1) 钱不够avg的全部都要拿出
      (2) 钱够avg的, 首先要拿出avg出来, 然后需要多拿一部分填补钱不够的人
@@ -45,7 +46,7 @@ public class I付账问题 {
      令假设现在前面i-1个人拿出了全部的钱, pay为剩余未支付的均值 S_remain / n - i + 1
      那么如果 A[i] < pay : 第i个人是(1),A[i]全部拿出, S -= A[i]
      如果 A[i] >= pay : 第i个人是(2),因为排序,所以后面的人都是(2),每个人需要支付的费用是 pay
-    ans = sqrt( sum{ (pay[i] - avg)^2 } / n )
+     ans = sqrt( sum{ (pay[i] - avg)^2 } / n )
      */
     public static void main(String[] args) {
         int n = Int();

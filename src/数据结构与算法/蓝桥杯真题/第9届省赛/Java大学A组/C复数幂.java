@@ -15,7 +15,7 @@ public class C复数幂 {
     public static void main(String[] args) {
         BigInteger[] ans = pow(2, 3, 123456);
         String s = ans[0] + (ans[1].compareTo(BigInteger.ZERO) > 0 ? "+" : "") + ans[1] + "i";
-        System.out.println(s);
+        System.out.println(s);//太长了,不能粘答案提交,只能贴代码提交
     }
 
     static BigInteger[] pow(int s, int x, int n) {

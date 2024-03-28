@@ -22,7 +22,6 @@ public class 最近公共祖先模版 {
             g[x].add(y);
             g[y].add(x);
         }
-
         depth = new int[n];
         pa = new int[n][m];
         dfs(g, 0, -1);

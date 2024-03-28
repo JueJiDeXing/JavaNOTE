@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.util.Arrays;
+
 /**
  已AC
  */
@@ -23,6 +24,10 @@ public class H倍数问题 {
         return (int) st.nval;
     }
 
+    /**
+     排序+暴力
+     从大数开始枚举,一旦三个最大的可选数相加无法超过当前ans,则break
+     */
     public static void main(String[] args) {
         int n = Int(), k = Int();
         int[] A = new int[n];
@@ -42,9 +47,7 @@ public class H倍数问题 {
                     if (sum < ans) break;
                     if (sum % k == 0) ans = sum;
                 }
-
             }
-
         }
         System.out.println(ans);
     }

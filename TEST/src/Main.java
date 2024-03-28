@@ -109,6 +109,22 @@ public class Main {
     }
 
     public static void main(String[] args) {
-         System.out.printf("%6b\n",(1>2));
+        System.out.println(count(2,2));
+        System.out.println(count(2,3));
+        System.out.println(count(2,4));
+        System.out.println(count(2,5));
+        System.out.println(count(2,6));
+
+        System.out.println("----------");
+        System.out.println(count(3,3));
+    }
+
+    static int count(int a, int b) {
+        int ans = a * b;
+        for (int x = 1; x <= b; x++) {
+            int t = (a * x + b - 1) / b;
+            ans -= t;
+        }
+        return ans;
     }
 }

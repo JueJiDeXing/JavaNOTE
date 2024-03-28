@@ -1,11 +1,27 @@
 package 数据结构与算法.蓝桥杯真题.第9届省赛.Java大学A组;
 
 import java.util.*;
+
 /**
  已AC
  */
 public class E航班时间 {
+    /*
+    输入T组数据
+    每组两行
+    每行一个起飞时间,一个降落时间,如果降落时间是第二天了,则后面跟上一个(+1),如果是第三天了则(+2)
+    第一行的是A去B的时间,第二行是B回A的时间
+    A->B 和 B->A的飞行时间是相同的,但是有时差,导致时间不同
+    上午10点从北京出发,中午12点就到达美国,但飞机实际飞行了14小时,因为有12小时的时差
+    求飞机飞行一趟的时间
+     */
 
+    /**
+     假设A到B的时差为t
+     从A飞到B,时间会减少t
+     从B飞到A,时间会增加t
+     那么把两段的飞行时间加起来除以2就是答案了
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int t = sc.nextInt();
@@ -34,9 +50,6 @@ public class E航班时间 {
         int[] s = Arrays.stream(time.split(":")).mapToInt(Integer::parseInt).toArray();
         s[0] += 24 * add;
         return s[0] * 3600 + s[1] * 60 + s[2];
-
-
     }
-
 
 }
