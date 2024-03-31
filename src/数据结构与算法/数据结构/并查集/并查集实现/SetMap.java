@@ -43,9 +43,8 @@ public class SetMap {
     }
 
     public int find2(int x) {
-        int root = x;
-        if (father.get(root) == null) return root;
-        int f = find2(father.get(root));
+        if (father.get(x) == null) return x;
+        int f = find2(father.get(x));
         father.put(x, f);
         return f;
     }

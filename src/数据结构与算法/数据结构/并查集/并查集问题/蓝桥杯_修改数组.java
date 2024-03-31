@@ -1,5 +1,7 @@
 package 数据结构与算法.数据结构.并查集.并查集问题;
 
+import 数据结构与算法.蓝桥杯.真题卷.第10届.省赛.Java大学A组.H修改数组;
+
 public class 蓝桥杯_修改数组 {
     /*
     给出一个可能存在重复值的长度为n的数组A
@@ -11,7 +13,7 @@ public class 蓝桥杯_修改数组 {
      */
 
     /**
-     {@link 数据结构与算法.蓝桥杯真题.第10届省赛.Java大学A组.H修改数组}
+     {@link H修改数组}
      */
     public static void main(String[] args) {
 

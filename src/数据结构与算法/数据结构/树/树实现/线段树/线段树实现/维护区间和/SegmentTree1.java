@@ -57,13 +57,14 @@ public class SegmentTree1 {
      对node节点进行更新任务,更新任务的范围为[left,right],将[left,right]的值更新为val
      */
     private void _update(int left, int right, int val, Node node) {
-        if (left <= node.left && node.right <= right) {//任务区间覆盖node,任务添加到node上,不再下发
+        //任务区间不在节点范围,返回
+        if (node.right < left || node.left > right) return;
+        //任务区间覆盖node,任务添加到node上,不再下发
+        if (left <= node.left && node.right <= right) {
             node.lazy = val;//添加更新懒标记
             node.val = val * (node.right - node.left + 1);//更新节点值(sum)
             return;
         }
-        //任务区间不在节点范围,返回
-        if (node.right < left || node.left > right) return;
         //对node的原有的懒更新任务进行处理
         _pushdown(node);
         //对node的左右孩子进行本次更新任务的下发

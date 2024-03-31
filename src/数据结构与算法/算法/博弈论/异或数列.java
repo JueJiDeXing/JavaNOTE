@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.博弈论;
 
+import 数据结构与算法.蓝桥杯.真题卷.第12届.省赛.Java大学A组.H异或数列;
+
 public class 异或数列 {
     /*
     A和B的初始值为0
@@ -15,7 +17,7 @@ public class 异或数列 {
     */
 
     /**
-     {@link 数据结构与算法.蓝桥杯真题.第12届省赛.Java大学A组.H异或数列}
+     {@link H异或数列}
      */
     public static void main(String[] args) {
 

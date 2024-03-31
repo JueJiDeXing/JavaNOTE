@@ -7,7 +7,7 @@ import java.util.Arrays;
  */
 public class DisjointSet {
 
-    int[] s;
+    int[] fa;
     // 索引对应顶点
     // 元素是用来表示与之有关系的顶点
     /*
@@ -16,9 +16,9 @@ public class DisjointSet {
     */
 
     public DisjointSet(int size) {
-        s = new int[size];
+        fa = new int[size];
         for (int i = 0; i < size; i++) {
-            s[i] = i;
+            fa[i] = i;
         }
     }
 
@@ -29,13 +29,13 @@ public class DisjointSet {
            find(0)
      */
     public int find(int x) {
-        if (x < 0 || x >= s.length) {
+        if (x < 0 || x >= fa.length) {
             throw new RuntimeException("索引越界");
         }
-        if (x == s[x]) {//索引对应自身的为老大
+        if (x == fa[x]) {//索引对应自身的为老大
             return x;
         }
-        return s[x] = find(s[x]); //路径压缩,在查找中将老大的值赋值过来,下次在该集合里查找时路径缩短
+        return fa[x] = find(fa[x]); //路径压缩,在查找中将老大的值赋值过来,下次在该集合里查找时路径缩短
     }
 
     // union 是让两个集合“相交”，即选出新老大，x、y 是原老大索引
@@ -46,7 +46,7 @@ public class DisjointSet {
      */
     public void union(int x, int y) {
         int rx = find(x), ry = find(y);
-        s[ry] = rx;
+        fa[ry] = rx;
     }
 
 
@@ -56,7 +56,7 @@ public class DisjointSet {
 
     @Override
     public String toString() {
-        return Arrays.toString(s);
+        return Arrays.toString(fa);
     }
 }
 

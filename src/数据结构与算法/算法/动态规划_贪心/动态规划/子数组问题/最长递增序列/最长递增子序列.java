@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.动态规划_贪心.动态规划.子数组问题.最长递增序列;
 
+import 数据结构与算法.蓝桥杯.真题卷.第11届.国赛.Java大学A组.D游园安排;
+
 import java.util.*;
 
 /**
@@ -50,7 +52,7 @@ public class 最长递增子序列 {
 
     /**
      性能优化<br>
-     {@link 数据结构与算法.蓝桥杯真题.第11届国赛.Java大学A组.D游园安排}
+     {@link D游园安排}
      */
     public static List<Integer> LIS2(int[] names) {
         int len = names.length;

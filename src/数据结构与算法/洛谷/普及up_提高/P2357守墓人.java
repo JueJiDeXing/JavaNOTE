@@ -35,7 +35,7 @@ public class P2357守墓人 {
         int prev = 0;
         for (int i = 1; i <= n; i++) {
             int ff = Int();
-            tree.add(i, ff - prev);//差分数组
+            tree.add(i, ff - prev);//前缀和差分
             prev = ff;
         }
         for (int i = 0; i < f; i++) {
