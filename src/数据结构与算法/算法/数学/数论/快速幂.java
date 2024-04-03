@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.数学.数论;
 
+import 数据结构与算法.蓝桥杯.算法赛.小白入门赛.第5场._6方程;
+
 public class 快速幂 {
     //直接for循环乘的次数为n次
     //使用快速幂,降低乘的次数
@@ -71,7 +73,7 @@ public class 快速幂 {
 
     /**
      <h1>矩阵快速幂</h1>
-     例题: {@link 数据结构与算法.蓝桥杯.小白入门赛.第5场._6方程}
+     例题: {@link _6方程}
      */
     public long[][] matrixPow(long[][] mat, int n) {
         int len = mat.length;

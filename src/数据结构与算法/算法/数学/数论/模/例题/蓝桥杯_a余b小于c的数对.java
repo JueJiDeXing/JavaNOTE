@@ -1,9 +1,11 @@
 package 数据结构与算法.算法.数学.数论.模.例题;
 
+import 数据结构与算法.蓝桥杯.算法赛.小白入门赛.第2场._4取余;
+
 public class 蓝桥杯_a余b小于c的数对 {
     /**
      count{ a%b <= C | 1<=a<=A && 1<=b<=B }<br>
-     {@link 数据结构与算法.蓝桥杯.小白入门赛.第2场._4取余}
+     {@link _4取余}
      */
     static long f(int A, int B, int C) {
         if (C < 0) return 0;
