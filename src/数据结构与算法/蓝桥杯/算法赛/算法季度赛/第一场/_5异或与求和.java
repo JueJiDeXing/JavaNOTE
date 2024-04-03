@@ -35,9 +35,10 @@ public class _5异或与求和 {
         for (int i = 0; i < n; i++) {
             A[i] = nextInt();
         }
+        slove1(n, A);
     }
 
-    private static void solve1(int n, int[] A) {//n^2超时
+    private static void slove1(int n, int[] A) {
         long ans = 0;
         for (int i = 0; i < n - 1; i++) {
             for (int j = i + 1; j < n; j++) {
@@ -48,4 +49,6 @@ public class _5异或与求和 {
         }
         System.out.println(ans);
     }
+
+
 }
