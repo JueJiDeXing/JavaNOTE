@@ -41,7 +41,7 @@ public class F奇偶覆盖 {
         long ansOdd = 0, ansEven = 0;
         for (int i = 0; i < y.length - 1; i++) {// 最后一条y边不遍历
             st.add(0, y[i][1], y[i][2], (int) y[i][3]);// 从根开始,将x区间[x1,x2]的覆盖加上sign
-            //计算y[i]的奇偶贡献
+            //计算y[i]~y[i+1]的奇偶贡献
             long high = y[i + 1][0] - y[i][0];
             if (high == 0) continue;
             ansOdd += st.query(true) * high;//当前奇覆盖
@@ -98,30 +98,31 @@ public class F奇偶覆盖 {
         }
 
         private void pushUp(int i) {// 递推向上更新数据
-            if (tr[i].l == tr[i].r) {
+            Section node = tr[i];
+            if (node.l == node.r) {
                 // 走到叶子节点
-                if (tr[i].count == 0) {// 没有覆盖标记时
-                    tr[i].w1 = 0;
-                    tr[i].w2 = 0;
-                } else if (tr[i].count % 2 == 1) {// 奇数个覆盖时
-                    tr[i].w1 = tr[i].len;
-                    tr[i].w2 = 0;
+                if (node.count == 0) {// 没有覆盖标记时
+                    node.w1 = 0;
+                    node.w2 = 0;
+                } else if (node.count % 2 == 1) {// 奇数个覆盖时
+                    node.w1 = node.len;
+                    node.w2 = 0;
                 } else {// 偶数个覆盖时
-                    tr[i].w1 = 0;
-                    tr[i].w2 = tr[i].len;
+                    node.w1 = 0;
+                    node.w2 = node.len;
                 }
             } else {
                 long ww1 = tr[toLeft(i)].w1 + tr[toRight(i)].w1;// 子区间奇宽之和
                 long ww2 = tr[toLeft(i)].w2 + tr[toRight(i)].w2;// 子区间偶宽之和
-                if (tr[i].count == 0) {// 没有覆盖标记时, 但子区间可能有覆盖
-                    tr[i].w1 = ww1;
-                    tr[i].w2 = ww2;
-                } else if (tr[i].count % 2 == 1) {// 奇数个覆盖时
-                    tr[i].w1 = tr[i].len - ww1;// 因为完全覆盖才有覆盖标记,所以用大减小,且奇数会使子区间奇偶变换
-                    tr[i].w2 = tr[i].len - tr[i].w1;
+                if (node.count == 0) {// 没有覆盖标记时, 但子区间可能有覆盖
+                    node.w1 = ww1;
+                    node.w2 = ww2;
+                } else if (node.count % 2 == 1) {// 奇数个覆盖时
+                    node.w1 = node.len - ww1;// 奇数会使子区间奇偶变换,所以减去子区间的奇宽(实际偶宽)即为父区间的奇宽
+                    node.w2 = node.len - node.w1;
                 } else {// 偶数个覆盖时
-                    tr[i].w1 = ww1;
-                    tr[i].w2 = tr[i].len - tr[i].w1;
+                    node.w1 = ww1;// 奇偶性不变
+                    node.w2 = node.len - node.w1;
                 }
             }
         }
@@ -148,7 +149,7 @@ public class F奇偶覆盖 {
     private static void solve1() {//4AC 6TLE
         int n = Int();
         int[][] rect = new int[n][4];
-        HashSet<Integer> setX = new HashSet<>();
+        TreeSet<Integer> setX = new TreeSet<>();
         for (int i = 0; i < n; i++) {
             int x1 = Int(), y1 = Int(), x2 = Int(), y2 = Int();
             rect[i] = new int[]{x1, y1, x2, y2};
@@ -156,7 +157,6 @@ public class F奇偶覆盖 {
             setX.add(x2);
         }
         List<Integer> listX = new ArrayList<>(setX);
-        Collections.sort(listX);
         long ansOdd = 0, ansEven = 0;
         for (int i = 1; i < listX.size(); i++) {
             int b = listX.get(i), a = listX.get(i - 1);
