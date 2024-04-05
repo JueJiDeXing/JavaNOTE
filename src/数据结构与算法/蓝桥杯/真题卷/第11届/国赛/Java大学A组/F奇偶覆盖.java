@@ -40,10 +40,10 @@ public class F奇偶覆盖 {
         SegmentTree st = new SegmentTree(x.toArray(new Integer[0]));// 线段树维护x轴的覆盖性(奇偶)
         long ansOdd = 0, ansEven = 0;
         for (int i = 0; i < y.length - 1; i++) {// 最后一条y边不遍历
-            st.modify(0, y[i][1], y[i][2], (int) y[i][3]);// 从根开始,将x区间[x1,x2]的覆盖加上sign
+            st.add(0, y[i][1], y[i][2], (int) y[i][3]);// 从根开始,将x区间[x1,x2]的覆盖加上sign
             //计算y[i]的奇偶贡献
-            if (y[i + 1][0] == y[i][0]) continue;
             long high = y[i + 1][0] - y[i][0];
+            if (high == 0) continue;
             ansOdd += st.query(true) * high;//当前奇覆盖
             ansEven += st.query(false) * high;//当前偶覆盖
         }
@@ -52,12 +52,12 @@ public class F奇偶覆盖 {
     }
 
     static class SegmentTree {// 线段树
-        Section[] tr;// (区间)存储数组
+        Section[] tr;// tr[i]为第i个节点,每个节点维护一个x区间: [x[node.l],x[node.r]], 并且附带维护奇偶覆盖宽度
         Integer[] x;// (横坐标)去重后存储数组
 
         class Section {// 最小不可分的“区间类”
-            int l, r, count;// 左边界、右边界、完全覆盖计数
-            long w1, w2, len;// 奇覆盖宽、偶覆盖宽、区间总长
+            int l, r, len;// 左边界、右边界、区间总长
+            long w1, w2, count;// 奇覆盖宽、偶覆盖宽 以及 完全覆盖计数(懒更新)
 
             public Section(int left, int right) {
                 l = left;
@@ -69,7 +69,7 @@ public class F奇偶覆盖 {
         public SegmentTree(Integer[] nums) {// 初始化
             this.x = nums;
             int n = nums.length - 1;// nums.length 即x点的个数, n即这些点间的区间数，所以减1
-            this.tr = new Section[n * 4];// 线段树的空间要开4倍，怕方法查询时空指针
+            this.tr = new Section[n * 4];
             build(0, 0, n - 1);// n相当于数组的长度，这里“n-1”是数组的最后一个索引
         }
 
@@ -84,15 +84,15 @@ public class F奇偶覆盖 {
         /**
          从节点i开始, 将x区间[L,R]添加覆盖sign, sign=1为入边y1, sign=-1为出边y2
          */
-        private void modify(int i, Long L, Long R, int sign) {
+        private void add(int i, Long L, Long R, int sign) {
             if (i >= tr.length || R <= x[tr[i].l] || x[tr[i].r + 1] <= L) {// 越界
                 return;
             }
-            if (L <= x[tr[i].l] && x[tr[i].r + 1] <= R) {// 全部在区间内(偏移映射的“计算r+1”)
+            if (L <= x[tr[i].l] && x[tr[i].r + 1] <= R) {// 全部在区间内
                 tr[i].count += sign;
             } else {//任务下发到子节点
-                if (L <= x[toMid(i)]) modify(toLeft(i), L, R, sign);
-                if (R > x[toMid(i)]) modify(toRight(i), L, R, sign);
+                if (L <= x[toMid(i)]) add(toLeft(i), L, R, sign);
+                if (R > x[toMid(i)]) add(toRight(i), L, R, sign);
             }
             pushUp(i);// 前面修改了该区间的覆盖标记，这里顺便更新该区间的覆盖数据
         }
@@ -149,7 +149,6 @@ public class F奇偶覆盖 {
         int n = Int();
         int[][] rect = new int[n][4];
         HashSet<Integer> setX = new HashSet<>();
-
         for (int i = 0; i < n; i++) {
             int x1 = Int(), y1 = Int(), x2 = Int(), y2 = Int();
             rect[i] = new int[]{x1, y1, x2, y2};
@@ -194,137 +193,4 @@ public class F奇偶覆盖 {
     }
 
 
-}
-
-class Main {
-    static StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
-
-    static int Int() {
-        try {
-            st.nextToken();
-        } catch (Exception ignored) {
-
-        }
-        return (int) st.nval;
-    }
-
-    public static void main(String[] args) {
-        int n = Int();
-        int[][] listY = new int[n * 2][4];//存储y轴线段
-        TreeSet<Integer> setX = new TreeSet<>();//离散化x,用于构建x线段树
-        for (int i = 0; i < n; i++) {
-            int x1 = Int(), y1 = Int(), x2 = Int(), y2 = Int();
-            listY[i] = new int[]{y1, x1, x2, 1};
-            listY[n + i] = new int[]{y2, x1, x2, -1};
-            setX.add(x1);
-            setX.add(x2);
-        }
-        Arrays.sort(listY, (o1, o2) -> o1[0] - o2[0] >= 0 ? 1 : -1);
-        Segment tree = new Segment(setX.toArray(new Integer[0]));//线段树维护x区间的覆盖性
-        //扫描y
-        long ansOdd = 0, ansEven = 0;
-        for (int i = 0; i < listY.length - 1; i++) {
-            int[] currY = listY[i], nextY = listY[i + 1];
-            tree.add(0, currY[1], currY[2], currY[3]);//将[x1,x2]区间覆盖加上sign
-            //求currY的贡献
-            long high = nextY[0] - currY[0];
-            if (high == 0) continue;
-            ansOdd += tree.query(true) * high;
-            ansEven += tree.query(false) * high;
-        }
-        System.out.println(ansOdd + "\n" + ansEven);
-    }
-
-    static class Segment {
-        Integer[] x; // 离散化的x, 长度为n, 区间个数为n-1
-        Node[] tr; // 节点,节点维护x区间,节点i范围为[l,r], 0<=l<=r<n, 维护的区间为x[tr[i].l] = x1, x[tr[i].r] = x2
-
-        class Node {
-            int l, r, lazy;// 左右边界,x[l],x[r]]节点tr[i]的左边界x[tr[i].l]
-            int odd, even, len;//奇偶覆盖,区间长度
-
-            public Node(int left, int right) {
-                l = left;
-                r = right;
-                len = x[right + 1] - x[left];
-            }
-        }
-
-        public Segment(Integer[] x) {
-            this.x = x;
-            int n = x.length - 1;//区间个数
-            tr = new Node[n << 2];
-            build(0, 0, n - 1);//从0号节点开始建树,0号节点范围[0,n-1]
-        }
-
-        private void build(int node, int l, int r) {
-            tr[node] = new Node(l, r);
-            if (l != r) {
-                build(toLeft(node), l, toMid(node));
-                build(toRight(node), toMid(node) + 1, r);
-            }
-        }
-
-        int toLeft(int node) {
-            return (node << 1) + 1;
-        }
-
-        int toRight(int node) {
-            return (node << 1) + 2;
-        }
-
-        int toMid(int node) {
-            return (tr[node].l + tr[node].r) >>> 1;
-        }
-
-        public void add(int node, long L, long R, int sign) {
-            if (node >= tr.length) return;
-            int l = x[tr[node].l], r = x[tr[node].r + 1];
-            if (R <= l || r <= L) return;
-            if (L <= l && r <= R) {
-                tr[node].lazy += sign;
-            } else {
-                if (L <= x[toMid(node)]) add(toLeft(node), L, R, sign);
-                if (R > x[toMid(node)]) add(toRight(node), L, R, sign);
-            }
-            pushUp(node);//汇总数据
-        }
-
-        void pushUp(int node) {
-            Node tN = tr[node];
-            if (tN.l == tN.r) {//叶子
-                if (tN.lazy == 0) {//无覆盖
-                    tN.odd = tN.even = 0;
-                } else if (tN.lazy % 2 == 0) {//偶覆盖
-                    tN.odd = 0;
-                    tN.even = tN.len;//区间范围全偶
-                } else {//奇覆盖
-                    tN.odd = tN.len;
-                    tN.even = 0;
-                }
-            } else {//非叶子
-                int odd = tr[toLeft(node)].odd + tr[toRight(node)].odd;//子区间的奇覆盖
-                int even = tr[toLeft(node)].even + tr[toRight(node)].even;//子区间的偶覆盖
-                if (tN.lazy == 0) {// 没有覆盖标记时, 但子区间可能有覆盖
-                    tN.odd = odd;
-                    tN.even = even;
-                } else if (tN.lazy % 2 == 1) {// 父区间有奇数个覆盖懒标记
-                    // 子区间 = 奇覆盖 + 偶覆盖 + 无覆盖区
-                    // 父奇覆盖(父奇个懒标记) = 子偶覆盖 + 无覆盖区 = len - 子奇覆盖
-                    tN.odd = tN.len - odd;// 因为完全覆盖才有覆盖标记,所以用大减小,且奇数会使子区间奇偶变换
-                    tN.even = odd;
-                } else {// 偶数个覆盖时
-                    // 父偶覆盖(父偶个懒标记) = 子偶覆盖 + 无覆盖区 = len -子奇覆盖
-                    tN.odd = odd;
-                    tN.even = tN.len - odd;
-                }
-            }
-        }
-
-        public int query(boolean isOdd) {
-            //tr[0].w1 : 全x轴的奇覆盖长度
-            //tr[0].w2 : 全x轴的偶覆盖长度
-            return isOdd ? tr[0].odd : tr[0].even;
-        }
-    }
 }
