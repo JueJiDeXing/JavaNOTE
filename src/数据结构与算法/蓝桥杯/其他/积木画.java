@@ -35,14 +35,14 @@ public class 积木画 {
         int mod = 1000000007;
         int n = new Scanner(System.in).nextInt();
         long[] prev = new long[4], curr = new long[4];
-        prev[3] = 1;
-        for (int i = 1; i <= n; i++) {
+        prev[3] = 1;//没有时为满
+        for (int i = 0; i < n; i++) {
             curr[0] = prev[3] % mod;
             curr[1] = (prev[0] + prev[2]) % mod;
             curr[2] = (prev[0] + prev[1]) % mod;
             curr[3] = (prev[0] + prev[1] + prev[2] + prev[3]) % mod;
             prev = curr.clone();
         }
-        System.out.println(prev[3]);
+        System.out.println(curr[3]);
     }
 }

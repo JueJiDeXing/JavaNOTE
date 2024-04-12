@@ -5,7 +5,9 @@ import java.io.InputStreamReader;
 import java.io.StreamTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
-
+/**
+ 已AC
+ */
 public class _2健身 {
     /*
     n天

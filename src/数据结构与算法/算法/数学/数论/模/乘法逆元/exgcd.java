@@ -3,15 +3,17 @@ package 数据结构与算法.算法.数学.数论.模.乘法逆元;
 public class exgcd {
     /*
     裴蜀定理:
-    1. 对于正整数a,b, 有 ax+by % gcd(a,b) = 0
+    1. 对于任意正整数a,b,对于任意正整数x,y 都有 ax+by % gcd(a,b) = 0
     2. 存在整数x,y, 使ax+by=gcd(a,b)成立.
     3. a,b互质 <=> gcd(a,b)=1 <=> 存在整数x,y,使ax+by=1.
 
-    ax % m = b  -> ax-b=my -> ax+my=b
+    ax+by=c有解 <==> gcd(a,b)|c
+    ax % b = c  <==> ax+by=c
+    */
 
+    /*
      exgcd:
-     ax mod p = 1 的最小正整数解,等价与 不定方程 ax + by = c = gcd(a,b) 的x最小正整数解
-     对于不定方程 ax + by = c = gcd(a,b)
+     对于不定方程 ax + by = gcd(a,b) = d
      ∵ gcd(a,b) = gcd(b,a%b)
      ∴ bx1 + (a%b)y1 = d
      又∵ a%b = a - (a/b)b
@@ -19,20 +21,14 @@ public class exgcd {
         bx1 + ay - b(a/b)y1 = d
         ay1 + b(x1-(a/b)y1) = d
       与ax+by=d对比得: x=y1, y=x1-(a/b)y1
-      这样可以递推求解ax+by=d的解
+      这样可以递推求解ax+by = gcd(a,b)的解
      */
-    public int inv(int a, int b) {
-        x = 0;
-        y = 0;
-        doExgcd(a, b);
-        return (x + b) % b;
-    }
+
 
     static int x, y;
 
-
     /**
-     求解 ax + by = gcd(a,b)
+     <h1>求解 ax + by = gcd(a,b)</h1>
      解由static变量存储
 
      @param a,b 方程参数
@@ -47,5 +43,18 @@ public class exgcd {
         int x1 = x, y1 = y;
         x = y1;
         y = x1 - (a / b) * y1;
+    }
+
+    /*
+    <h1>exgcd求逆元</h1>
+    ax % b = 1 则 x为模p下a的逆元
+    由裴蜀定理得 ax + by = 1
+    使用exgcd(a,b)求得x,y, 则 x为模b下a的逆元
+     */
+    public int inv(int a, int b) {
+        x = 0;
+        y = 0;
+        doExgcd(a, b);
+        return (x + b) % b;
     }
 }

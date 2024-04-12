@@ -22,7 +22,8 @@ public class _7时空追捕 {
     但一个节点不能有多个人经过
 
     求派出1~n个人巡逻时,分别最多可以巡逻的节点数
-     */static StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+     */
+    static StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
 
     static int nextInt() {
         try {

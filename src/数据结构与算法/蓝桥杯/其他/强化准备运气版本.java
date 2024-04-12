@@ -2,6 +2,9 @@ package 数据结构与算法.蓝桥杯.其他;
 
 import java.util.*;
 
+/**
+ 写不来
+ */
 public class 强化准备运气版本 {
 
     /*

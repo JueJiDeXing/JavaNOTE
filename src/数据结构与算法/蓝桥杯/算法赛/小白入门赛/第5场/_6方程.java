@@ -28,7 +28,8 @@ public class _6方程 {
 
     /**
      <pre>
-     f(n) = x^n + 1 / x^n
+     x + 1 / x = k,求 x^n + 1 / x^n
+     令 f(n) = x^n + 1 / x^n
      f(n-1) * f(1) = x^n + 1/x^n + x^n-2 + 1/x^n-2
      f(n-1) * f(1) = f(n) + f(n-2)
      f(n) = f(n-1) * f(1) - f(n-2)

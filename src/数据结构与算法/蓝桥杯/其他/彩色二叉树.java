@@ -3,6 +3,9 @@ package 数据结构与算法.蓝桥杯.其他;
 import java.io.*;
 import java.util.Arrays;
 
+/**
+ ??
+ */
 public class 彩色二叉树 {
     /*
     n个节点的完全二叉树

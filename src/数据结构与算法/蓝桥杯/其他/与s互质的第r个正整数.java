@@ -8,6 +8,8 @@ import java.util.*;
 public class 与s互质的第r个正整数 {
     /*
     分解s的质因数 + 暴力枚举
+    枚举数ans,检查其是否与s互质,互质则count++,输出第r个
+    检查ans与s互质:只需要ans中不含有s的质因子即可
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -21,7 +23,7 @@ public class 与s互质的第r个正整数 {
                 }
             }
         }
-        System.out.println(prime);
+        //System.out.println(prime);
 
         int ans = 1;//枚举数
         int count = 1; //第几个有效互质数字

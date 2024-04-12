@@ -35,7 +35,7 @@ public class _15三数之和 {
                 else {
                     // 找到一组三元组
                     ans.add(List.of(x, nums[j], nums[k]));
-                    for (++j; j < k && nums[j] == nums[j - 1]; ) ++j; // 跳过重复数字
+                    for (++j; j < k && nums[j] == nums[j - 1]; ) ++j; // 跳过重复数字 //如果有的题是计算数对个数,可以在这里统计重复数字个数,再组合计数
                     for (--k; k > j && nums[k] == nums[k + 1]; ) --k;
                 }
             }

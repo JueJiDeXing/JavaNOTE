@@ -38,16 +38,16 @@ public class 三角形面积 {
     }
 
     /**
-     @param x1 p1.x - p.x
-     @param y1 p1.y - p.y
-     @param x2 p2.x - p.x
-     @param y2 p2.y - p.y
+     @param diffX1 p1.x - p.x
+     @param diffY1 p1.y - p.y
+     @param diffX2 p2.x - p.x
+     @param diffY2 p2.y - p.y
      */
-    public double calArea(double x1, double y1, double x2, double y2) {
-        return Math.abs(x1 * y2 - x2 * y1) / 2;
+    public double calArea(double diffX1, double diffY1, double diffX2, double diffY2) {
+        return Math.abs(diffX1 * diffY2 - diffX2 * diffY1) / 2;
     }
 
-    /*
+    /**
     <h1>根据周长与内切圆半径计算面积</h1>
     S=(a+b+c)r/2
     面积 = 三角形周长 与 内切圆半径 乘积 的一半。

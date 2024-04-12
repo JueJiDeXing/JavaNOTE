@@ -1,7 +1,5 @@
 package 数据结构与算法.算法.数学.数论;
 
-import 数据结构与算法.蓝桥杯.算法赛.小白入门赛.第5场._6方程;
-
 public class 快速幂 {
     //直接for循环乘的次数为n次
     //使用快速幂,降低乘的次数
@@ -19,9 +17,8 @@ public class 快速幂 {
         }
         if (N == 0) return 1.0;//兼容n为0的情况
         double temp = fastPow1(a, (int) (N / 2));
-        if (N % 2 == 1) return temp * temp * a;// 奇数个a，此时也可以写为if(n&1)
-        // 偶数个a
-        return temp * temp;
+        if (N % 2 == 0) return temp * temp;  // 偶数个a
+        return temp * temp * a;// 奇数个a，此时也可以写为if(n&1)
     }
 
     /**
@@ -44,11 +41,10 @@ public class 快速幂 {
      例如:a^13   13转二进制为[8,4,1] 1101  a^13 = a^8 * a^4 * a
      */
     public int fastPow3(int a, int n) {
-        int base = a; // 不用base直接用a也行
         int res = 1;  // 用res返回结果
         while (n != 0) {
-            if ((n & 1) == 1) res *= base; // 如果n的最后一位是1，表示这个地方需要乘
-            base *= base; // 推算乘积：a² --> (a²)² -->((a²)²)² ...
+            if ((n & 1) == 1) res *= a; // 如果n的最后一位是1，表示这个地方需要乘
+            a *= a; // 推算乘积：a² --> (a²)² -->((a²)²)² ...
             n >>= 1;//n去掉最后一位
         }
         return res;
@@ -73,7 +69,7 @@ public class 快速幂 {
 
     /**
      <h1>矩阵快速幂</h1>
-     例题: {@link _6方程}
+     例题: <br>{@link 数据结构与算法.蓝桥杯.算法赛.小白入门赛.第5场._6方程} <br> {@link 数据结构与算法.蓝桥杯.算法赛.强者挑战赛.第9场._6组合数}
      */
     public long[][] matrixPow(long[][] mat, int n) {
         int len = mat.length;
@@ -91,16 +87,16 @@ public class 快速幂 {
     /**
      矩阵乘法
      */
-    long[][] multiply(long[][] m1, long[][] m2) {
+    long[][] multiply(long[][] A, long[][] B) {
         int mod = 10_0000_0007;
-        int p = m1[0].length;
-        if (p != m2.length) throw new RuntimeException("这两个矩阵无法相乘");
-        int m = m1.length, n = m2[0].length;
+        int p = A[0].length;
+        if (p != B.length) throw new RuntimeException("这两个矩阵无法相乘");
+        int m = A.length, n = B[0].length;
         long[][] ans = new long[m][n];
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 for (int k = 0; k < p; k++) {
-                    ans[i][j] = (ans[i][j] + m1[i][k] * m2[k][j] % mod) % mod;
+                    ans[i][j] = (ans[i][j] + A[i][k] * B[k][j] % mod) % mod;
                 }
             }
         }

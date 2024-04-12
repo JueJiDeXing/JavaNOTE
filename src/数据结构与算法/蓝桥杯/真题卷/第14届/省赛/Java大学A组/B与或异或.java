@@ -12,6 +12,7 @@ public class B与或异或 {
      求初始输入arr=[1,0,1,0,1]最后结果为[1]的门的选择方案数
 
      例如:
+     <pre>
      1 0 1 0 1
       | ^ ^ &
       1 1 1 0
@@ -21,6 +22,7 @@ public class B与或异或 {
         1 0
          |
          1
+     </pre>
      */
     public static void main(String[] args) {
         int[] arr = new int[]{1, 0, 1, 0, 1};

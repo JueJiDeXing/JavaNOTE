@@ -16,7 +16,6 @@ public class Kruskal {
     }
 
     public static void main(String[] args) {
-        Kruskal test = new Kruskal();
          /*
                    2                              2
               v1------ v3                     v1 ---- v3
@@ -31,15 +30,11 @@ public class Kruskal {
         int n = graph2.length;
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                if (graph2[i][j] != 0) {
-                    queue.offer(new Edge(i, j, graph2[i][j]));
-                }
+                if (graph2[i][j] != 0) queue.offer(new Edge(i, j, graph2[i][j]));
             }
         }
-        List<Edge> prev2 = test.kruskal(n, queue);
-        for (Edge p : prev2) {
-            System.out.print("(" + p.start + "," + p.end + ") ");
-        }
+        List<Edge> prev2 =  kruskal(n, queue);
+        for (Edge p : prev2) System.out.print("(" + p.start + "," + p.end + ") ");
     }
 
     /**
@@ -50,7 +45,7 @@ public class Kruskal {
 
      @param queue 使用优先级队列存储边,每次获取权重最小的边
      */
-    public List<Edge> kruskal(int size, Queue<Edge> queue) {
+    public static List<Edge> kruskal(int size, Queue<Edge> queue) {
         List<Edge> list = new ArrayList<>();
         DisjointSet set = new DisjointSet(size);//使用并查集进行连通操作
         while (list.size() < size - 1) {//n个顶点要连接n-1条边

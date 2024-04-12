@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.*;
 
 /**
-
+ 已AC
  */
 public class G子矩阵 {
     /*
@@ -18,84 +18,87 @@ public class G子矩阵 {
     static int n, m;
     static StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
 
-    static int Int() {
+    static int nextInt() {
         try {
             st.nextToken();
         } catch (Exception ignored) {
-
         }
         return (int) st.nval;
     }
 
     public static void main(String[] args) {
-        n = Int();
-        m = Int();
-        int a = Int(), b = Int();
-        arr = new int[n][m];
+        n = nextInt();
+        m = nextInt();
+        int a = nextInt(), b = nextInt();
+
+        int[][] mat = new int[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                arr[i][j] = Int();
+                mat[i][j] = nextInt();
             }
         }
-        int[] q = new int[Math.max(m, n)];//滑动窗口
-        //求最大值
-        int[][] rowMax = new int[n][m], maxV = new int[n][m];
-        for (int i = 0; i < n; i++) {
-            int h = 0, t = -1;
-            for (int j = 0; j < m; j++) {
-                while (h <= t && q[h] < j - b + 1) h++;
-                while (h <= t && arr[i][q[t]] <= arr[i][j]) t--;
-                q[++t] = j;
-                if (j - b + 1 >= 0) {
-                    rowMax[i][j - b + 1] = arr[i][q[h]];
-                }
+        int N = Math.max(n, m);
+        int[][] resMin = new int[N][N], resMax = new int[N][N];
+        for (int i = 0; i < n; i++) {//对每一行利用单调队列求最大最小值
+            resMax[i] = getMax(mat[i], m, b);//求第i行的行块最大值,存储到resMax[i],子矩阵列数为b
+            resMin[i] = getMin(mat[i], m, b);
+        }
+        long res = 0;
+        for (int i = b - 1; i < m; i++) {//列,[i-b+1,i]
+            int[] colMin = new int[N], colMax = new int[N];
+            for (int r = 0; r < n; r++) {//取出第i列元素
+                colMin[r] = resMin[r][i];
+                colMax[r] = resMax[r][i];
+            }
+            int[] Min = getMin(colMin, n, a);//对每一列元素求长度为a的子数组最小值数组
+            int[] Max = getMax(colMax, n, a);
+            for (int r = a - 1; r < n; r++) {
+                res = (res + (long) Max[r] * Min[r]) % MOD;//res为a*b的子矩阵最大值与最小值的乘积
             }
         }
-        for (int j = 0; j < m; j++) {
-            int h = 0, t = -1;
-            for (int i = 0; i < n; i++) {
-                while (h <= t && q[h] < i - a + 1) h++;
-                while (h <= t && rowMax[q[t]][j] <= rowMax[i][j]) t--;
-                q[++t] = j;
-                if (i - a + 1 >= 0) {
-                    maxV[i - a + 1][i] = rowMax[q[t]][j];
-                }
-            }
-        }
-        //求最小值
-        int[][] rowMin = new int[n][m], minV = new int[n][m];
-        for (int i = 0; i < n; i++) {
-            int h = 0, t = -1;
-            for (int j = 0; j < m; j++) {
-                while (h <= t && q[h] < j - b + 1) h++;
-                while (h <= t && arr[i][q[t]] >= arr[i][j]) t--;
-                q[++t] = j;
-                if (j - b + 1 >= 0) {
-                    rowMin[i][j - b + 1] = arr[i][q[h]];
-                }
-            }
-        }
-        for (int j = 0; j < m; j++) {
-            int h = 0, t = -1;
-            for (int i = 0; i < n; i++) {
-                while (h <= t && q[h] < i - a + 1) h++;
-                while (h <= t && rowMin[q[t]][j] >= rowMin[i][j]) t--;
-                q[++t] = j;
-                if (i - a + 1 >= 0) {
-                    minV[i - a + 1][i] = rowMin[q[t]][j];
-                }
-            }
-        }
+        System.out.println(res);
     }
 
-    private static void main1() {//7/10 3TLE
-        n = Int();
-        m = Int();
-        int a = Int(), b = Int();
+    /**
+     对arr求长度为k的子数组最小值数组resMin
+     */
+    public static int[] getMin(int[] arr, int m, int k) {
+        int[] resMin = new int[m];
+        int[] que = new int[m];//单调递增队列
+        int head = 0, tail = -1;
+        for (int i = 0; i < m; i++) {//遍历每一行
+            //最小值
+            while (head <= tail && arr[que[tail]] >= arr[i]) tail--;//在i前面且比i大的不可能是最小值
+            que[++tail] = i;
+            if (que[head] < i - k + 1) head++;//检查队列头部(左)是否越出窗口
+            resMin[i] = arr[que[head]];
+        }
+        return resMin;
+    }
+
+    public static int[] getMax(int[] arr, int m, int k) {//单调队列求最大值
+        int[] resMax = new int[m];
+        int[] que = new int[m];//单调队列
+        int head = 0, tail = -1;
+        for (int i = 0; i < m; i++) {//遍历每一行
+            //最大值
+            while (head <= tail && arr[que[tail]] <= arr[i]) tail--;
+            que[++tail] = i;
+            if (que[head] < i - k + 1) head++;
+            resMax[i] = arr[que[head]];
+        }
+        return resMax;
+    }
+
+
+    private static void solve1() {//7/10 3TLE
+        n = nextInt();
+        m = nextInt();
+        int a = nextInt(), b = nextInt();
         arr = new int[n][m];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                arr[i][j] = Int();
+                arr[i][j] = nextInt();
             }
         }
         Queue<int[]> maxQ = new PriorityQueue<>((o1, o2) -> o2[0] - o1[0]);
@@ -168,8 +171,7 @@ public class G子矩阵 {
     private static int[] getResult(Queue<int[]> maxQ, Queue<int[]> minQ, int row, int col, int a, int b) {
         deal(maxQ, row, col, a, b);
         deal(minQ, row, col, a, b);
-        int max = maxQ.peek()[0];
-        int min = minQ.peek()[0];
+        int max = maxQ.peek()[0], min = minQ.peek()[0];
         return new int[]{max, min};
     }
 

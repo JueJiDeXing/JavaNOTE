@@ -3,6 +3,9 @@ package 数据结构与算法.蓝桥杯.其他;
 import java.io.*;
 import java.util.*;
 
+/**
+ ??
+ */
 public class 生日的礼物 {
     /*
     长度为n的数组A,选出不超过M个不重叠的子数组

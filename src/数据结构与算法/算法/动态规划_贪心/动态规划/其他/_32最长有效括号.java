@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.动态规划_贪心.动态规划.其他;
 
+import java.util.*;
+
 public class _32最长有效括号 {
     /*
     给你一个只包含 '(' 和 ')' 的字符串，找出最长有效（格式正确且连续）括号子串的长度。
@@ -20,6 +22,27 @@ public class _32最长有效括号 {
                 }
             }
             ans = Math.max(ans, dp[i]);
+        }
+        return ans;
+    }
+
+    /**
+     统计合法连续括号序列的个数
+     {@link 数据结构与算法.蓝桥杯.题单.动态规划基础30题.卖货}
+     */
+    public long count(String s) {
+        int len = s.length();
+        long[] dp = new long[len + 1];
+        Stack<Integer> stack = new Stack<>();
+        long ans = 0;
+        for (int i = 1; i <= len; i++) {
+            char ch = s.charAt(i);
+            if (ch == '(') {//1不可能是合法子序列的结尾
+                stack.push(i);
+            } else if (!stack.isEmpty()) {
+                dp[i] = dp[stack.pop() - 1] + 1;//stack.pop()-1最近未匹配的1的前一位,dp[..]为前面有多少个能拼接的序列
+            }
+            ans += dp[i];
         }
         return ans;
     }

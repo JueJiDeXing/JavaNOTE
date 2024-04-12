@@ -23,7 +23,7 @@ public class J分果果 {
      */
     static StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
 
-    static int Int() {
+    static int nextInt() {
         try {
             st.nextToken();
         } catch (Exception ignored) {
@@ -32,30 +32,61 @@ public class J分果果 {
         return (int) st.nval;
     }
 
-    /**
-     dp[i][j][k]:前i个区间,最后一个用了1颗的在j,用了2颗的在k,的区间和的最大值
-        xxxxx
-     xxxxxx
-        k   j
-     转移方程:
-     1. dp[i][j][k] = dp[i][j][k-1]
-     2.
-     * @param args
-     */
     public static void main(String[] args) {
-        n = Int();
-        m = Int();
-        arr = new int[n];
-        for (int i = 0; i < n; i++) arr[i] = Int();
-        preSum = new int[n + 1];//preSum[i] = sum(arr[0]~arr[i-1])
+
+        int n = nextInt();
+        int m = nextInt();
+        int[] arr = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            preSum[i] = preSum[i - 1] + arr[i - 1];
+            arr[i] = arr[i - 1] + nextInt();
         }
 
-        int[][][]dp=new int[m+1][n+1][n+1];
+
+        int[][][] dp = new int[m + 1][n + 1][n + 1];
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                for (int k = 0; k <= j; k++) {
+                    dp[i][j][k] = Integer.MAX_VALUE;
+                }
+            }
+        }
+        dp[0][0][0] = 0;
+        int ans = Integer.MAX_VALUE;
+        for (int min = arr[n] * 2 / m; min > 0; min--) {
+            for (int i = 1; i <= m; i++) {
+                for (int j = 1; j <= n; j++) {
+                    int trans2 = 0, trans3 = 0;
+                    for (int k = 1; k <= j; k++) {
+                        dp[i][j][k] = dp[i][j][k - 1];
+                        while (true) {
+                            if (trans2 >= k) break;
+                            int diff = arr[j] - arr[trans2 + 1];
+                            if (diff < min) break;
+                            if (Math.max(dp[i - 1][trans2 + 1][trans2 + 1], diff) >
+                                    Math.max(dp[i - 1][trans2][trans2], arr[j] - arr[trans2])) break;
+                            trans2++;
+
+                        }
+                        if (arr[j] - arr[trans2] >= min) {
+                            dp[i][j][k] = Math.min(dp[i][j][k], Math.max(dp[i - 1][trans2][trans2], arr[j] - arr[trans2]));
+                        }
+                        while (true) {
+                            if (trans3 >= k) break;
+                            int diff = arr[j] - arr[trans3 + 1];
+                            if (diff < min) break;
+                            if (Math.max(dp[i - 1][k][trans3 + 1], diff) >
+                                    Math.max(dp[i - 1][k][trans3], arr[j] - arr[trans3])) break;
+                            trans3++;
+                        }
+                        if (arr[j] - arr[trans3] >= min) {
+                            dp[i][j][k] = Math.min(dp[i][j][k], Math.max(dp[i - 1][k][trans3], arr[j] - arr[trans3]));
+                        }
+
+                    }
+                }
+            }
+            ans = Math.min(ans, dp[m][n][n] - min);
+        }
+        System.out.println(ans);
     }
-
-    static int n, m;
-    static int[] arr, preSum;
-
 }

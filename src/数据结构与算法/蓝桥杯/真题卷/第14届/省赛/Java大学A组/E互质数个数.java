@@ -7,6 +7,7 @@ import java.util.Scanner;
  */
 public class E互质数个数 {
     /*
+
     求数k在[1,k]上与k互质的个数,E(k)
     1. E(a^b) = E(a) * a^(b-1)
     2. E(k) = k * ∏(1 - 1/pi) 其中pi是k的质因子
@@ -14,7 +15,7 @@ public class E互质数个数 {
      */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        long a = sc.nextLong(), b = sc.nextLong();
+        long a = sc.nextLong(), b = sc.nextLong();// k=a^b
         System.out.println(E(a) * pow(a, b - 1) % MOD);  //E(a^b)=E(a)*a^(b-1)
     }
 

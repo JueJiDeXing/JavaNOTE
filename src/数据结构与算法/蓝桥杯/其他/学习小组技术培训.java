@@ -1,7 +1,9 @@
 package 数据结构与算法.蓝桥杯.其他;
 
 import java.util.*;
-
+/**
+ 已AC
+ */
 public class 学习小组技术培训 {
 
     public static void main(String[] args) {

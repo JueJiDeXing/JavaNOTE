@@ -1,12 +1,15 @@
 package 数据结构与算法.蓝桥杯.真题卷.第12届.国赛.Java大学B组;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
+import java.util.Arrays;
+import java.util.PriorityQueue;
 
 public class H巧克力 {
     static StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
 
-    static int Int() {
+    static int nextInt() {
         try {
             st.nextToken();
         } catch (Exception ignored) {
@@ -14,6 +17,7 @@ public class H巧克力 {
         }
         return (int) st.nval;
     }
+
 
     /**
      巧克力:种类、价格、数量、剩余保质期<br>
@@ -23,49 +27,33 @@ public class H巧克力 {
      从最后一天开始买,每买一块,所需的保质期就减少一天,扩大了选择范围<br>
      */
     public static void main(String[] args) {
-        int x = Int(); // 吃巧克力的天数
-        int n = Int();  // 巧克力的种类数
-        // 巧克力
-        int[][] cote = new int[n][3];
-        for (int i = 0; i < n; ++i) {
-            cote[i][0] = Int();// 单价
-            cote[i][1] = Int();// 保质期还剩天数
-            cote[i][2] = Int();// 数量
+        int x = nextInt(), n = nextInt();
+        int[][] arrs = new int[n][3];
+        for (int i = 0; i < n; i++) {
+            arrs[i][0] = nextInt();
+            arrs[i][1] = nextInt();
+            arrs[i][2] = nextInt();
         }
-        // 对数组排序，按单价进行排序，便于后面优先选择便宜的
-        Arrays.sort(cote, (a, b) -> {
-            if (a[0] != b[0]) return a[0] - b[0];
-            if (a[1] != b[1]) return a[1] - b[1];
-            return a[2] - b[2];
-        });
-        /*如果有保质期很长，价格很低，但你很早就吃完了，后面不得不选择昂贵的巧克力，也就是说它原本可以在很多天之后吃就行，
-         * 现在却在前几天就吃了，吃的时候保质期还有很长的一段时间，到了后面可供选择的巧克力保质期就会越来越短，
-         * 很可能会出现得不到一个可行方案的情况*/
-        /*所以重点不应该是在价格上，而是在保质期上，价格你如果前几天买了便宜的，后面几天就得买贵的
-         * 后面几天买便宜的，前面几天就得买贵的，所以优先考虑的是后面几天买的到买不到的问题
-         * 后面几天如果可以买到，前面几天一定可以买到，而且优先选择的还是单价便宜的*/
-        int day = x;
-        long pay = 0;
-        while (day > 0) {
-            int i = 0;
-            // 因为cote数组已经排过序了，所以直接从上往下选取便宜的即可
-            while (i < n) {
-                // 判断保质期是否符合要求,判断是否有剩余
-                if (cote[i][1] >= day && cote[i][2] > 0) {
-                    pay += cote[i][0];
-                    cote[i][2]--;
-                    break;
-                }
-                i++;
+        Arrays.sort(arrs, 0, n, (a, b) -> b[1] - a[1]);//按保质期降序
+        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[0] - b[0]);//按单价排序
+
+        long ans = 0;
+        int j = 0;
+        for (int day = x; day > 0; day--) {
+            while (j < n && arrs[j][1] >= day) {//把保质期符合的加入队列
+                q.add(arrs[j]);
+                j++;
             }
-            // 这一天任何巧克力都不符合要求，没买到
-            if (i == n) {
+            if (q.isEmpty()) {//这一天没有可以买的
                 System.out.println(-1);
                 return;
             }
-            day--;
+            int[] peek = q.peek();//符合保质期要求的,最便宜的
+            ans += peek[0];
+            peek[2]--;//数量
+            if (peek[2] == 0) q.poll();//买完了,出队
+            // 不需要出队,因为是从最后一天开始买,轮到前面天买的时候,现在加入的部分一定更能满足保质期要求
         }
-        System.out.println(pay);
+        System.out.println(ans);
     }
-
 }
