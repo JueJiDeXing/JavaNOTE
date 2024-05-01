@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.动态规划_贪心.动态规划.其他;
 
+import 数据结构与算法.算法OJ.蓝桥杯.题单.动态规划基础30题.卖货;
+
 import java.util.*;
 
 public class _32最长有效括号 {
@@ -28,7 +30,7 @@ public class _32最长有效括号 {
 
     /**
      统计合法连续括号序列的个数
-     {@link 数据结构与算法.蓝桥杯.题单.动态规划基础30题.卖货}
+     {@link 卖货}
      */
     public long count(String s) {
         int len = s.length();

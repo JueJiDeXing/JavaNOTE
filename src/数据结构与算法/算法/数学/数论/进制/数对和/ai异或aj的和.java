@@ -94,5 +94,11 @@ public class ai异或aj的和 {
         }
         return ans;
     }
+    /**
+     全体子数组的异或和之和
+     sum{[L,R], sum{a[i]^a[j]}}
+     {@link 数据结构与算法.算法OJ.牛客.小白月赛91.F_异或世界}
+     */
+
 
 }

@@ -58,6 +58,28 @@ public class DisjointSet {
     public String toString() {
         return Arrays.toString(fa);
     }
+
+    //最简写法
+    static class UnionSet {
+        int[] fa;
+
+        UnionSet(int n) {
+            fa = new int[n + 1];
+            for (int i = 0; i <= n; i++) fa[i] = i;
+        }
+
+        int find(int x) {
+            return x == fa[x] ? x : (fa[x] = find(fa[x]));
+        }
+
+        void union(int x, int y) {
+            fa[find(x)] = find(y);
+        }
+
+        boolean isConnect(int x, int y) {
+            return find(x) == find(y);
+        }
+    }
 }
 
 

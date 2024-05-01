@@ -2,59 +2,48 @@ package 数据结构与算法.数据结构.图.最短路径;
 
 import java.util.*;
 
-
-class Edge1 implements Comparable<Edge1> {
-    public Vertex1 linked;//终点
-    public int to;//终点距离
-
-
-    List<Vertex1> vertices;
-    int start;
-    public int weight;//边权
-    int end;
-
-
-    @Override
-    public String toString() {
-        return vertices.get(start).name + "<->" + vertices.get(end).name + "(" + weight + ")";
-    }
-
-    @Override
-    public int compareTo(Edge1 o) {
-        return Integer.compare(this.weight, o.weight);
-    }
-}
-
-class Vertex1 {
-    String name;
-    List<Edge1> edge1s;//与顶点连接的边
-    boolean visited = false;//是否被访问过
-    int distance = Integer.MAX_VALUE;//和起点的距离
-    Vertex1 prev = null;//上级(最短路径)
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Vertex1 vertex1 = (Vertex1) o;
-        return Objects.equals(name, vertex1.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name);
-    }
-
-    @Override
-    public String toString() {
-        return name + "(" + distance + ")";
-    }
-
-}
+// TODO 写法优化
 
 public class Dijkstra单源最短路径 {
+    static class Edge1 implements Comparable<Edge1> {
+        public Vertex1 linked;//终点
+        public int to;//终点距离
+        public int weight;//边权
+
+        @Override
+        public int compareTo(Edge1 o) {
+            return Integer.compare(this.weight, o.weight);
+        }
+    }
+
+    static class Vertex1 {
+        String name;//id
+        List<Edge1> edge1s;//与顶点连接的边
+        boolean visited = false;//是否被访问过
+        int distance = Integer.MAX_VALUE;//和起点的距离
+        Vertex1 prev = null;//上级(最短路径)
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Vertex1 vertex1 = (Vertex1) o;
+            return Objects.equals(name, vertex1.name);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name);
+        }
+
+        @Override
+        public String toString() {
+            return name + "(" + distance + ")";
+        }
+
+    }
+
     public static void main(String[] args) {
-        Dijkstra单源最短路径 test = new Dijkstra单源最短路径();
         int[][] graph = new int[][]{
                 {0, 1, 0, 2, 0},
                 {0, 0, 1, 0, 0},
@@ -62,7 +51,7 @@ public class Dijkstra单源最短路径 {
                 {0, 0, 2, 0, 0},
                 {0, 0, 0, 0, 0}
         };
-        int[][] ints = test.dijkstra3(graph, 0);
+        int[][] ints = dijkstra3(graph, 0);
         int[] distance = ints[0];
         int[] prev = ints[1];
         System.out.println(Arrays.toString(distance));
@@ -83,7 +72,7 @@ public class Dijkstra单源最短路径 {
      @param graph  图,邻接表
      @param source 起点
      */
-    public void dijkstra1(List<Vertex1> graph, Vertex1 source) {
+    public static void dijkstra1(List<Vertex1> graph, Vertex1 source) {
         ArrayList<Vertex1> list = new ArrayList<>(graph);//未访问顶点
         source.distance = 0;//起点距离设为0
         while (!list.isEmpty()) {
@@ -102,7 +91,7 @@ public class Dijkstra单源最短路径 {
 
      @param current 当前节点
      */
-    private void updateNeighboursDistance1(Vertex1 current) {
+    private static void updateNeighboursDistance1(Vertex1 current) {
         for (Edge1 edge1 : current.edge1s) {
             Vertex1 n = edge1.linked;
             if (!n.visited) { // list.contains(n)
@@ -121,7 +110,7 @@ public class Dijkstra单源最短路径 {
      @param list 未访问节点
      @return 未访问节点中最小distance的节点
      */
-    private Vertex1 chooseMinDistanceVertex1(ArrayList<Vertex1> list) {
+    private static Vertex1 chooseMinDistanceVertex1(ArrayList<Vertex1> list) {
         Vertex1 min = list.get(0);
         for (int i = 1; i < list.size(); i++) {
             if (list.get(i).distance < min.distance) {
@@ -138,12 +127,11 @@ public class Dijkstra单源最短路径 {
      @param graph  图
      @param source 起点
      */
-    public void dijkstra2(List<Vertex1> graph, Vertex1 source) {
+    public static void dijkstra2(List<Vertex1> graph, Vertex1 source) {
         PriorityQueue<Vertex1> queue = new PriorityQueue<>(Comparator.comparingInt(v -> v.distance));//未访问顶点
         source.distance = 0;
-        for (Vertex1 vertex1 : graph) {
-            queue.offer(vertex1);
-        }
+        for (Vertex1 vertex1 : graph) queue.offer(vertex1);
+
         while (!queue.isEmpty()) {
             Vertex1 current = queue.poll();
             updateNeighboursDistance2(current, queue);
@@ -152,18 +140,17 @@ public class Dijkstra单源最短路径 {
         for (Vertex1 vertex1 : graph) {
             System.out.println(vertex1.name + " " + vertex1.distance + " " + (vertex1.prev != null ? vertex1.prev.name : "null"));
         }
-
     }
 
     /**
      更新邻居距离
      */
-    private void updateNeighboursDistance2(Vertex1 current, PriorityQueue<Vertex1> queue) {
+    private static void updateNeighboursDistance2(Vertex1 current, PriorityQueue<Vertex1> queue) {
         for (Edge1 edge1 : current.edge1s) {
             Vertex1 n = edge1.linked;
             if (!n.visited) { // list.contains(n)
                 int newDistance = current.distance + edge1.weight;
-                if (newDistance < n.distance) {
+                if (newDistance < n.distance) {//更新最短长度
                     n.distance = newDistance;
                     n.prev = current;//记录最短路径时的上级
                     queue.remove(n);//需要重新加入队列,保持队列功能
@@ -185,7 +172,7 @@ public class Dijkstra单源最短路径 {
      @param graph  图,邻接矩阵
      @param source 起点
      */
-    public int[][] dijkstra3(int[][] graph, int source) {
+    public static int[][] dijkstra3(int[][] graph, int source) {
         int n = graph.length;//n个顶点
 
         boolean[] isVisited = new boolean[n];//顶点是否访问
@@ -207,7 +194,7 @@ public class Dijkstra单源最短路径 {
         return new int[][]{distance, prev};
     }
 
-    private int chooseMinDistanceVertex3(int[] distance, boolean[] isVisited) {
+    private static int chooseMinDistanceVertex3(int[] distance, boolean[] isVisited) {
         int minIndex = 0;
         for (int i = 0; i < distance.length; i++) {
             if (isVisited[i]) continue;
@@ -218,7 +205,7 @@ public class Dijkstra单源最短路径 {
         return minIndex;
     }
 
-    private void updateNeighboursDistance3(int[][] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
+    private static void updateNeighboursDistance3(int[][] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
         int[] edges = graph[v];
         for (int i = 0; i < graph.length; i++) {//遍历顶点v的所有邻居
             if (edges[i] == 0 || isVisited[i]) continue; // edges[i]==0表示i不是v的邻居
@@ -243,7 +230,7 @@ public class Dijkstra单源最短路径 {
      @param graph  图,邻接表
      @param source 起点
      */
-    public int[][] dijkstra4(List<Integer>[] graph, int source) {
+    public static int[][] dijkstra4(List<Integer>[] graph, int source) {
         int n = graph.length;//n个顶点
         boolean[] isVisited = new boolean[n];//顶点是否访问
         int numOfVisit = 0;
@@ -264,7 +251,7 @@ public class Dijkstra单源最短路径 {
         return new int[][]{distance, prev};
     }
 
-    private int chooseMinDistanceVertex4(int[] distance, boolean[] isVisited) {
+    private static int chooseMinDistanceVertex4(int[] distance, boolean[] isVisited) {
         int minIndex = 0;
         for (int i = 0; i < distance.length; i++) {
             if (isVisited[i]) continue;
@@ -276,7 +263,7 @@ public class Dijkstra单源最短路径 {
     }
 
 
-    private void updateNeighboursDistance4(List<Integer>[] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
+    private static void updateNeighboursDistance4(List<Integer>[] graph, int[] distance, boolean[] isVisited, int[] prev, int v) {
         int n = graph.length;
         List<Integer> edges = graph[v];
         for (int i = 0; i < n; i++) {//遍历顶点v的所有邻居

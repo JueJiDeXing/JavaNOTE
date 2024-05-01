@@ -35,7 +35,7 @@ public class 倍增法 {
         int Q = Int();
         getLog(n);
         //最近公共祖先,只要x和y的最先公共祖先为x,则为YES,否则为NO
-        son = new List[n + 1];
+        son = new ArrayList[n + 1];
         Arrays.setAll(son, k -> new ArrayList<>());
         for (int i = 1; i <= n - 1; i++) {
             int u = Int(), v = Int();

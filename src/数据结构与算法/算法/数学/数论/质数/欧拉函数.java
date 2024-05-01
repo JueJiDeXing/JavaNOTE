@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.数学.数论.质数;
 
+import 数据结构与算法.算法OJ.蓝桥杯.真题卷.第14届.省赛.Java大学A组.E互质数个数;
+
 import java.util.Arrays;
 
 public class 欧拉函数 {
@@ -76,7 +78,7 @@ public class 欧拉函数 {
     /**
      <h1>求a^b在[1,a^b]上的互质数个数</h1>
      E(a^b) = E(a) * a^(b-1)<br>
-     {@link 数据结构与算法.蓝桥杯.真题卷.第14届.省赛.Java大学A组.E互质数个数}
+     {@link E互质数个数}
      */
     void link1() {
     }

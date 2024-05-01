@@ -8,9 +8,7 @@ public class 二进制1的个数 {
         int count = 0;
         while (n != 0) {
             //每次左移一位,监控最低位是否为1
-            if ((n & 1) == 1) {
-                count++;
-            }
+            if ((n & 1) == 1) count++;
             n = n >> 1;
         }
         return count;
@@ -36,11 +34,6 @@ public class 二进制1的个数 {
         i = i + (i >>> 16);
         return i & 0x3f;
          */
-    }
-
-    public static void main(String[] args) {
-        二进制1的个数 test = new 二进制1的个数();
-        test.count4(126);
     }
 
     public int count4(int n) {

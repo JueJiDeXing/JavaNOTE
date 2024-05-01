@@ -1,5 +1,7 @@
 package 数据结构与算法.算法.数学.数论.平方;
 
+import 数据结构与算法.算法OJ.蓝桥杯.其他.平方差;
+
 import java.util.Scanner;
 
 public class 蓝桥杯_平方差 {
@@ -7,7 +9,7 @@ public class 蓝桥杯_平方差 {
     [L,R]上有多少个 x 可以表示为两个数的平方差, x = y^2 - z^2
      */
     /**
-     {@link 数据结构与算法.蓝桥杯.其他.平方差}<br>
+     {@link 平方差}<br>
      n^2 % 4 的值只能为0或1<br>
      所以 x = y^2 - z^2 , x % 4 的值可以取到0,1,3<br>
      所以 x为4的倍数 或 x为奇数<br>

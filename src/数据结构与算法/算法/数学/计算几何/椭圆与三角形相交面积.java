@@ -1,6 +1,6 @@
 package 数据结构与算法.算法.数学.计算几何;
 
-import 数据结构与算法.蓝桥杯.真题卷.第11届.省赛.Java大学A组.H荒岛探测;
+import 数据结构与算法.算法OJ.蓝桥杯.真题卷.第11届.省赛.Java大学A组.H荒岛探测;
 
 import java.util.Random;
 

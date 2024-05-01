@@ -17,12 +17,13 @@ public class _1073负二进制数相加 {
     /**
      <h1>模拟加法</h1>
      加数arr1[i],被加数arr2[i],进位carry,借位flag,当前位k<br>
-     add=arr1[i]+arr2[i]+carry  若flag=0则add-1
+     add=arr1[i]+arr2[i]+carry <br>
+     若该位有借位(flag=1)则add需要减1
      <ul>
      <li>case 1: add=-2<br>
      add*(-2)^k = 0*(-2)^k + (-2)^(k+1)  <br>
      add=0 carry=1 <br>
-     # 导致add=-2情况:两加数都为0,借位为-1和进位为-1<br>
+     # 导致add=-2情况:两加数都为0,借位为-1且进位为-1<br>
      </li>
      <li>case 2: add=-1<br>
      向前面的第二位借位, add*(-2)^k + (-2)^(k+2) = (add+4)*(-2)^k <br>
@@ -61,7 +62,7 @@ public class _1073负二进制数相加 {
             int add = carry;
             if (i < arr1.length) add += arr1[arr1.length - i - 1];
             if (i < arr2.length) add += arr2[arr2.length - i - 1];
-            if (flag1 == 0 || flag2 == 0) add--;//借位任务只能有一个,不用分开判断了
+            if (flag1 == 0 || flag2 == 0) add--;//有借位任务,减去1,(借位任务在某一位只可能有一个)
             //分析相加后的情况
             //add最大为3 --> 两加数都为1,进位为1
             //add最小为-2 --> 两加数都为0,借位为-1和进位为-1

@@ -49,11 +49,10 @@ public class FloydWarshall多源最短路径 {
     public static void main(String[] args) {
         FloydWarshall多源最短路径 test = new FloydWarshall多源最短路径();
         int[][] graph = new int[][]{
-                {0, 1, 0, 2, 0},
-                {0, 0, 1, 0, 0},
-                {0, 0, 0, 0, 0},
-                {0, 0, 2, 0, 0},
-                {0, 0, 0, 0, 0}
+                {0, 0, 0, 0},
+                {0, 0, -1, 2},
+                {0, -1, 0, -1},
+                {0, 2, -1, 0},
         };
         int[][][] ints = test.FloydWarshall2(graph);
         int[][] distance = ints[0];

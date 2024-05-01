@@ -4,10 +4,9 @@ public class 行列式计算 {
 
     public static void main(String[] args) {
         double[][] matrix = {
-                {1, 1, 1, 0},
-                {2, 1, -1, 1},
-                {1, 2, -1, 1},
-                {0, 1, 2, 3}
+                {1, 0.375, 3},
+                {0, -1, 4},
+                {2, 2, 1},
         };
         double ans = calculateDeterminant(matrix);
         System.out.println(ans);
