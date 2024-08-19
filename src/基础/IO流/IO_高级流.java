@@ -1,8 +1,9 @@
 package 基础.IO流;
 
+
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -56,7 +57,7 @@ public class IO_高级流 {
         }
         isr.close();
         //替换方案
-        FileReader fr = new FileReader("gbk.txt", Charset.forName("GBK"));
+        FileReader fr = new FileReader("gbk.txt");
         int ch2;
         while ((ch2 = fr.read()) != -1) {
             System.out.println((char) ch2);
@@ -98,7 +99,7 @@ public class IO_高级流 {
         3. (Write w,boolean autoFlush)
         4. (OutputStream out,boolean autoFlush,Charset chars et)
          */
-        PrintStream ps = new PrintStream(new FileOutputStream(""), true, StandardCharsets.UTF_8);
+        PrintStream ps = new PrintStream(Files.newOutputStream(Paths.get("")));
         /*打印流成员方法write(int b)
         特有方法:
         println()打印任意数据,自动刷新,自动换行
@@ -184,7 +185,7 @@ public class IO_高级流 {
 }
 
 class Student3 implements Serializable {
-    @Serial
+    //@Serialization
     private static final long serialVersionUID = -4250420735907564415L;
     //Serializable标记型接口
     String name;

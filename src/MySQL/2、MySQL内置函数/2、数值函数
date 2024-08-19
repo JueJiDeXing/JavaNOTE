@@ -1,5 +1,0 @@
-ceil(x)     向上取整
-floor(x)    向下取整
-mod(x,y)    x/y的余数
-rand()      0~1的随机数
-round(x,y)  四舍五入,保留y位小数

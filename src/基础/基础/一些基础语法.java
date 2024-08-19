@@ -120,27 +120,27 @@ public class 一些基础语法 {//类名要与文件名相同,否则不能用pu
         int number=sc.nextInt();//有弊端,在遇到空格,制表符时也会停止读取
         //使用String s=sc.nextLine()读取一行,只有在遇到回车时停止录入
         //类型转换见包装类
-        String str=switch (number){
-            case 1->"1";//等价于 case 1: str="1"; break;
-            case 2->"2";
-            case 3->"3";
-            case 4->"4";
-            case 5->"5";
-            case 6->"6";
-            default -> "null";
-        };
-        loop:while(true){
-            String n =sc.next();
-            switch (n){
-                case "1"-> System.out.println("Hello");
-                case "2"-> {//case执行多条语句加大括号
-                    System.out.println("ByeBye");
-                    break loop;//跳出指定循环(只写break跳出的是switch)
-                    //System.exit(0);停止虚拟机运行
-                }
-                default -> System.out.println("no");
-            }
-        }
+        //String str=switch (number){
+        //    case 1->"1";//等价于 case 1: str="1"; break;
+        //    case 2->"2";
+        //    case 3->"3";
+        //    case 4->"4";
+        //    case 5->"5";
+        //    case 6->"6";
+        //    default -> "null";
+        //};
+        //loop:while(true){
+        //    String n =sc.next();
+        //    switch (n){
+        //        case "1"-> System.out.println("Hello");
+        //        case "2"-> {//case执行多条语句加大括号
+        //            System.out.println("ByeBye");
+        //            break loop;//跳出指定循环(只写break跳出的是switch)
+        //            //System.exit(0);停止虚拟机运行
+        //        }
+        //        default -> System.out.println("no");
+        //    }
+        //}
     }
 
 

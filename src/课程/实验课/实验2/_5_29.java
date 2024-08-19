@@ -1,14 +1,14 @@
 package 课程.实验课.实验2;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class _5_29 {
     static boolean isLeap(int year) {
         return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
     }
 
-    static int[] month = new int[]{-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    static String[] monthName = new String[]{"", "January", "February", "March", "April", "May",
+    static int[] month = {-1, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    static String[] monthName = {"", "January", "February", "March", "April", "May",
             "June", "July", "August", "September", "October", "November", "December"};
 
     public static void main(String[] args) {

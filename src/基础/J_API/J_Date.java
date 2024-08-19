@@ -205,14 +205,37 @@ class 星期几 {
         w = (y + y / 4 + c / 4 - 2 * c + (13 * (m + 1)) / 5 + d - 1) % 7; // Zeller公式
         if (w < 0) w += 7;
         switch (w) {
-            case 0 -> System.out.println("Sun");
-            case 1 -> System.out.println("Mon");
-            case 2 -> System.out.println("Tur");
-            case 3 -> System.out.println("Wen");
-            case 4 -> System.out.println("Thu");
-            case 5 -> System.out.println("Fri");
-            case 6 -> System.out.println("Sat");
-            default -> throw new RuntimeException("错误日期");
+            case 0: {
+                System.out.println("Sun");
+                break;
+            }
+            case 1: {
+                System.out.println("Mon");
+                break;
+            }
+            case 2: {
+                System.out.println("Tur");
+                break;
+            }
+            case 3: {
+                System.out.println("Wen");
+                break;
+            }
+            case 4: {
+                System.out.println("Thu");
+                break;
+            }
+            case 5: {
+                System.out.println("Fri");
+                break;
+            }
+            case 6: {
+                System.out.println("Sat");
+                break;
+            }
+            default: {
+                throw new RuntimeException("错误日期");
+            }
         }
     }
 }

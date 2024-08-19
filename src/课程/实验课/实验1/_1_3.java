@@ -1,6 +1,6 @@
 package 课程.实验课.实验1;
 
-public class _1_3 {//Page 26
+public class _1_3 {
     public static void main(String[] args) {
         System.out.println("    J     A     V     V     A");
         System.out.println("    J    A A     V   V     A A");

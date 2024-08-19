@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="demo.my_batis.mapper.EmpMapper">
+    <sql id="commentSelect">
+        select id, username, password, name, gender, image,
+               job, entrydate, dept_id, create_time, update_time
+        from emp
+    </sql><!--抽取sql语句(类似于函数封装)-->
+
+
+    <select id="select5" resultType="demo.my_batis.pojo.Emp">
+        <include refid="commentSelect"/><!--引入对应id的sql语句(类似于函数调用)-->
+        where name like concat('%', #{name}, '%')
+          and gender = #{gender}
+          and entrydate between #{begin} and #{end}
+        order by update_time desc
+    </select>
+
+    <select id="select6" resultType="demo.my_batis.pojo.Emp">
+        select id, username, password, name, gender, image, job,
+        entrydate, dept_id, create_time, update_time from emp
+        <where>
+            <if test="name!=null">
+                name like concat('%',#{name},'%')
+            </if>
+            <if test="gender!=null">
+                and gender=#{gender}
+            </if>
+            <if test="begin!=null and end!=null">
+                and entrydate between #{begin} and #{end}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+    <update id="update2">
+        update emp
+        <set><!--set能去除最后一个可实现if里多余的逗号-->
+            <if test="username!=null">username=#{username},</if>
+            <if test="name!=null">name=#{name} ,</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            <if test="image!=null">image=#{image},</if>
+            <if test="job!=null">job=#{job},</if>
+            <if test="entrydate!=null">entrydate=#{entrydate},</if>
+            <if test="updateTime!=null">update_time=#{updateTime},</if>
+            <if test="deptId!=null">dept_id=#{deptId}</if>
+            where id=#{id}
+        </set>
+    </update>
+
+    <delete id="delete2">
+        delete from emp where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        <!--(18,19,20)
+        collection:遍历的集合    item:遍历出的元素
+        separator:遍历间的分隔符
+        open:遍历前的连接符    close:遍历后的连接符
+        -->
+    </delete>
+</mapper>

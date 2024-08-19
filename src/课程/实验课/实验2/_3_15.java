@@ -41,7 +41,7 @@ public class _3_15 {
     static int[] create() {
         int[] ans = new int[3];
         for (int i = 0; i < 3; i++) {
-            ans[i] = random.nextInt(0, 10);
+            ans[i] = random.nextInt(10);
         }
         return ans;
     }

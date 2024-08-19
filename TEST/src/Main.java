@@ -1,29 +1,66 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.StreamTokenizer;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class Main {
+class Main {
+
+    static StreamTokenizer st = new StreamTokenizer(new BufferedReader(new InputStreamReader(System.in)));
+
+    static int nextInt() {
+        try {
+            st.nextToken();
+        } catch (Exception ignored) {
+
+        }
+        return (int) st.nval;
+    }
+/*
+60 100 70  ->  100 100
+50 60 100 70 -> 60 100 100
+60 50 100 70 -> 60 100 100
+60 100 50 70 -> 100 100 70
+60 100 70 50 -> 100 100 70
+ */
+    static int n, k, A;
+    static int[] a;
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        long x = sc.nextLong();
-        int t = count(x);
+        n = nextInt();
+        k = nextInt();
+        A = nextInt();
+        a = new int[n + 1];
+        for (int i = 1; i <= n; i++) a[i] = nextInt();
+        a[0] = A;
 
-        if (t == 0) {
-            System.out.println(-1);
-            return;
+        long ans = cal();
+        for (int i = 0; i < n; i++) {
+            swap(i, i + 1);
+            ans = Math.max(ans, cal());
         }
-        long A = x - 1, B = x + 1;
-        while (count(A) >= t) A--;
-        while (count(B) >= t) B++;
-        System.out.println((x - A) * (B - x));
+        System.out.println(ans);
     }
 
-    static int count(long x) {
-        int t = 0;
-        while (x > 0) {
-            if (x % 10 % 2 == 0) t++;
-            x /= 10;
-        }
-        return t;
+    static void swap(int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
     }
+
+    static long cal() {
+        Queue<Integer> queue = new LinkedList<>();// 单减队列, 容量k
+        long ans = 0;
+        for (int i = 0; i <= n; i++) {
+            while (!queue.isEmpty() && (queue.peek() < i - k + 1 || a[queue.peek()] <= a[i])) {
+                queue.poll();
+            }
+            queue.add(i);
+            if (i >= k - 1) {
+                ans += a[queue.peek()];
+            }
+        }
+        return ans;
+    }
+
 }
-
-

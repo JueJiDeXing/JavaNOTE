@@ -1,5 +1,7 @@
 package 基础.基础;
 
+import 基础.面向对象.类;
+
 public class Static静态 extends 类 {
     //extends继承
     // 子类可在父类的基础上添加其他功能,在两个类有共性时,提取重复内容组成父类

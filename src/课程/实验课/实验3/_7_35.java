@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class _7_35 {
     static Scanner sc = new Scanner(System.in);
     static Random random = new Random();
-    static String[] words = {"hello", "world", "java", "mysql"};
+    static String[] words = {"hello", "world", "java", "mysql", "spring", "mybatis"};
 
     static char[] create() {
         return words[random.nextInt(words.length)].toCharArray();

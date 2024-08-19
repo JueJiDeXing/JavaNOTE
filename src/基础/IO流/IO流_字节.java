@@ -99,10 +99,10 @@ public class IO流_字节 {
          * */
         FileInputStream fis4 = new FileInputStream("NOTE\\src\\IO流\\fff.txt");
         FileOutputStream fos4 = new FileOutputStream("NOTE\\src\\IO流\\拷贝.txt");
-        try (fis4; fos4) {
-            System.out.println("try");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //try (fis4; fos4) { // JDK9后才有
+        //    System.out.println("try");
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
     }
 }

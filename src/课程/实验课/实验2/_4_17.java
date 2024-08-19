@@ -1,23 +1,17 @@
 package 课程.实验课.实验2;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class _4_17 {
     static HashMap<String, Integer> monthToDay = new HashMap<>();
 
     static {
-        monthToDay.put("Jan", 31);
-        monthToDay.put("Feb", 28);
-        monthToDay.put("Mar", 31);
-        monthToDay.put("Apr", 30);
-        monthToDay.put("May", 31);
-        monthToDay.put("Jun", 30);
-        monthToDay.put("Jul", 31);
-        monthToDay.put("Aug", 31);
-        monthToDay.put("Set", 30);
-        monthToDay.put("Oct", 31);
-        monthToDay.put("Nov", 30);
-        monthToDay.put("Dec", 31);
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Set", "Oct", "Nov", "Dec"};
+        int[] days = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+        for (int i = 0; i < months.length; i++) {
+            monthToDay.put(months[i], days[i]);
+        }
     }
 
     public static void main(String[] args) {

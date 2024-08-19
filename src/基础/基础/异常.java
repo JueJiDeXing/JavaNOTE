@@ -21,7 +21,7 @@ public class 异常 {
     //System.out.println(arr[5]);//数组越界
 
     //其他异常
-    //编译时异常,在编译阶段就会给出提醒(如:日期解析异常)
+    //编译时异常,在编译阶段就会给出提醒(如:日期解析异常), 需要 用try catch包裹 或 在方法签名后throws
     //例:
     // String time = "2023年1月1日";
     // SimpleDateFormat sdf = new SimpleDateFormat("yyyy年M月d日");

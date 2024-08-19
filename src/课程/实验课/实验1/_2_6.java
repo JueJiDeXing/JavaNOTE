@@ -2,7 +2,7 @@ package 课程.实验课.实验1;
 
 import java.util.Scanner;
 
-public class _2_6 {//Page 60
+public class _2_6 {
     public static void main(String[] args) {
         System.out.print("Enter a number between 0 and 1000:");
         Scanner sc = new Scanner(System.in);

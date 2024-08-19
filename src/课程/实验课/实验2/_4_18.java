@@ -3,7 +3,6 @@ package 课程.实验课.实验2;
 import java.util.*;
 
 public class _4_18 {
-
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter two characters:");

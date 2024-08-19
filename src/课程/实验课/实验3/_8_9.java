@@ -29,7 +29,7 @@ public class _8_9 {
             player ^= 3;// 1与2切换: 1^3=0b01^0b11=0b10=2  2^3=0b10^0b11=0b01=1
             count++;
         }
-        if (count == 9){
+        if (count == 9) {
             System.out.println("It's a draw!");
         }
     }

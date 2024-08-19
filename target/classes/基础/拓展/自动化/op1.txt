@@ -1,0 +1,4 @@
+move 600 400
+mousePress 1024
+keyPress 10
+keyPress 8

@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="JAVA_MODULE" version="4">
+<module version="4">
   <component name="AdditionalModuleElements">
     <content url="file://$MODULE_DIR$" dumb="true">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/src/设计模式" />
-      <excludeFolder url="file://$MODULE_DIR$/src/设计模式/代码/itheima_spring/itheima_spring" />
-      <excludeFolder url="file://$MODULE_DIR$/src/Git" />
       <excludeFolder url="file://$MODULE_DIR$/src/MyBatis" />
       <excludeFolder url="file://$MODULE_DIR$/src/MySQL" />
       <excludeFolder url="file://$MODULE_DIR$/src/SpringBoot" />
+      <excludeFolder url="file://$MODULE_DIR$/src/设计模式" />
     </content>
   </component>
 </module>
